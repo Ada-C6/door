@@ -5,7 +5,6 @@ require_relative "../lib/door"
 describe "Testing door" do
 
 let(:closed_locked) {Door.new} #default door
-#(inscription, closed, locked)
 let(:closed_unlocked) {Door.new("Room A2", true, false)}
 let(:open_locked) {Door.new("Room A3", false, true)}
 let(:open_unlocked) {Door.new("Room A4", false, false)}

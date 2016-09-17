@@ -20,7 +20,7 @@ class Door
     end
 
     def open_door
-      if @closed == false #<--You may open a Door if and only if it is  closed
+      if @closed == false #<--You may open a Door if and only if it is closed
         raise Exception.new("The door is already open.")
       elsif @locked == true #<-- and unlocked
         raise Exception.new("Sorry, this door is locked.")
