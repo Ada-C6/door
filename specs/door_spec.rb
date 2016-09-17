@@ -36,9 +36,9 @@ let(:uninscribed_door2) {Door.new(nil, false, false)}
   end
 
   it "Only closed, unlocked doors can be opened" do
-    expect (proc{open_unlocked.open_door}).must_raise Exception
-    expect (proc{open_locked.open_door}).must_raise Exception
-    expect (proc{closed_locked.open_door}).must_raise Exception
+    (proc{open_unlocked.open_door}).must_raise Exception
+    (proc{open_locked.open_door}).must_raise Exception
+    (proc{closed_locked.open_door}).must_raise Exception
   end
 
   it "Opening a closed, unlocked door results in an open, unlocked door" do
@@ -48,8 +48,8 @@ let(:uninscribed_door2) {Door.new(nil, false, false)}
   end
 
   it "Only open doors can be closed" do
-    expect (proc{closed_locked.close_door}).must_raise Exception
-    expect (proc{closed_unlocked.close_door}).must_raise Exception
+    (proc{closed_locked.close_door}).must_raise Exception
+    (proc{closed_unlocked.close_door}).must_raise Exception
   end
 
   it "Closing an open door results in a closed door with the same lock status as prior to the closure" do
@@ -65,8 +65,8 @@ let(:uninscribed_door2) {Door.new(nil, false, false)}
   end
 
   it "Only unlocked doors can be locked" do
-    expect (proc{closed_locked.lock_door}).must_raise Exception
-    expect (proc{open_locked.lock_door}).must_raise Exception
+    (proc{closed_locked.lock_door}).must_raise Exception
+    (proc{open_locked.lock_door}).must_raise Exception
   end
 
   it "Locking an unlocked door results in a locked door with the same closure status as prior to the locking" do
@@ -82,8 +82,8 @@ let(:uninscribed_door2) {Door.new(nil, false, false)}
   end
 
   it "Only locked doors can be unlocked" do
-    expect (proc{closed_unlocked.unlock_door}).must_raise Exception
-    expect (proc{open_unlocked.unlock_door}).must_raise Exception
+    (proc{closed_unlocked.unlock_door}).must_raise Exception
+    (proc{open_unlocked.unlock_door}).must_raise Exception
   end
 
   it "Unlocking an locked door results in an unlocked door with the same closure status as prior to the unlocking" do
@@ -117,7 +117,7 @@ let(:uninscribed_door2) {Door.new(nil, false, false)}
     expect(closed_unlocked.read_inscription.must_equal("Room A2"))
     expect(open_locked.read_inscription.must_equal("Room A3"))
     expect(open_unlocked.read_inscription.must_equal("Room A4"))
-    expect (proc{uninscribed_door1.read_inscription}).must_raise Exception
+    (proc{uninscribed_door1.read_inscription}).must_raise Exception
     (proc{uninscribed_door2.read_inscription}).must_raise Exception
   end
 
