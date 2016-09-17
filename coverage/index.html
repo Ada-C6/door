@@ -14,7 +14,7 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2016-09-17T15:20:36-07:00">2016-09-17T15:20:36-07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2016-09-17T15:25:39-07:00">2016-09-17T15:25:39-07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,15 +25,15 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         3.6
+         3.8
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>1</b> files in total.
-    <b>24</b> relevant lines. 
-    <span class="green"><b>24</b> lines covered</span> and
+    <b>29</b> relevant lines. 
+    <span class="green"><b>29</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -53,11 +53,11 @@
       <tr>
         <td class="strong"><a href="#8d56c0a0437d30e66daab451a78a51dd70e3b5fd" class="src_link" title="lib/door.rb">lib/door.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>47</td>
-        <td>24</td>
-        <td>24</td>
+        <td>52</td>
+        <td>29</td>
+        <td>29</td>
         <td>0</td>
-        <td>3.6</td>
+        <td>3.8</td>
       </tr>
       
     </tbody>
@@ -81,8 +81,8 @@
     <h3>lib/door.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>24</b> relevant lines. 
-      <span class="green"><b>24</b> lines covered</span> and
+      <b>29</b> relevant lines. 
+      <span class="green"><b>29</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -132,20 +132,20 @@
           <code class="ruby">    def initialize(inscription = &quot;Room A1&quot;, closed = true, locked = true)</code>
         </li>
       
-        <li class="covered" data-hits="16" data-linenumber="8">
-          <span class="hits">16</span>
+        <li class="covered" data-hits="20" data-linenumber="8">
+          <span class="hits">20</span>
           
           <code class="ruby">      @inscription = inscription</code>
         </li>
       
-        <li class="covered" data-hits="16" data-linenumber="9">
-          <span class="hits">16</span>
+        <li class="covered" data-hits="20" data-linenumber="9">
+          <span class="hits">20</span>
           
           <code class="ruby">      @closed = closed</code>
         </li>
       
-        <li class="covered" data-hits="16" data-linenumber="10">
-          <span class="hits">16</span>
+        <li class="covered" data-hits="20" data-linenumber="10">
+          <span class="hits">20</span>
           
           <code class="ruby">      @locked = locked</code>
         </li>
@@ -333,40 +333,70 @@
         <li class="never" data-hits="" data-linenumber="41">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">    end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="42">
           
           
-          <code class="ruby">    end</code>
+          <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="43">
+        <li class="covered" data-hits="1" data-linenumber="43">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">    #</code>
+          <code class="ruby">    def unlock_door</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="44">
+        <li class="covered" data-hits="4" data-linenumber="44">
+          <span class="hits">4</span>
           
-          
-          <code class="ruby">    # def unlock_door</code>
+          <code class="ruby">      if @locked == false</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="45">
+        <li class="covered" data-hits="2" data-linenumber="45">
+          <span class="hits">2</span>
           
-          
-          <code class="ruby">    # end</code>
+          <code class="ruby">        raise Exception.new(&quot;The door is already unlocked.&quot;)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="46">
           
           
+          <code class="ruby">      else</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="47">
+          <span class="hits">2</span>
+          
+          <code class="ruby">        puts &quot;You unlocked the door.&quot;</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="48">
+          <span class="hits">2</span>
+          
+          <code class="ruby">        return @locked = false</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="49">
+          
+          
+          <code class="ruby">      end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="50">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="51">
+          
+          
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="47">
+        <li class="never" data-hits="" data-linenumber="52">
           
           
           <code class="ruby">end</code>

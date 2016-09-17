@@ -38,10 +38,15 @@ class Door
         puts "You locked the door."
         return @locked = true
       end
-
     end
-    #
-    # def unlock_door
-    # end
+
+    def unlock_door
+      if @locked == false
+        raise Exception.new("The door is already unlocked.")
+      else
+        puts "You unlocked the door."
+        return @locked = false
+      end
+    end
 
 end
