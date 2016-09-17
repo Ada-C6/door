@@ -9,6 +9,7 @@ let(:closed_locked) {Door.new} #default door
 let(:closed_unlocked) {Door.new("Room A2", true, false)}
 let(:open_locked) {Door.new("Room A3", false, true)}
 let(:open_unlocked) {Door.new("Room A4", false, false)}
+let(:uninscribed_door) {Door.new("", false, false)}
 
   it "A new door with defaults can be created" do
     expect(closed_locked.class.must_equal(Door))
@@ -96,4 +97,27 @@ let(:open_unlocked) {Door.new("Room A4", false, false)}
     expect(closed_locked.locked.must_equal(false))
     expect(closed_locked.closed.must_equal(true))
   end
+
+  it "Check if a door is locked using locked?" do
+    expect(closed_locked.locked?.must_equal(true))
+    expect(open_locked.locked?.must_equal(true))
+    expect(closed_unlocked.locked?.must_equal(false))
+    expect(open_unlocked.locked?.must_equal(false))
+  end
+
+  it "Check if a door is closed using closed?" do
+    expect(closed_locked.closed?.must_equal(true))
+    expect(open_locked.closed?.must_equal(false))
+    expect(closed_unlocked.closed?.must_equal(true))
+    expect(open_unlocked.closed?.must_equal(false))
+  end
+
+  it "Reads the inscription" do
+    expect(closed_locked.read_inscription.must_equal("Room A1"))
+    expect(closed_unlocked.read_inscription.must_equal("Room A2"))
+    expect(open_locked.read_inscription.must_equal("Room A3"))
+    expect(open_unlocked.read_inscription.must_equal("Room A4"))
+    expect (proc{uninscribed_door.read_inscription}).must_raise Exception
+  end
+
 end
