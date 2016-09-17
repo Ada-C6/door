@@ -1,17 +1,14 @@
+#door.rb
 class Door
 
-  attr :open, :locked
+  attr :closed, :locked
+  attr_reader :inscription
 
-    def initialize(inscription ="Room 541", closed = false, locked = true )
+    def initialize(inscription ="Room A3", closed = true, locked = true )
       @inscription = inscription
-      @open = closed
+      @closed = closed
       @locked = locked
       puts "You made a new door."
     end
 
-
-
-
 end
-
-Door.new
