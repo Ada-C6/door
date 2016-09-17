@@ -4,12 +4,39 @@ require_relative "../lib/door"
 
 describe "Testing door" do
 
-let(:door_default) {Door.new}
+let(:closed_locked) {Door.new} #default door
+#(inscription, closed, locked)
+let(:closed_unlocked) {Door.new("Room A2", true, false)}
+let(:open_locked) {Door.new("Room A3", false, true)}
+let(:open_unlocked) {Door.new("Room A4", false, false)}
 
   it "Confirm that a new door with default attributes can be created" do
-    expect(door_default.class.must_equal(Door))
-    expect(door_default.inscription.must_equal("Room A3"))
-    expect(door_default.closed.must_equal(true))
-    expect(door_default.locked.must_equal(true))
+    expect(closed_locked.class.must_equal(Door))
+    expect(closed_locked.inscription.must_equal("Room A1"))
+    expect(closed_locked.closed.must_equal(true))
+    expect(closed_locked.locked.must_equal(true))
   end
+
+  it "Confirm new doors with parameters can be created" do
+      expect(closed_unlocked.class.must_equal(Door))
+      expect(closed_unlocked.inscription.must_equal("Room A2"))
+      expect(closed_unlocked.closed.must_equal(true))
+      expect(closed_unlocked.locked.must_equal(false))
+
+      expect(open_locked.class.must_equal(Door))
+      expect(open_locked.inscription.must_equal("Room A3"))
+      expect(open_locked.closed.must_equal(false))
+      expect(open_locked.locked.must_equal(true))
+
+      expect(open_unlocked.class.must_equal(Door))
+      expect(open_unlocked.inscription.must_equal("Room A4"))
+      expect(open_unlocked.closed.must_equal(false))
+      expect(open_unlocked.locked.must_equal(false))
+  end
+
+  # it "Confirm that only closed, unlocked doors can be opened"
+  #
+  # end
+
+
 end
