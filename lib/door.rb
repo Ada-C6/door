@@ -31,8 +31,15 @@ class Door
       end
     end
 
-    # def lock_door
-    # end
+    def lock_door
+      if @locked == true
+        raise Exception.new("The door is already locked.")
+      else
+        puts "You locked the door."
+        return @locked = true
+      end
+
+    end
     #
     # def unlock_door
     # end

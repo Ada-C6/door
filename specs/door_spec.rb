@@ -63,4 +63,21 @@ let(:open_unlocked) {Door.new("Room A4", false, false)}
     expect(open_locked.locked.must_equal(true))
   end
 
+  it "Only unlocked doors can be locked" do
+    expect (proc{closed_locked.lock_door}).must_raise Exception
+    expect (proc{open_locked.lock_door}).must_raise Exception
+  end
+
+  it "Locking an unlocked door results in a locked door with the same closure status as prior to the locking" do
+    expect(open_unlocked.locked.must_equal(false))
+    open_unlocked.lock_door
+    expect(open_unlocked.locked.must_equal(true))
+    expect(open_unlocked.closed.must_equal(false))
+
+    expect(closed_unlocked.locked.must_equal(false))
+    closed_unlocked.lock_door
+    expect(closed_unlocked.locked.must_equal(true))
+    expect(closed_unlocked.closed.must_equal(true))
+  end
+
 end
