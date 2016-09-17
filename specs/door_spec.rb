@@ -9,7 +9,8 @@ let(:closed_locked) {Door.new} #default door
 let(:closed_unlocked) {Door.new("Room A2", true, false)}
 let(:open_locked) {Door.new("Room A3", false, true)}
 let(:open_unlocked) {Door.new("Room A4", false, false)}
-let(:uninscribed_door) {Door.new("", false, false)}
+let(:uninscribed_door1) {Door.new("", false, false)}
+let(:uninscribed_door2) {Door.new(nil, false, false)}
 
   it "A new door with defaults can be created" do
     expect(closed_locked.class.must_equal(Door))
@@ -117,7 +118,8 @@ let(:uninscribed_door) {Door.new("", false, false)}
     expect(closed_unlocked.read_inscription.must_equal("Room A2"))
     expect(open_locked.read_inscription.must_equal("Room A3"))
     expect(open_unlocked.read_inscription.must_equal("Room A4"))
-    expect (proc{uninscribed_door.read_inscription}).must_raise Exception
+    expect (proc{uninscribed_door1.read_inscription}).must_raise Exception
+    (proc{uninscribed_door2.read_inscription}).must_raise Exception
   end
 
 end
