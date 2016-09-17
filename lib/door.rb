@@ -12,6 +12,12 @@ class Door
     end
 
     def close_door
+      if @closed == true
+        raise Exception.new("The door is already closed.")
+      else
+        puts "You closed the door."
+        return @closed = true
+      end
     end
 
     def open_door
