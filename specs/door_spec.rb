@@ -1,6 +1,8 @@
 require_relative 'spec_helper'
 require_relative '../door'
 
+#Note, I did not refactor more because there the cases although very similar, vary in slightly and would not carry through.
+
 describe Door do
   describe "#initialize" do
     it "should initialize a new instance of Door" do
@@ -10,16 +12,18 @@ describe Door do
   end
 
   describe "#write(words)" do
+
+    before(:all) do
+      @sample = Door.new(true, true)
+      @sample.write("I'm a door")
+    end
+
     it "should write the inscription on the Door" do
-      sample = Door.new(true, true)
-      sample.write("I'm a door")
-      sample.inscription.must_equal("I'm a door")
+      @sample.inscription.must_equal("I'm a door")
     end
 
     it "should raise an error if the words are already inscribed" do
-      sample = Door.new(true, true)
-      sample.write("I'm a door")
-      proc { sample.write("No I'm not") }.must_raise(ArgumentError)
+      proc { @sample.write("No I'm not") }.must_raise(ArgumentError)
     end
   end
 

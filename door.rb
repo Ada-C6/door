@@ -1,7 +1,7 @@
 class Door
   attr_accessor :inscription, :closed, :locked
 
-  def initialize( closed, locked)
+  def initialize(closed, locked)
     @inscription = nil
     @closed = closed
     @locked = locked
