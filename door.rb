@@ -92,5 +92,4 @@ class Door
     puts "This door is #{@lock_status}."
     return "This door is #{@lock_status}."
   end
-
 end
