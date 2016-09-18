@@ -3,9 +3,6 @@ require_relative 'spec_helper'
 describe "door" do
   before (:each) do
     @door_open_unlocked = Door.new("open", "unlocked")
-    # @door_open_locked = Door.new("open", "locked"
-    # @door_closed_unlocked = Door.new("closed", "unlocked")
-    # @door_closed_locked = Door.new("closed", "locked")
   end
 
   describe "#initialize" do
@@ -26,7 +23,6 @@ describe "door" do
     it "should be initalized with one of two values for lock_status: locked and unlocked" do
       proc { @attribute_check_door = Door.new("open", '¯\_(ツ)_/¯') }.must_raise Exception
     end
-
   end
 
   describe "#set_inscription" do
@@ -41,16 +37,29 @@ describe "door" do
   end
 
   describe "#change_door_position" do
-  it "should have one of two values for position: open and closed" do
-    @door_open_unlocked.change_door_position("Ajar")
-    @door_open_unlocked.position.must_equal("open")
-  end
+    it "should toggle the door position from open to closed if door is unlocked" do
+      @door_open_unlocked.change_door_position
+      @door_open_unlocked.position.must_equal("closed")
+    end
 
-  it "should toggle the door position from open to closed" do
-    @door_open_unlocked.change_door_position("closed")
-    @door_open_unlocked.must_equal("closed")
-  end
+    it "should toggle the door position from closed to open if door is unlocked" do
+      @door_closed_unlocked = Door.new("closed", "unlocked")
+      @door_closed_unlocked.change_door_position
+      @door_closed_unlocked.position.must_equal("open")
+    end
 
-end
+    it "should not toggle the door position from closed to open if door is locked" do
+      @door_closed_locked = Door.new("closed", "locked")
+      @door_closed_locked.change_door_position
+      @door_closed_locked.position.must_equal("closed")
+    end
+
+    it "should not toggle the door position from open to closed if door is locked" do
+      @door_open_locked = Door.new("open", "locked")
+      @door_open_locked.change_door_position
+      @door_open_locked.position.must_equal("open")
+    end
+
+  end
 
 end
