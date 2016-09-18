@@ -1,12 +1,18 @@
 class Door
-  attr_accessor :closed, :locked
-  #having incription be an attr_reader ensures that it can not be changed.
-  attr_reader :inscription
+  attr_accessor :inscription, :closed, :locked
 
-  def initialize(inscription, closed, locked)
-    @inscription = inscription
+  def initialize( closed, locked)
+    @inscription = nil
     @closed = closed
     @locked = locked
+  end
+
+  def write(words)
+    if @inscription == nil
+      @inscription = words
+    else
+      raise ArgumentError.new("Error - A door may only be inscribed once")
+    end
   end
 
   def open
@@ -30,6 +36,14 @@ class Door
       @locked = true
     else
       raise ArgumentError.new("Error - A door may only be locked iff if is unlocked")
+    end
+  end
+
+  def unlock
+    if @locked == true
+      @locked = false
+    else
+      raise ArgumentError.new("Error - A door may only be unlocked iff if is locked")
     end
   end
 end
