@@ -1,10 +1,11 @@
-# TODO: consider whether additional edge cases exist to test for. (100% test coverage as-is.)
-
 require_relative 'spec_helper'
 
-describe "door" do
+describe "Door" do
   before (:each) do
     @door_open_unlocked = Door.new("open", "unlocked")
+    # I could have put the below in before (:each) blocks at their applicable method describes,
+    # (to avoid initializing them needlessly at each test.) This would have been less DRY though.
+    # Because the spec file does not take long to rake, I took the more DRY approach.
     @door_closed_locked = Door.new("closed", "locked")
     @door_closed_unlocked = Door.new("closed", "unlocked")
   end
@@ -36,7 +37,7 @@ describe "door" do
 
     it "should not allow the inscription to be changed once set" do
       @door_open_unlocked.set_inscription("Your Message Here")
-      @door_open_unlocked.set_inscription("Can I do the Thing?").wont_equal("Can I do the Thing?")
+      @door_open_unlocked.set_inscription("Can I do the Thing?").must_equal("Your Message Here")
     end
   end
 
