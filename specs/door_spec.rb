@@ -86,15 +86,15 @@ describe "door" do
     end
   end
 
-  describe "#check_position" do
+  describe "#check_door_position" do
     it "should tell the player if the door is open" do
-      @door_open_unlocked.check_position.must_equal("open")
+      @door_open_unlocked.check_door_position.must_equal("open")
     end
   end
 
     it "should tell the player if the door is closed" do
       door_closed_locked = Door.new("closed", "locked")
-      door_closed_locked.check_position.must_equal("closed")
+      door_closed_locked.check_door_position.must_equal("closed")
     end
 
   describe "#check_lock_status" do
