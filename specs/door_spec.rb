@@ -40,4 +40,17 @@ describe "door" do
     end
   end
 
+  describe "#change_door_position" do
+  it "should have one of two values for position: open and closed" do
+    @door_open_unlocked.change_door_position("Ajar")
+    @door_open_unlocked.position.must_equal("open")
+  end
+
+  it "should toggle the door position from open to closed" do
+    @door_open_unlocked.change_door_position("closed")
+    @door_open_unlocked.must_equal("closed")
+  end
+
+end
+
 end
