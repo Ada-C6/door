@@ -26,16 +26,27 @@ describe Door do
     end
   end
 
-  describe "#open" do
+  describe "#open_door" do
     it "should open a closed door" do
-      new_door.open
+      new_door.open_door
       new_door.open_state.must_equal(:open)
     end
 
-    it "should open an open door" do
-      new_door.open
-      new_door.open_state.must_equal(:open)
+    it "should raise an argument error if the door is already open" do
+      new_door.open_door
+      proc { new_door.open_door }.must_raise(ArgumentError)
+    end
+  end
+
+  describe "#close_door" do
+    it "should close an open door" do
+      new_door.open_door
+      new_door.close_door
+      new_door.open_state.must_equal(:closed)
     end
 
+    it "should raise an argument error if the door is already closed" do
+      proc { new_door.close_door }.must_raise(ArgumentError)
+    end
   end
 end
