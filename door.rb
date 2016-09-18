@@ -24,7 +24,19 @@ attr_reader :inscription, :open_state
     end
   end
 
-  def open
-    @open_state = :open
+  def open_door
+    if @open_state == :closed
+      @open_state = :open
+    else
+      raise ArgumentError.new("Door already open. Cannot open an open door.")
+    end
+  end
+
+  def close_door
+    if @open_state == :open
+      @open_state = :closed
+    else
+      raise ArgumentError.new("Door already closed. Cannot close a closed door.")
+    end
   end
 end
