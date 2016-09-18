@@ -11,17 +11,17 @@ describe "door" do
     end
 
     it "should handle strings consistently regardless of capitalization" do
-      @capitalization_door = Door.new("OPEN", "UNLOCKED")
-      @capitalization_door.position.must_equal("open")
-      @capitalization_door.lock_status.must_equal("unlocked")
+      capitalization_door = Door.new("OPEN", "UNLOCKED")
+      capitalization_door.position.must_equal("open")
+      capitalization_door.lock_status.must_equal("unlocked")
     end
 
     it "should be initalized with one of two values for position: open and closed" do
-      proc { @attribute_check_door = Door.new("Ajar", "unlocked") }.must_raise Exception
+      proc { attribute_check_door = Door.new("Ajar", "unlocked") }.must_raise Exception
     end
 
     it "should be initalized with one of two values for lock_status: locked and unlocked" do
-      proc { @attribute_check_door = Door.new("open", '¯\_(ツ)_/¯') }.must_raise Exception
+      proc { attribute_check_door = Door.new("open", '¯\_(ツ)_/¯') }.must_raise Exception
     end
   end
 
@@ -43,23 +43,35 @@ describe "door" do
     end
 
     it "should toggle the door position from closed to open if door is unlocked" do
-      @door_closed_unlocked = Door.new("closed", "unlocked")
-      @door_closed_unlocked.change_door_position
-      @door_closed_unlocked.position.must_equal("open")
+      door_closed_unlocked = Door.new("closed", "unlocked")
+      door_closed_unlocked.change_door_position
+      door_closed_unlocked.position.must_equal("open")
     end
 
     it "should not toggle the door position from closed to open if door is locked" do
-      @door_closed_locked = Door.new("closed", "locked")
-      @door_closed_locked.change_door_position
-      @door_closed_locked.position.must_equal("closed")
+      door_closed_locked = Door.new("closed", "locked")
+      door_closed_locked.change_door_position
+      door_closed_locked.position.must_equal("closed")
     end
 
     it "should not toggle the door position from open to closed if door is locked" do
-      @door_open_locked = Door.new("open", "locked")
-      @door_open_locked.change_door_position
-      @door_open_locked.position.must_equal("open")
+      door_open_locked = Door.new("open", "locked")
+      door_open_locked.change_door_position
+      door_open_locked.position.must_equal("open")
     end
-
   end
 
+  describe "#change_lock_status" do
+    it "should toggle the lock status from unlocked to locked" do
+      door_closed_unlocked = Door.new("closed", "unlocked")
+      door_closed_unlocked.change_lock_status
+      door_closed_unlocked.lock_status.must_equal("locked")
+    end
+
+    it "should toggle the lock status from locked to unlocked" do
+      door_closed_locked = Door.new("closed", "locked")
+      door_closed_locked.change_lock_status
+      door_closed_locked.lock_status.must_equal("unlocked")
+    end
+  end
 end
