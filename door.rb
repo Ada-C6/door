@@ -50,4 +50,14 @@ class Door
       @position = "open"
     end
   end
+
+  def change_lock_status
+    if unlocked?
+      @lock_status = "locked"
+      return @lock_status
+    else
+      @lock_status = "unlocked"
+      return @lock_status
+    end
+  end
 end
