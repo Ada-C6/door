@@ -40,14 +40,22 @@ class Door
   end
 
   def close_door
-    if open? && unlocked?
+    if open?
       @position = "closed"
-      return @position
-    else
-      puts "You cannot close this door."
       return @position
     end
   end
+
+  # Uncomment 9 lines below if intent was for door to not close when locked/open due to a deadbolt
+  # def close_door
+  #   if open? && unlocked?
+  #     @position = "closed"
+  #     return @position
+  #   else
+  #     puts "You cannot close this door."
+  #     return @position
+  #   end
+  # end
 
   def open_door
     if open? == false && unlocked?

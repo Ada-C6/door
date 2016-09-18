@@ -47,14 +47,13 @@ describe "Door" do
       @door_open_unlocked.position.must_equal("closed")
     end
 
-    it "should not toggle the door position from open to closed if door is locked" do
-      # used ("open", "locked") configuration under the assumption that if an open door was locked,
-      # it would not fully close due to a deadbolt lock.
-      # Alternatively I could have created a third state "ajar" for this configuration,
-      # but did not because the specification indicated 2 possible states.
-      door_open_locked = Door.new("open", "locked")
-      door_open_locked.close_door.must_equal("open")
-    end
+    # Uncomment first 4 lines below if intent was for door to not close when locked/open due to a deadbolt.
+    # it "should not toggle the door position from open to closed if door is locked" do
+    #   door_open_locked = Door.new("open", "locked")
+    #   door_open_locked.close_door.must_equal("open")
+    # end
+    # Alternatively I could have created a third state "ajar" for this configuration,
+    # but did not because the specification indicated 2 possible states.
   end
 
   describe "#open_door" do
