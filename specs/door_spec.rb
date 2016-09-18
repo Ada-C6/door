@@ -49,4 +49,18 @@ describe Door do
       proc { new_door.close_door }.must_raise(ArgumentError)
     end
   end
+
+  describe "#unlock" do
+    it "should unlock a locked door" do
+      new_door.unlock
+      new_door.lock_state.must_equal(:unlocked)
+    end
+
+    it "should raise an argument error if the door is already unlocked" do
+      new_door.unlock
+      proc { new_door.unlock }.must_raise(ArgumentError)
+    end
+  end
+
+  
 end
