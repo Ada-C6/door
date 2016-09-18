@@ -39,23 +39,35 @@ class Door
     end
   end
 
-  def change_door_position
+  def close_door
     if open? && unlocked?
       @position = "closed"
       return @position
-    elsif open? == false && unlocked? == false
-      @position = "closed"
-      return @position
     else
-      @position = "open"
+      puts "You cannot close this door."
+      return @position
     end
   end
 
-  def change_lock_status
+  def open_door
+    if open? == false && unlocked?
+      @position = "open"
+      return @position
+    else
+      puts "You cannot open this door."
+      return @position
+    end
+  end
+
+  def lock_door
     if unlocked?
       @lock_status = "locked"
       return @lock_status
-    else
+    end
+  end
+
+  def unlock_door
+    if unlocked? == false
       @lock_status = "unlocked"
       return @lock_status
     end
@@ -70,4 +82,15 @@ class Door
       return "There is no inscription on this door."
     end
   end
+
+  def check_door_position
+    puts "This door is #{@position}."
+    return "This door is #{@position}."
+  end
+
+  def check_lock_status
+    puts "This door is #{@lock_status}."
+    return "This door is #{@lock_status}."
+  end
+
 end
