@@ -20,11 +20,11 @@ describe "door" do
     end
 
     it "should be initalized with one of two values for position: open and closed" do
-      proc { @attribute_check_door = Door.new("Ajar", "unlocked") }.must_raise NoMethodError
+      proc { @attribute_check_door = Door.new("Ajar", "unlocked") }.must_raise Exception
     end
 
     it "should be initalized with one of two values for lock_status: locked and unlocked" do
-      proc { @attribute_check_door = Door.new("open", '¯\_(ツ)_/¯') }.must_raise NoMethodError
+      proc { @attribute_check_door = Door.new("open", '¯\_(ツ)_/¯') }.must_raise Exception
     end
 
   end
