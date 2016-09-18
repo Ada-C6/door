@@ -60,4 +60,14 @@ class Door
       return @lock_status
     end
   end
+
+  def check_inscription
+    if inscription?
+      puts "The inscription on this door says: #{@inscription}"
+      return "The inscription on this door says: #{@inscription}"
+    else
+      puts "There is no inscription on this door."
+      return "There is no inscription on this door."
+    end
+  end
 end
