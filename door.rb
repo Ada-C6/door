@@ -1,6 +1,6 @@
 class Door
 MAX_INSCRIPTION = 20
-attr_reader :inscription, :open_state
+attr_reader :inscription, :open_state, :lock_state
 
   def initialize
     @inscription = nil
@@ -37,6 +37,14 @@ attr_reader :inscription, :open_state
       @open_state = :closed
     else
       raise ArgumentError.new("Door already closed. Cannot close a closed door.")
+    end
+  end
+
+  def unlock
+    if @lock_state == :locked
+      @lock_state = :unlocked
+    else
+      raise ArgumentError.new("Door already unlocked. Cannot unlock an unlocked door.")
     end
   end
 end
