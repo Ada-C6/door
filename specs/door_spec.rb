@@ -31,10 +31,23 @@ describe Door do
       sample.close
       sample.closed.must_equal(true)
     end
+
+    it "should raise an error if it is closed" do
+      sample = Door.new("I'm a door", true, false)
+      proc { sample.close }.must_raise(ArgumentError)
+    end
   end
 
-  it "should raise an error if it is closed" do
-    sample = Door.new("I'm a door", true, false)
-    proc { sample.close }.must_raise(ArgumentError)
+  describe "#lock" do
+    it "should lock a door iff it is unlocked" do
+      sample = Door.new("I'm a door", false, false)
+      sample.lock
+      sample.locked.must_equal(true)
+    end
+
+    it "should raise an error if it is locked" do
+      sample = Door.new("I'm a door", true, true)
+      proc { sample.lock }.must_raise(ArgumentError)
+    end
   end
 end
