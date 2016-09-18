@@ -74,4 +74,15 @@ describe "door" do
       door_closed_locked.lock_status.must_equal("unlocked")
     end
   end
+
+  describe "#check_inscription" do
+    it "should return what inscription is on the Door instance, if applicable" do
+      @door_open_unlocked.set_inscription("The cake is a lie.")
+      @door_open_unlocked.inscription_check.must_equal("The inscription on this door says: #{@door_open_unlocked.inscription}")
+    end
+
+    it "should tell the player if there is no writing on the Door instance" do
+      @door_open_unlocked.inscription_check.must_equal("There is no inscription on this door.")
+    end
+  end
 end
