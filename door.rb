@@ -17,10 +17,16 @@ class Door
     end
   end
 
-
-
   def inscription?
     return @inscription != nil
+  end
+
+  def open?
+    return @position == "open"
+  end
+
+  def unlocked?
+    return @lock_status == "unlocked"
   end
 
   def set_inscription(inscription)
@@ -33,4 +39,15 @@ class Door
     end
   end
 
+  def change_door_position
+    if open? && unlocked?
+      @position = "closed"
+      return @position
+    elsif open? == false && unlocked? == false
+      @position = "closed"
+      return @position
+    else
+      @position = "open"
+    end
+  end
 end
