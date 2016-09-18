@@ -47,4 +47,12 @@ attr_reader :inscription, :open_state, :lock_state
       raise ArgumentError.new("Door already unlocked. Cannot unlock an unlocked door.")
     end
   end
+
+  def lock
+    if @lock_state == :unlocked
+      @lock_state = :locked
+    else
+      raise ArgumentError.new("Door already locked. Cannot lock a locked door.")
+    end
+  end
 end

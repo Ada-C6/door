@@ -62,5 +62,15 @@ describe Door do
     end
   end
 
-  
+  describe "#lock" do
+    it "should lock an unlocked door" do
+      new_door.unlock
+      new_door.lock
+      new_door.lock_state.must_equal(:locked)
+    end
+
+    it "should raise an argument error if the door is already locked" do
+      proc { new_door.lock }.must_raise(ArgumentError)
+    end
+  end
 end
