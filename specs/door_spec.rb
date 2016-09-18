@@ -36,41 +36,44 @@ describe "door" do
     end
   end
 
-  describe "#change_door_position" do
+  describe "#close_door" do
     it "should toggle the door position from open to closed if door is unlocked" do
-      @door_open_unlocked.change_door_position
+      @door_open_unlocked.close_door
       @door_open_unlocked.position.must_equal("closed")
     end
 
+    it "should not toggle the door position from open to closed if door is locked" do
+      door_open_locked = Door.new("open", "locked")
+      door_open_locked.close_door.must_equal("open")
+    end
+  end
+
+  describe "#open_door" do
     it "should toggle the door position from closed to open if door is unlocked" do
       door_closed_unlocked = Door.new("closed", "unlocked")
-      door_closed_unlocked.change_door_position
+      door_closed_unlocked.open_door
       door_closed_unlocked.position.must_equal("open")
     end
 
     it "should not toggle the door position from closed to open if door is locked" do
       door_closed_locked = Door.new("closed", "locked")
-      door_closed_locked.change_door_position
+      door_closed_locked.open_door
       door_closed_locked.position.must_equal("closed")
-    end
-
-    it "should not toggle the door position from open to closed if door is locked" do
-      door_open_locked = Door.new("open", "locked")
-      door_open_locked.change_door_position
-      door_open_locked.position.must_equal("open")
     end
   end
 
-  describe "#change_lock_status" do
+  describe "#lock_door" do
     it "should toggle the lock status from unlocked to locked" do
       door_closed_unlocked = Door.new("closed", "unlocked")
-      door_closed_unlocked.change_lock_status
+      door_closed_unlocked.lock_door
       door_closed_unlocked.lock_status.must_equal("locked")
     end
+  end
 
+  describe "#unlock_door" do
     it "should toggle the lock status from locked to unlocked" do
       door_closed_locked = Door.new("closed", "locked")
-      door_closed_locked.change_lock_status
+      door_closed_locked.unlock_door
       door_closed_locked.lock_status.must_equal("unlocked")
     end
   end
@@ -87,24 +90,14 @@ describe "door" do
   end
 
   describe "#check_door_position" do
-    it "should tell the player if the door is open" do
-      @door_open_unlocked.check_door_position.must_equal("open")
+    it "should tell the player whether the door is open or closed" do
+      @door_open_unlocked.check_door_position.must_equal("This door is #{@door_open_unlocked.position}.")
     end
   end
 
-    it "should tell the player if the door is closed" do
-      door_closed_locked = Door.new("closed", "locked")
-      door_closed_locked.check_door_position.must_equal("closed")
-    end
-
   describe "#check_lock_status" do
-    it "should tell the player if the door is unlocked" do
-      @door_open_unlocked.check_lock_status.must_equal("unlocked")
-    end
-
-    it "should tell the player if the door is locked" do
-      door_closed_locked = Door.new("closed", "locked")
-      door_closed_locked.check_lock_status.must_equal("locked")
+    it "should tell the player the status of the lock" do
+      @door_open_unlocked.check_lock_status.must_equal("This door is #{@door_open_unlocked.lock_status}.")
     end
   end
 end
