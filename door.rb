@@ -13,4 +13,29 @@ class Door
     @inscription = inscription.to_s
   end
 
+  def lock
+    raise StandardError, "Door is already locked" if @locked == true
+
+    @locked = true
+  end
+
+  def unlock
+    raise StandardError, "Door is already unlocked" if @locked == false
+
+    @locked = false
+  end
+
+  def open
+    raise StandardError, "Door is already open" if @closed == false
+    raise StandardError, "Door is already locked" if @locked == true
+
+    @closed = false
+  end
+
+  def close
+    raise StandardError, "Door is already closed" if @closed == true
+
+    @closed = true
+  end
+
 end
