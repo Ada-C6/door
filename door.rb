@@ -17,4 +17,11 @@ class Door
     end
   end
 
+  def close
+    if @closed == false
+      @closed = true
+    else
+      raise ArgumentError.new("Error - A door may only be closed iff if is open")
+    end
+  end
 end
