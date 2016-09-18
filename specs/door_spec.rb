@@ -16,7 +16,7 @@ describe "door" do
     it "should handle strings consistently regardless of capitalization" do
       @capitalization_door = Door.new("OPEN", "UNLOCKED")
       @capitalization_door.position.must_equal("open")
-      @capitalization_door.position.must_equal("unlocked")
+      @capitalization_door.lock_status.must_equal("unlocked")
     end
 
     it "should be initalized with one of two values for position: open and closed" do
@@ -39,20 +39,5 @@ describe "door" do
       @door_open_unlocked.set_inscription("Can I do the Thing?").wont_equal("Can I do the Thing?")
     end
   end
-
-  # describe "change_door_position" do
-  #   it "should have one of two values for position: open and closed" do
-  #
-  #   end
-  #
-  #   it "should have one of two values for lock_status: locked and unlocked" do
-  #
-  #   end
-  #
-  #   it "should toggle the door position between the closed and open states" do
-  #     @door_open_unlocked.change_door_position
-  #   end
-  #
-  # end
 
 end
