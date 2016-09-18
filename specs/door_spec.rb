@@ -9,6 +9,25 @@ describe Door do
     end
   end
 
+  describe "#open" do
+    it "should open a Door iff it is unlocked && closed" do
+      sample = Door.new("I'm a door", true, false)
+      sample.open
+      sample.closed.must_equal(false)
+    end
+
+    bad_doors = [Door.new("I'm a door", false, true), Door.new("I'm a door", false, false), Door.new("I'm a door", true, true) ]
+
+    bad_doors.each do |sample|
+      it "should raise an error if door is locked" do
+        proc { sample.open }.must_raise(ArgumentError)
+      end
+    end 
+
+  end
+
+
+
 
 
 
