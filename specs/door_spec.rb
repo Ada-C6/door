@@ -1,8 +1,12 @@
+# TODO: consider whether additional edge cases exist to test for. (100% test coverage as-is.)
+
 require_relative 'spec_helper'
 
 describe "door" do
   before (:each) do
     @door_open_unlocked = Door.new("open", "unlocked")
+    @door_closed_locked = Door.new("closed", "locked")
+    @door_closed_unlocked = Door.new("closed", "unlocked")
   end
 
   describe "#initialize" do
@@ -54,31 +58,27 @@ describe "door" do
 
   describe "#open_door" do
     it "should toggle the door position from closed to open if door is unlocked" do
-      door_closed_unlocked = Door.new("closed", "unlocked")
-      door_closed_unlocked.open_door
-      door_closed_unlocked.position.must_equal("open")
+      @door_closed_unlocked.open_door
+      @door_closed_unlocked.position.must_equal("open")
     end
 
     it "should not toggle the door position from closed to open if door is locked" do
-      door_closed_locked = Door.new("closed", "locked")
-      door_closed_locked.open_door
-      door_closed_locked.position.must_equal("closed")
+      @door_closed_locked.open_door
+      @door_closed_locked.position.must_equal("closed")
     end
   end
 
   describe "#lock_door" do
     it "should toggle the lock status from unlocked to locked" do
-      door_closed_unlocked = Door.new("closed", "unlocked")
-      door_closed_unlocked.lock_door
-      door_closed_unlocked.lock_status.must_equal("locked")
+      @door_closed_unlocked.lock_door
+      @door_closed_unlocked.lock_status.must_equal("locked")
     end
   end
 
   describe "#unlock_door" do
     it "should toggle the lock status from locked to unlocked" do
-      door_closed_locked = Door.new("closed", "locked")
-      door_closed_locked.unlock_door
-      door_closed_locked.lock_status.must_equal("unlocked")
+      @door_closed_locked.unlock_door
+      @door_closed_locked.lock_status.must_equal("unlocked")
     end
   end
 
