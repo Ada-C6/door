@@ -1,5 +1,5 @@
-require_relative 'spec_helper.rb'
-require_relative '../lib/door.rb'
+require 'spec_helper.rb'
+require 'door.rb'
 
 
 describe "Testing door" do
