@@ -89,6 +89,14 @@ describe "Testing door" do
     magical_door.read_door.must_equal "Rails"
   end
 
+  it "Tests that read_door returns a string if insciption is nil" do
+    magical_door = Door.new(true, true)
+    magical_door.read_door.must_equal "There is no inscription!"
+
+
+
+  end
+
 
 
 end
