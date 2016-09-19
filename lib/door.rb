@@ -18,10 +18,8 @@ class Door
     if @closed == true
       @locked = true
       return "The door is now locked"
-    elsif @closed == false
+    else 
       return "You must close the door before you can lock it!"
-    else
-      return "Door is already locked!"
     end
 
   end
