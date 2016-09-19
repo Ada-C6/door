@@ -22,4 +22,12 @@ describe Door do
       proc { door.open }.must_raise(ArgumentError)
     end
   end
+
+  describe "#self.close" do
+    it "should raise an ArgumentError if the door is already closed" do
+      door = Door.new("bathroom")
+      door.close
+      proc { door.close }.must_raise(ArgumentError)
+    end
+  end
 end
