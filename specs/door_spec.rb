@@ -83,6 +83,12 @@ describe "Testing door" do
     magical_door.inspect_door.must_equal "The door is locked? false. The door is open? true. The door is inscribed? Rails."
   end 
 
+  it "Tests that read_door returns a string" do
+    magical_door = Door.new(true, true, "Rails")
+    magical_door.read_door.must_be_kind_of String
+    magical_door.read_door.must_equal "Rails"
+  end
+
 
 
 end
