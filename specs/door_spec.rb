@@ -8,7 +8,7 @@ describe Door do
     end
 
     it "should create an unlocked door" do
-      Door.new("bathroom").locked?.must_equal false
+      Door.new("bathroom").locked.must_equal false
     end
 
     it "should create an open door" do
@@ -16,18 +16,29 @@ describe Door do
     end
   end
 
-  describe "#self.open" do
+  describe "#open" do
     it "should raise an ArgumentError if the door is already opened" do
       door = Door.new("bathroom")
       proc { door.open }.must_raise(ArgumentError)
     end
+
+    it "should raise an ArgumentError if the door is locked" do
+      door = Door.new("bathroom")
+      proc { door.lock.open }.must_raise(ArgumentError)
+    end
   end
 
-  describe "#self.close" do
+  describe "#close" do
     it "should raise an ArgumentError if the door is already closed" do
       door = Door.new("bathroom")
-      door.close
-      proc { door.close }.must_raise(ArgumentError)
+      proc { door.close.close }.must_raise(ArgumentError)
+    end
+  end
+
+  describe "#lock" do
+    it "should raise an ArgumentError if the door is open" do
+      door = Door.new("bathroom")
+      proc { door.lock }.must_raise(ArgumentError)
     end
   end
 end

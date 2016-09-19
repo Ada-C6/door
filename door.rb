@@ -5,33 +5,34 @@ class Door
     @inscription = inscription
     @locked = false
     @opened = true
-    @actions = ["open","close","lock","unlock","o","c","l","u"]
-  end
-
-  def door_locked?
-    @locked == true
-  end
-
-  def door_opened?
-    @opened == true
   end
 
   def open
-    raise ArgumentError.new("The door is already open") if door_opened? == true
+    raise ArgumentError.new("The door is already open") if @opened == true
 
-    raise ArgumentError.new("You cannot open a locked door") if door_locked? == true
+    raise ArgumentError.new("The door is locked and cannot be opened.") if @locked == true
 
-    @opened == true
+    @opened = true
   end
 
   def close
-    raise ArgumentError.new("The door is already closed") if door_opened? == false
+    raise ArgumentError.new("The door is already closed") if @opened == true
 
-    if door_locked? == true
-      return false
-    else
-      return true
-    end
+    @opened = false
+  end
+
+  def lock
+    raise ArgumentError.new("The door must be closed to be locked.") if @opened == true
+
+    
+
+    @locked = true
+  end
+
+  def unlock
+      raise ArgumentError.new("The door is already unlocked.") if @locked == false
+
+      @locked = false
   end
 
 end
