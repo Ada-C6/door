@@ -25,4 +25,14 @@ describe "Testing door" do
     quotidian_door.closed.must_equal false
   end
 
+  it "Tests that a closed and locked door cannot be opened" do
+    quotidian_door = Door.new(true, true, "Pull")
+    quotidian_door.closed.must_equal true
+    quotidian_door.locked.must_equal true
+    quotidian_door.open_door.must_equal "A door must be closed and unlocked before it can open!"
+    quotidian_door.closed.must_equal true
+    quotidian_door.locked.must_equal true
+
+  end
+
 end
