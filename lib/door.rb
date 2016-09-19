@@ -13,10 +13,11 @@ class Door
 
   end
 
-  def lock
-
+  def lock_door
+    # returns a string
     if @closed == true
       @locked = true
+      return "The door is now locked"
     elsif @closed == false
       return "You must close the door before you can lock it!"
     else
@@ -25,7 +26,16 @@ class Door
 
   end
 
-  def close
+  def open_door
+    if @closed == true && @locked == false
+      @closed = false
+      return "Door is now open!"
+    else
+      return "A door must be closed and unlocked before it can open!"
+    end
+  end
+
+  def close_door
     if @closed == true
       return "Door is already closed!"
     else 
@@ -35,7 +45,7 @@ class Door
   end
 
 
-  def read
+  def read_door
     if @INSCRIPTION == nil
       return "There is no inscription!"
     else
@@ -43,7 +53,7 @@ class Door
     end
   end
 
-  def inspect
+  def inspect_door
     return "The door is locked? #{@locked}. The door is open? #{@closed}. The door is inscribed? #{@INSCRIPTION}."
   end
 

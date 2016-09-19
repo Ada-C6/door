@@ -12,14 +12,17 @@ describe "Testing door" do
     quotidian_door = Door.new(locked, closed, INSCRIPTION)
 
     quotidian_door.must_be_kind_of Door
-    # quotidian_door.open.must_equal open
-    # quotidian_door.inscribe.must_equal inscribe
-
     quotidian_door.locked.must_equal locked
     quotidian_door.closed.must_equal closed
     quotidian_door.INSCRIPTION.must_equal INSCRIPTION
 
   end
 
-  
+  it "Tests that a closed and unlocked door can be opened" do
+    quotidian_door = Door.new(false, true, "Pull")
+    quotidian_door.closed.must_equal true
+    quotidian_door.open_door.must_be_kind_of String
+    quotidian_door.closed.must_equal false
+  end
+
 end
