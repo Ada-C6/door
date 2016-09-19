@@ -25,7 +25,12 @@ class Door
 
   def unlock_door
     # return a string
-
+    if @locked == true
+      @locked = false
+      return "Door is now unlocked!"
+    else
+      return "The door is already unlocked!"
+    end
   end
 
   def open_door
