@@ -21,6 +21,10 @@ class Door
     else 
       return "You must close the door before you can lock it!"
     end
+  end
+
+  def unlock_door
+    # return a string
 
   end
 
