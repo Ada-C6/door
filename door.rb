@@ -14,21 +14,25 @@ attr_reader :inscription, :open_state, :lock_state
     end
 
     if inscription.length > MAX_INSCRIPTION
-      raise ArgumentError.new("Inscription must be less than 20 characters.")
+      return "Please try again. Inscription must be less than #{ MAX_INSCRIPTION } characters."
     end
 
     if @inscription == nil
       @inscription = inscription
     else
-      raise ArgumentError.new("Inscription already defined. Cannot overwrite existing inscription.")
+      return "Door alread inscribed. Cannot overwrite."
     end
   end
 
   def open_door
-    if @open_state == :closed
+    if @open_state == :closed && @lock_state == :unlocked
       @open_state = :open
+    elsif @lock_state == :locked
+      return "Door locked. Please unlock to open."
+    elsif @open_state == :open
+      return "Door already open."
     else
-      raise ArgumentError.new("Door already open. Cannot open an open door.")
+      return "Something else has gone horribly wrong."
     end
   end
 
@@ -36,7 +40,7 @@ attr_reader :inscription, :open_state, :lock_state
     if @open_state == :open
       @open_state = :closed
     else
-      raise ArgumentError.new("Door already closed. Cannot close a closed door.")
+      return "Door already closed."
     end
   end
 
@@ -44,7 +48,7 @@ attr_reader :inscription, :open_state, :lock_state
     if @lock_state == :locked
       @lock_state = :unlocked
     else
-      raise ArgumentError.new("Door already unlocked. Cannot unlock an unlocked door.")
+      return "Door already unlocked."
     end
   end
 
@@ -52,7 +56,27 @@ attr_reader :inscription, :open_state, :lock_state
     if @lock_state == :unlocked
       @lock_state = :locked
     else
-      raise ArgumentError.new("Door already locked. Cannot lock a locked door.")
+      return "Door already locked."
     end
   end
+
+
+  def status
+    status = {}
+    status[:inscription_status] = @inscription
+    status[:open_status] = @open_state
+    status[:lock_status] = @lock_state
+    
+    return status
+  end
+
+#IS THIS LOGIC USEFUL AS IT ADDS ANOTHER STEP TO EVERYTHING?
+#IF I JUST WRITE THE LOGIC IN THE OTHER METHODS, IT WILL CHECK THERE RATHER THAN THEN CALLING ANOTHER METHOD TO CHECK
+  # def open?
+  #   if @open_state == :open
+  #     return true
+  #   else
+  #     return false
+  #   end
+  # end
 end
