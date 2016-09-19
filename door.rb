@@ -1,69 +1,63 @@
 class Door
 
-  attr_reader
-  attr_accessor
+  attr_accessor :locked, :closed, :text
 
   def initialize
     @locked = false
-    @open = false
+    @closed = false
+    @text = nil
   end
 
   def open_if_allowed
-    if locked?
+    if @locked == true
       raise ArgumentError.new("You cannot open the door when it is locked.")
-    elsif closed? == false
+    elsif @closed == false
       raise ArgumentError.new("You cannot open an already open door.")
     else
-      @open = true
+      @closed = false
     end
   end
 
   def close_if_allowed
-    if locked?
+    if @locked == true
       raise ArgumentError.new("The deadbolt is locked, so the door cannot close.")
-    elsif closed? == false
+    elsif @closed == false
       raise ArgumentError.new("You cannot close an already closed door.")
     else
-      @open = trie
+      @closed = true
     end
   end
 
   def unlock_door
-    if locked? == false
-      raise ArgumentError.new("The door is already unlocked.")
-    else
+    if @locked == true
       @locked = false
+    else
+      raise ArgumentError.new("The door is already unlocked.")
     end
   end
 
   def lock_door
-    if locked?
-      raise ArgumentError.new("The door is already locked.")
-    else
+    if @locked == false
       @locked = true
+    else
+      raise ArgumentError.new("The door is already locked.")
     end
   end
 
-  def locked?
-    @locked = true
+  def is_door_locked
+    return @locked
   end
 
-  def closed?
-    @open = false
+  def is_door_closed
+    return @closed
   end
 
-
+  def inscription(words)
+    if @text == nil
+      @text = words
+    else
+      raise ArgumentError.new("A door may only be inscribed once.")
+    end
+    return @text
+  end
 end
-
-
-# A Door object can
-#
-# display an inscription
-# be either open or closed, and
-# be either locked or unlocked
-#
-# Once the writing (inscription) on a Door is set, it cannot be changed
-# You should be able to look at the writing on the Door if there is any.
-# Appropriate error messages should be displayed and no changes to the Door should be made, if any conditions of the functions are violated.
-#
-# 90% test coverage (using simplecov).
