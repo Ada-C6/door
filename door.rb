@@ -20,7 +20,7 @@ attr_reader :inscription, :open_state, :lock_state
     if @inscription == nil
       @inscription = inscription
     else
-      return "Door alread inscribed. Cannot overwrite."
+      return "Door already inscribed. Cannot overwrite."
     end
   end
 
@@ -66,12 +66,13 @@ attr_reader :inscription, :open_state, :lock_state
     status[:inscription_status] = @inscription
     status[:open_status] = @open_state
     status[:lock_status] = @lock_state
-    
+
     return status
   end
 
 #IS THIS LOGIC USEFUL AS IT ADDS ANOTHER STEP TO EVERYTHING?
 #IF I JUST WRITE THE LOGIC IN THE OTHER METHODS, IT WILL CHECK THERE RATHER THAN THEN CALLING ANOTHER METHOD TO CHECK
+#OR IS IT USEFUL HERE TO HAVE THE LOGIC ONLY IN ONE PLACE IN CASE SOMETHING CHANGES ABOUT WHAT `OPEN` MEANS???
   # def open?
   #   if @open_state == :open
   #     return true
