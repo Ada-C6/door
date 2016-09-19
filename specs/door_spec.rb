@@ -22,7 +22,7 @@ describe Door do
 
     it "should return a message if there is already an inscription on the door" do
       new_door.inscribe("Allison's Door")
-      new_door.inscribe("Matt's Door").must_equal("Door alread inscribed. Cannot overwrite.")
+      new_door.inscribe("Matt's Door").must_equal("Door already inscribed. Cannot overwrite.")
     end
   end
 
