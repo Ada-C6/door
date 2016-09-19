@@ -77,6 +77,12 @@ describe "Testing door" do
     quotidian_door.locked.must_equal false
   end
 
+  it "Tests that inspect door returns a string" do
+    magical_door = Door.new(false, true, "Rails")
+    magical_door.inspect_door.must_be_kind_of String
+    magical_door.inspect_door.must_equal "The door is locked? false. The door is open? true. The door is inscribed? Rails."
+  end 
+
 
 
 end
