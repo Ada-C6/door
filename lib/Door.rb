@@ -18,6 +18,7 @@ class Door
     @inscription = inscription # string
   end
 
+  # assume the status of door(open/closed/lock/unlocked) is irrelavent to whether the door can be inscripted.
   def write(inscription)
     # request for writing an empty inscription is invalid
     if inscription == nil || inscription.empty?
@@ -43,7 +44,7 @@ class Door
 
   # test: when open, can I lock it?
   # 12 cases
-  
+
   def close
     # You may close a Door if and only if it is open
     if @is_open == false
@@ -71,3 +72,32 @@ class Door
     @is_locked == false
   end
 end
+
+
+puts "------TEST--------"
+puts "----initialize----"
+door = Door.new(false, false, nil)
+door.write("Castle entrence")
+puts door.is_open
+puts door.is_locked
+puts door.inscription
+puts "----open method----"
+door.open
+puts door.is_open
+puts door.is_locked
+puts door.inscription
+puts "----close method----"
+door.close
+puts door.is_open
+puts door.is_locked
+puts door.inscription
+puts "----lock method----"
+door.lock
+puts door.is_open
+puts door.is_locked
+puts door.inscription
+puts "----unlock method---"
+door.unlock
+puts door.is_open
+puts door.is_locked
+puts door.inscription
