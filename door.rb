@@ -24,7 +24,7 @@ class Door
   def lock
     raise ArgumentError.new("The door must be closed to be locked.") if @opened == true
 
-    
+    raise ArgumentError.new("The door must be unlocked to be locked") if @locked == true
 
     @locked = true
   end
