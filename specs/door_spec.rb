@@ -75,6 +75,18 @@ class Door
       end
     end
 
+    describe "#open_sesame" do
+        let(:door) {Door.new("this is a door.")}
+        it "should allow you to open a door if it is unlocked but closed" do
+        door.unlock
+        door.open_sesame.must_equal(true)
+        end
+
+        it "should not allow the user to open a door unless it's unlocked" do
+          door.open_sesame.must_equal(false)
+        end
+    end
+
     describe "#gain_access" do
       let(:door) {Door.new("This is a door.")}
       it "should not let you through a door if it is locked and closed" do
@@ -99,7 +111,7 @@ class Door
     let(:door) {Door.new("This is a door.")}
 
     it "should allow the user to read the inscription on the door" do
-      door.read_door.must_equal("This is a door.")
+      door.read_door.must_equal("Door has a sign. It says: #{door.inscription}")
     end
   end
 

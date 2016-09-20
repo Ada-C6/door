@@ -5,9 +5,8 @@ class Door
   def initialize(inscription)
     #I chose to make the inscpription to have a reader property set when creating an instance of a door, because it makes sense that once a door is made, it would have an inscpription on it that the user couldn't change. Door also starts at a default of locked and closed, since most games require the player to find a way to unlock and open a door when the player comes across a door.
     @inscription = inscription
-    @locked_door = locked_door
     @locked_door = true #means door is locked
-    @closed_door = true
+    @closed_door = true #door is closed
   end
 
   def locked?
@@ -28,8 +27,6 @@ class Door
     if @locked_door == true
       @locked_door = false
       return "door is now unlocked. Yay."
-    # else
-    #   return "Door is already unlocked."
     end
   end
 
@@ -57,7 +54,19 @@ def closed?
   end
 end
 
-def gain_access
+def open_sesame #if a door is unlocked, you can just open the door.
+  if @locked_door == false
+    @closed_door = false
+    puts "The door is unlocked, so you open the door!"
+    return true
+  else
+    puts "You have to unlock the door first before you can open this door."
+    return false
+  end
+end
+
+
+def gain_access #moves you through the door
   if @locked_door = true && @closed_door == true
     puts "You cannot gain access to a locked and closed door."
     return false
@@ -68,16 +77,7 @@ def gain_access
 end
 
 def read_door
-  return "#{inscription}"
+  return "Door has a sign. It says: #{inscription}"
 end
 
 end #end class
-
-#we should give the door an inscription at its inception, not allow a player to change the inscription, which can be
-
-
-#it should raise an error here if @locked_door is already false. can remove the else then.
-
-#   unless @lock == true
-#    raise ArgumentError.new("Cannot unlock door if door is already unlocked.")
-#  end
