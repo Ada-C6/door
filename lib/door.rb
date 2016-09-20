@@ -58,7 +58,7 @@ class Door
 
 
 end#end of class
-bob = Door.new
+#bob = Door.new
 #test init
 # puts bob.open
 # puts bob.unlocked
@@ -70,11 +70,11 @@ bob = Door.new
 # puts bob.close_door
 
 #test unlocked
-puts bob.is_unlocked?
-puts bob.lock_door
-puts bob.is_unlocked?
-puts bob.lock_door
-puts bob.unlock_door
-puts bob.is_unlocked?
+#puts bob.is_unlocked?
+# puts bob.lock_door
+# puts bob.is_unlocked?
+# puts bob.lock_door
+# puts bob.unlock_door
+# puts bob.is_unlocked?
 
 #test inscription
