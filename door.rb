@@ -9,16 +9,13 @@ class Door
     end
 
     def unlock
-        # if @security == "locked"
-            return @security = "unlocked"
-        # else
-        #     raise ArgumentError.new("you can only unlock doors that are locked")
-        # end
+        if @security == "locked"
+            @security = "unlocked"
+            return self
+        else
+            raise ArgumentError.new("you can only unlock doors that are locked")
+        end
     end
 end
 
-d = Door.new("hello").unlock
-puts "\nThis is weird, it shows d is:"
-puts d
-puts "\nI want d's security instance variable to be unlocked, not the instance object itself. What am I forgetting?"
-print d.security
+# puts d = Door.new("hello").unlock.unlock
