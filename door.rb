@@ -3,6 +3,7 @@ class Door
   attr_accessor :locked_door, :closed_door
 
   def initialize(inscription)
+    #I chose to make the inscpription to have a reader property set when creating an instance of a door, because it makes sense that once a door is made, it would have an inscpription on it that the user couldn't change. Door also starts at a default of locked and closed, since most games require the player to find a way to unlock and open a door when the player comes across a door.
     @inscription = inscription
     @locked_door = locked_door
     @locked_door = true #means door is locked
@@ -10,7 +11,6 @@ class Door
   end
 
   def locked?
-    # puts "#{@locked_door}"
     if @locked_door == true
        puts "This door is locked to you!"
       return @locked_door
@@ -46,14 +46,30 @@ class Door
 
   end #end for lock method
 
-# def open?
+def closed?
 #   it should check if the door is open or closed
+  if @closed_door == true
+    puts "This door is closed to you."
+    return true
+  else
+    puts "door is open! yay."
+    return false
+  end
+end
 
-# def gain_access
-#this method will open the door if:
-#the door must be unlocked already, and not open
-#if it's locked and closed, user cannot gain access
-#
+def gain_access
+  if @locked_door = true && @closed_door == true
+    puts "You cannot gain access to a locked and closed door."
+    return false
+  else
+    puts "The door is open and unlocked! Yay, you can go through!"
+    return true
+  end
+end
+
+def read_door
+  return "#{inscription}"
+end
 
 end #end class
 
