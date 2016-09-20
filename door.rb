@@ -1,24 +1,35 @@
 class Door
-  attr_reader :inscription
+  attr_reader :inscription, :opened, :locked
 
   def initialize
-    @inscription = nil
+    @inscription = "BLANK"
+    @opened = false
+    @locked = false
+
   end
 
   def inscribe(words)
-    if @inscription != nil
-      puts "Sorry, you can't inscribe a door with something on it already!"
-    else
+    unless @inscription != "BLANK"
       @inscription = words
     end
     return @inscription
   end
 
   def read
-    if @inscription == nil
-      return "THIS DOOR IS BLANK"
-    else
-      return @inscription
+    return @inscription
+  end
+
+  def open_door
+    if @opened == false && @locked == false
+      @opened = true
     end
+    return @opened
+  end
+
+  def lock_door
+    if @locked == false && @opened == false
+      @locked = true
+    end
+    return @locked
   end
 end
