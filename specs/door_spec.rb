@@ -9,5 +9,9 @@ describe Door do
         it "will assign parameter to inscription instance variable" do
             d.inscription.must_equal("sample_inscription")
         end
+        it "will assign default instance variables accurately" do
+            d.position.must_equal("closed")
+            d.security.must_equal("locked")
+        end
     end
 end
