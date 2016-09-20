@@ -16,11 +16,20 @@ describe Door do
     end
 
     describe "unlock" do
-        it "will unlock" do
+        it "will unlock a locked door" do
             d.unlock.security.must_equal("unlocked")
         end
         it "must raise an ArgumentError if the door is already unlocked" do
             proc {d.unlock.unlock}.must_raise(ArgumentError)
+        end
+    end
+
+    describe "open" do
+        it "will open a closed and unlocked door" do
+            d.unlock.open.position.must_equal("open")
+        end
+        it "must raise an ArgumentError if the door is already open or locked" do
+            proc {d.open}.must_raise(ArgumentError)
         end
     end
 end

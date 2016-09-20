@@ -16,6 +16,15 @@ class Door
             raise ArgumentError.new("you can only unlock doors that are locked")
         end
     end
+
+    def open
+        if @position == "closed" && @security == "unlocked"
+            @position = "open"
+            return self
+        else
+            raise ArgumentError.new("you can only open doors that are closed and unlocked")
+        end
+    end
 end
 
 # puts d = Door.new("hello").unlock.unlock
