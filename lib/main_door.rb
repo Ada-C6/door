@@ -5,6 +5,7 @@ attr_reader :name
   end
 
   def inscribe (name)
+    inscribe_rules(name)
     if @name != nil
       return @name
     else
@@ -13,4 +14,11 @@ attr_reader :name
     end
   end
 
+  def inscribe_rules(name)
+    if !name.is_a? String
+      raise ArgumentError.new("Only enter in letters! This door is sensitive!")
+    elsif name !~ /[[:alpha:]]/
+      raise ArgumentError.new("Just because it is a string, doesn't mean your entry is valid. Letters only please!")
+    end
+  end
 end
