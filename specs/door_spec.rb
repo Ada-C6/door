@@ -20,8 +20,6 @@ describe Door do
       @door.must_respond_to(:locked)
     end
 
-    # possibly unnecessary, as I have written this function into the read
-    # method, but am including for completeness sake.
     it "should say if there is writing on the Door" do
       @door.must_respond_to(:inscription)
     end
@@ -34,20 +32,48 @@ describe Door do
       @door.inscription.must_equal("something")
     end
 
-    it "should not prevent writing on a door that's already been written on" do
+    it "should prevent writing on a door that's already been written on" do
       @door.inscribe("something")
       proc { @door.inscribe("something else") }.must_raise(RuntimeError)
     end
-  end
 
-  describe "#read" do
-    # I know the attr_reader will handle this just fine without another
-    # method. But I'm keeping this method, mostly because it makes sense
-    # to me from a design perspective, and also allows me to puts a more
-    # useful descriptor for an empty @inscription value.
+    # Question: is there a way to condense these tests to a single test?
+    # I tried doing an each loop, but since it's working with the same
+    # instance each time, it breaks because you can only inscribe
+    # something once per instance.
+    it "should return a string if a Fixnum is passed in" do
+      door_fixnum = @door.inscribe(1)
+      door_fixnum.must_be_instance_of(String)
+    end
 
-    it "must return the inscription" do
-      @door.read.must_equal(@door.inscription)
+    it "should return a string if a Float is passed in" do
+      door_float = @door.inscribe(1.5)
+      door_float.must_be_instance_of(String)
+    end
+
+    # I find this unlikely, but that's what edge cases are ...
+    it "should return a string if a Symbol is passed in" do
+      door_sym = @door.inscribe(:something)
+      door_sym.must_be_instance_of(String)
+    end
+
+    # I did these tests because I was playing around in irb and noticed
+    # that if I did not convert properly, using 1 as an argument would
+    # return "\u0001". The others return TypeError messages, so this
+    # probably isn't a useful test for these.
+    it "should return the same Fixnum as a string" do
+      door_fixnum = @door.inscribe(1)
+      door_fixnum.to_i.must_equal(1)
+    end
+
+    it "should return the same Float as a string" do
+      door_float = @door.inscribe(1.5)
+      door_float.to_f.must_equal(1.5)
+    end
+
+    it "should return the same Symbol as a string" do
+      door_sym = @door.inscribe(:something)
+      door_sym.to_sym.must_equal(:something)
     end
   end
 

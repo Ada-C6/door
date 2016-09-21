@@ -12,16 +12,9 @@ class Door
 
   def inscribe(words)
     if @inscription != ""
-      raise RuntimeError.new("You can't inscribe a door that's already been inscribed upon.")
+      raise RuntimeError.new("You can't write a door that's already been inscribed upon.")
     else
-      @inscription = words
-    end
-    return @inscription
-  end
-
-  def read
-    if inscription == ""
-      puts "There's nothing on the door."
+      @inscription << words.to_s
     end
     return @inscription
   end
