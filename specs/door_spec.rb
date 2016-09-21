@@ -20,6 +20,8 @@ describe Door do
       @door.must_respond_to(:locked)
     end
 
+    # possibly unnecessary, as I have written this function into the read
+    # method, but am including for completeness sake.
     it "should say if there is writing on the Door" do
       @door.must_respond_to(:inscription)
     end
