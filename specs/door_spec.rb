@@ -49,16 +49,15 @@ describe Door do
     end
     # - be either open or closed, and
     # - You may open a Door if and only if it is unlocked and closed
-    it "should return true if successful" do
-      skip
+    it "should set position to 'open' if successful" do
       @door_too.unlock_door
-      @door_too.open_door.must_equal(true)
+      @door_too.open_door
+      @door_too.position.must_equal("open")
     end
     it "should return an error if door is locked" do
       proc {@door_too.open_door}.must_raise(RuntimeError)
     end
     it "should return an error if already open" do
-      skip
       @door_too.unlock_door
       @door_too.open_door
       proc {@door_too.open_door}.must_raise(RuntimeError)
