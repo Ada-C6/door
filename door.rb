@@ -1,6 +1,5 @@
 class Door
-    attr_reader :inscription, :position
-    attr_accessor :security
+    attr_reader :inscription, :position, :security
 
     def initialize(inscription)
         @inscription = inscription
@@ -14,6 +13,15 @@ class Door
             return self
         else
             raise ArgumentError.new("you can only unlock a door that is locked")
+        end
+    end
+
+    def lock
+        if @security == "unlocked"
+            @security = "locked"
+            return self
+        else
+            raise ArgumentError.new("you can only lock a door that is unlocked")
         end
     end
 
