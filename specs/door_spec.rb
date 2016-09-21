@@ -2,23 +2,22 @@ require_relative 'spec_helper'
 
 describe Door do
   describe "initialize" do
-    # A door should be initalized without an inscription, it will have a position (let's say it is initalized as closed), and a state (locked).
+    # A door should be initalized without an inscription, it will have a position (let's say it is initalized as closed), and a security state (locked).
     let(:new_door) {Door.new}
     it "should be a door object" do
       new_door.must_be_instance_of(Door)
     end
 
     it "should not have an inscription" do
-      skip
-      new_door.inscribed?.must_equal(false)
+      new_door.inscription.must_equal(false)
     end
 
     it "should be closed" do
-      skip
+      new_door.position.must_equal("closed")
     end
 
     it "should be locked" do
-      skip
+      new_door.security.must_equal("locked")
     end
 
   end
