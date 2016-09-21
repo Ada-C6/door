@@ -25,7 +25,7 @@ class Door
 
   def close_door
     if @open == false
-      puts "Cannot close door. Door already closed!"
+      raise "Cannot close door. Door already closed!"
     elsif @open == true
         @open = false
     end
@@ -41,14 +41,14 @@ class Door
 
   def lock_door
     if @unlocked == false
-      puts "Cannot lock door. Door already locked!"
+      raise "Cannot lock door. Door already locked!"
     elsif @unlocked == true
         @unlocked = false
     end
   end
     def unlock_door
       if @unlocked == true
-        puts "Cannot unlock door. Door already unlocked!"
+        raise "Cannot unlock door. Door already unlocked!"
       elsif @unlocked == false
           @unlock = true
       end
@@ -60,7 +60,7 @@ class Door
         @inscription = new_inscription
         return @inscription
       else
-        puts 'Cannot change inscription. inscription already set.'
+        raise 'Cannot change inscription. inscription already set.'
       end
     end
 
@@ -71,9 +71,9 @@ end#end of class
 #test inscription
 # bob = Door.new(open = true, unlocked = true, inscription = nil)
 
-bob = Door.new(true, true, "Set if off")
-puts bob.check_inscription("Set if off part two")
-puts bob.inscription
+# bob = Door.new(true, true, "Set if off")
+# puts bob.check_inscription("Set if off part two")
+# puts bob.inscription
 #test init
 # puts bob.open
 # puts bob.unlocked
