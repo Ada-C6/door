@@ -12,4 +12,12 @@ describe Door do
       refute_nil(door.inscription)
     end
   end
+
+  describe "Door#is_open" do
+    it "Can be either open or closed" do
+      refute_nil(door.is_open)
+    end
+  end
+
+
 end
