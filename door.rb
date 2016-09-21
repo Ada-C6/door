@@ -14,16 +14,18 @@
 require 'awesome_print'
 
 class Door
-  attr_reader :unlocked, :open, :inscription
+  attr_reader :is_unlocked, :is_open, :has_inscription
 
-  def initialize(unlocked=true,open=true,inscription=false)
-    @unlocked = unlocked
-    @open = open
-    @inscription = inscription
+  def initialize(unlocked="unlocked",open="open",inscription=nil)
+    @door = {
+      is_unlocked: unlocked,
+      is_open: open,
+      has_inscription: inscription
+    }
   end
 
   def is_door_closed?
-    if open
+    if @door[:is_open] == "open"
       return "Door is open."
     else
       return "Door is closed."
@@ -31,12 +33,27 @@ class Door
   end
 
   def open_door
+    if @door[:is_open] == "open"
+      raise ArgumentError.new("The door is already open.")
+    else
+      @door[:is_open] = "open"
+    end
   end
 
   def close_door
+    if @door[:is_open] == "open"
+      @door[:is_open] = "closed"
+    else
+      raise ArgumentError.new("The door is already closed.")
+    end
   end
 
   def is_door_locked?
+    if @door[:is_unlocked]
+      return "Door is unlocked."
+    else
+      return "Door is locked."
+    end
   end
 
   def lock_door
@@ -53,5 +70,20 @@ class Door
 
 end
 
+# closed_unlocked = Door.new(true,false,)
+# closed_unlocked.open_door
+# puts closed_unlocked.is_door_closed?
+
+# closed_door = Door.new(false,false,"inscription")
+# ap closed_door
+# ap closed_door.is_door_closed? #Door is closed
+# ap closed_door.open_door #true
+# ap closed_door
+# ap closed_door.is_open
+# ap closed_door.is_door_closed? #"Door is open"
+# ap closed_door #false
+# puts now_open.open #true
+# puts now_open.is_door_closed?
+# puts now_open.open
 # an_open_door = Door.new
-# an_open_door.is_door_closed?
+# puts an_open_door.open
