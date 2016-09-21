@@ -12,4 +12,9 @@ class Door
     @inscription = inscription
   end
 
+  def inscribe(words)
+    raise Exception, "There is already something written here." unless inscription.empty?
+    @inscription = words
+  end
+
 end

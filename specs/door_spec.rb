@@ -4,6 +4,7 @@ describe Door do
   # Door instance that is opened and locked
   # with default inscription
   let(:door) { Door.new(true, true) }
+  let(:inscribed_door) { Door.new(true, true, "None Shall Write!") }
 
 
   it "Exists" do
@@ -28,5 +29,17 @@ describe Door do
     end
   end
 
+  describe "Door#inscribe" do
+    # Once the writing (inscription) on a Door is set,
+    # it cannot be changed
+    words = "Hello World!"
+    it "Can be inscribed" do
+      assert_equal words, door.inscribe(words)
+    end
+
+    it "Inscriptions on doors cannot be changed" do
+      assert_raises(Exception) {inscribed_door.inscribe(words)}
+    end
+  end
 
 end
