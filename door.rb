@@ -17,11 +17,17 @@ class Door
   attr_reader :unlocked, :open, :inscription
 
   def initialize(unlocked=true,open=true,inscription=false)
-    # @unlocked = unlocked
-    # @open
+    @unlocked = unlocked
+    @open = open
+    @inscription = inscription
   end
 
   def is_door_closed?
+    if open
+      return "Door is open."
+    else
+      return "Door is closed."
+    end
   end
 
   def open_door
@@ -46,3 +52,6 @@ class Door
   end
 
 end
+
+# an_open_door = Door.new
+# an_open_door.is_door_closed?
