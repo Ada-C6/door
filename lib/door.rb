@@ -1,13 +1,13 @@
 class Door
 
-  def initialize(inscription, closed = True, locked = True)
+  def initialize(inscription, closed = true, locked = true)
     @inscription = inscription
     @closed = closed
     @locked = locked
   end
 
   def inscription
-    inscription
+    return inscription
   end
 
   def closed?
@@ -20,33 +20,34 @@ class Door
 
   def open
     if @closed
-      @closed = False
+      @closed = false
     else
-      raise Error, "Door is already open"
+      return "Door is already open"
     end
   end
 
   def close
     if !@closed
-      @closed = True
+      @closed = true
     else
-      raise Error, "Door is already closed"
+      return "Door is already closed"
     end
   end
 
   def lock
     if !@locked
-      @locked = True
+      @locked = true
     else
-      raise Error, "Door is already locked"
+      return "Door is already locked"
     end
   end
 
   def unlock
     if @locked
-      @locked = False
+      @locked = false
     else
-      raise Error, "Door is already unlocked"
+      return "Door is already unlocked"
+    end
   end
 
 
