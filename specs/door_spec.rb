@@ -67,4 +67,15 @@ describe Door do
     end
   end
 
+  describe "Door#lock" do
+    # May lock a Door if and only if it is unlocked
+    it "Cannot be locked if it is already locked" do
+      assert_raises(Exception) {door.lock}
+    end
+
+    it "Must be unlocked to be locked" do
+      assert_equal true, closed_unlocked.lock
+    end
+  end
+
 end
