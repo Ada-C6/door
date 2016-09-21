@@ -51,7 +51,6 @@ describe Door do
       door_float.must_be_instance_of(String)
     end
 
-    # I find this unlikely, but that's what edge cases are ...
     it "should return a string if a Symbol is passed in" do
       door_sym = @door.inscribe(:something)
       door_sym.must_be_instance_of(String)
