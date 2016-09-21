@@ -34,7 +34,11 @@ describe 'Test Door' do
   end
 
   it "Test that a new door can be instantiated in a custom configuration" do
-    test_door = Door.new("Test Door", false, true)
+    test_door = Door.new("Test Door", true, true)
+  end
+
+  it "Test that a new door cannot be instantiated both open and locked" do
+    expect( proc {Door.new("Test Door", false, true)}).must_raise(ArgumentError)
   end
 
 

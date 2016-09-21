@@ -1,9 +1,13 @@
 class Door
 
   def initialize(inscription, closed = true, locked = true)
-    @inscription = inscription
-    @closed = closed
-    @locked = locked
+    if closed == false && locked == true
+      raise ArgumentError, "Door cannot be open and locked"
+    else
+      @inscription = inscription
+      @closed = closed
+      @locked = locked
+    end
   end
 
   def inscription
