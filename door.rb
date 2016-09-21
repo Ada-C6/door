@@ -42,6 +42,14 @@ class Door
             raise ArgumentError.new("you can only close a doors that is open")
         end
     end
+
+    def writing
+        if @inscription == "" || @inscription == nil
+            raise ArgumentError.new("there is no inscription on this door")
+        else
+            return @inscription
+        end
+    end
 end
 
-# puts d = Door.new("hello").unlock.unlock
+# puts Door.new("").writing
