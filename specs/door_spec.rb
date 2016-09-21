@@ -32,4 +32,13 @@ describe Door do
             proc {d.open}.must_raise(ArgumentError)
         end
     end
+
+    describe "close" do
+        it "will close an open door" do
+            d.unlock.open.close.position.must_equal("closed")
+        end
+        it "must raise an ArgumentError if the door is already closed" do
+            proc {d.close}.must_raise(ArgumentError)
+        end
+    end
 end

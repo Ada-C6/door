@@ -13,7 +13,7 @@ class Door
             @security = "unlocked"
             return self
         else
-            raise ArgumentError.new("you can only unlock doors that are locked")
+            raise ArgumentError.new("you can only unlock a door that is locked")
         end
     end
 
@@ -22,7 +22,16 @@ class Door
             @position = "open"
             return self
         else
-            raise ArgumentError.new("you can only open doors that are closed and unlocked")
+            raise ArgumentError.new("you can only open a door that is closed and unlocked")
+        end
+    end
+
+    def close
+        if @position == "open"
+            @position = "closed"
+            return self
+        else
+            raise ArgumentError.new("you can only close a doors that is open")
         end
     end
 end
