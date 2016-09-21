@@ -55,6 +55,10 @@ class Door
     def closed?
         return true if @position == "closed"; false
     end
+
+    def locked?
+        return true if @security == "locked"; false
+    end
 end
 
 # puts Door.new("").writing

@@ -79,9 +79,15 @@ describe Door do
         it "will return false if the door position is open" do
             d.unlock.open.closed?.must_equal(false)
         end
+    end
 
-        # it "must raise an ArgumentError if the door's inscription is blank" do
-        #     proc {Door.new("").writing}.must_raise(ArgumentError)
-        # end
+    describe "locked?" do
+        it "will return true if the door security status is locked" do
+            d.locked?.must_equal(true)
+        end
+
+        it "will return false if the door security status is unlocked" do
+            d.unlock.locked?.must_equal(false)
+        end
     end
 end
