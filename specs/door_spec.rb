@@ -15,14 +15,14 @@ describe Door do
       proc { new_door.inscribe(nil) }.must_raise(ArgumentError)
     end
 
-    it "should return a message if the inscription is longer than 20 characters" do
-      new_door.inscribe("This is a very long inscription. It should not work on the door because I want to challenge the player to write what they want to remember in only a few characters. If they had an unlimited amount of space, they could write a novel on the door or cheat or something. Don't let them do that. I don't like that.").must_equal("Please try again. Inscription must be less than 20 characters.")
-      new_door.inscribe("a" * 21).must_equal("Please try again. Inscription must be less than 20 characters.")
+    it "should return a door without an inscription if the input is greater than 20 characters" do
+      new_door.inscribe("This is a very long inscription. It should not work on the door because I want to challenge the player to write what they want to remember in only a few characters. If they had an unlimited amount of space, they could write a novel on the door or cheat or something. Don't let them do that. I don't like that.").must_equal(nil)
+      new_door.inscribe("a" * 21).must_equal(nil)
     end
 
-    it "should return a message if there is already an inscription on the door" do
+    it "should return the original inscription if user tries to re-inscribe" do
       new_door.inscribe("Allison's Door")
-      new_door.inscribe("Matt's Door").must_equal("Door already inscribed. Cannot overwrite.")
+      new_door.inscribe("Matt's Door").must_equal("Allison's Door")
     end
   end
 
@@ -33,14 +33,14 @@ describe Door do
       new_door.open_state.must_equal(:open)
     end
 
-    it "should return a message if the door is locked when trying to open" do
-      new_door.open_door.must_equal("Door locked. Please unlock to open.")
+    it "should return a value of :closed for the open_state property if trying to open a locked door" do
+      new_door.open_door.must_equal(:closed)
     end
 
-    it "should return a message if the door is already open when trying to open an open door" do
+    it "should return return a value of :open when trying to open an already open door" do
       new_door.unlock
       new_door.open_door
-      new_door.open_door.must_equal("Door already open.")
+      new_door.open_door.must_equal(:open)
     end
   end
 
@@ -52,8 +52,8 @@ describe Door do
       new_door.open_state.must_equal(:closed)
     end
 
-    it "should return a message if the door is already closed if trying to close a closed door" do
-      new_door.close_door.must_equal("Door already closed.")
+    it "should return a value of :closed when trying to close an already closed door" do
+      new_door.close_door.must_equal(:closed)
     end
   end
 
@@ -63,9 +63,9 @@ describe Door do
       new_door.lock_state.must_equal(:unlocked)
     end
 
-    it "should return a message that the door is already unlocked if trying to unlock an unlocked door" do
+    it "should return a value of :unlocked when trying to unlock an already unlocked door" do
       new_door.unlock
-      new_door.unlock.must_equal("Door already unlocked.")
+      new_door.unlock.must_equal(:unlocked)
     end
   end
 
@@ -76,27 +76,42 @@ describe Door do
       new_door.lock_state.must_equal(:locked)
     end
 
-    it "should return a message that the door is already locked if trying to lock a locked door" do
-      new_door.lock.must_equal("Door already locked.")
+    it "should return a value of :locked when trying to lock an already locked door" do
+      new_door.lock.must_equal(:locked)
     end
   end
 
-  describe "#status" do
-    it "should return a hash" do
-      new_door.status.must_be_kind_of(Hash)
-    end
-
-    it "should return the correct status" do
-      new_door.status[:inscription_status].must_equal(nil)
-      new_door.status[:open_status].must_equal(:closed)
-      new_door.status[:lock_status].must_equal(:locked)
-
-      new_door.inscribe("Allison's Door")
+  describe "#open_status" do
+    it "should return a value of open when the door has been opened" do
       new_door.unlock
       new_door.open_door
-      new_door.status[:inscription_status].must_equal("Allison's Door")
-      new_door.status[:open_status].must_equal(:open)
-      new_door.status[:lock_status].must_equal(:unlocked)
+      new_door.open_status.must_equal(:open)
+    end
+
+    it "should return a value of cloed when the door is closed" do
+      new_door.open_status.must_equal(:closed)
+    end
+  end
+
+  describe "#lock_status" do
+    it "should return a value of locked when the door is locked" do
+      new_door.lock_status.must_equal(:locked)
+    end
+
+    it "should return a value of unlocked when the door is unlocked" do
+      new_door.unlock
+      new_door.lock_status.must_equal(:unlocked)
+    end
+  end
+
+  describe "#read_inscription" do
+    it "should return nil when no inscription has been made" do
+      new_door.read_inscription.must_equal(nil)
+    end
+
+    it "should return the correct inscription when one has been made" do
+      new_door.inscribe("Employees only")
+      new_door.read_inscription.must_equal("Employees only")
     end
   end
 end

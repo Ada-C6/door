@@ -14,13 +14,15 @@ attr_reader :inscription, :open_state, :lock_state
     end
 
     if inscription.length > MAX_INSCRIPTION
-      return "Please try again. Inscription must be less than #{ MAX_INSCRIPTION } characters."
+      puts "Please try again. Inscription must be less than #{ MAX_INSCRIPTION } characters."
+      return @inscription
     end
 
     if @inscription == nil
       @inscription = inscription
     else
-      return "Door already inscribed. Cannot overwrite."
+      puts "Door already inscribed. Cannot overwrite."
+      return @inscription
     end
   end
 
@@ -28,11 +30,13 @@ attr_reader :inscription, :open_state, :lock_state
     if @open_state == :closed && @lock_state == :unlocked
       @open_state = :open
     elsif @lock_state == :locked
-      return "Door locked. Please unlock to open."
+      puts "Door locked. Please unlock to open."
+      return @open_state
     elsif @open_state == :open
-      return "Door already open."
+      puts "Door already open."
+      return @open_state
     else
-      return "Something else has gone horribly wrong."
+      puts "Something else has gone horribly wrong."
     end
   end
 
@@ -40,7 +44,8 @@ attr_reader :inscription, :open_state, :lock_state
     if @open_state == :open
       @open_state = :closed
     else
-      return "Door already closed."
+      puts "Door already closed."
+      return @open_state
     end
   end
 
@@ -48,7 +53,8 @@ attr_reader :inscription, :open_state, :lock_state
     if @lock_state == :locked
       @lock_state = :unlocked
     else
-      return "Door already unlocked."
+      puts "Door already unlocked."
+      return @lock_state
     end
   end
 
@@ -56,18 +62,21 @@ attr_reader :inscription, :open_state, :lock_state
     if @lock_state == :unlocked
       @lock_state = :locked
     else
-      return "Door already locked."
+      puts "Door already locked."
+      return @lock_state
     end
   end
 
+  def open_status
+    @open_state
+  end
 
-  def status
-    status = {}
-    status[:inscription_status] = @inscription
-    status[:open_status] = @open_state
-    status[:lock_status] = @lock_state
+  def lock_status
+    @lock_state
+  end
 
-    return status
+  def read_inscription
+    @inscription
   end
 
 #IS THIS LOGIC USEFUL AS IT ADDS ANOTHER STEP TO EVERYTHING?
