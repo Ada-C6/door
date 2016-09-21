@@ -32,6 +32,11 @@ class Door
     @is_locked = true
   end
 
+  def unlock
+    raise Exception, "This door can't be unlocked" unless locked?
+    @is_locked = false
+  end
+
   private
   # Private helper methods for readability
 
