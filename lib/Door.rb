@@ -1,6 +1,9 @@
 class Door
   class IsOpenAndLockedError < ArgumentError; end
+  class InscriptionIsNotString < ArgumentError; end
   class EmptyInscriptionError < ArgumentError; end
+  class IsOpenIsNotBoolean < ArgumentError; end
+  class IsLockedIsNotBoolean < ArgumentError; end
   class HasInscriptionError < StandardError; end
   class IsOpenError < StandardError; end
   class IsLockedError < StandardError; end
@@ -9,23 +12,39 @@ class Door
 
   attr_reader :is_open, :is_locked, :inscription
 
-  def initialize(is_open, is_locked, inscription = nil)
+  def initialize(is_open = false, is_locked = false, inscription = nil)
     if is_open == true && is_locked == true
       raise IsOpenAndLockedError.new
+    end
+    # incription can not be a non-string expect nil
+    if inscription.class != String && inscription != nil
+      raise InscriptionIsNotString.new
+    end
+    if is_open.class != TrueClass && is_open.class != FalseClass
+      raise IsOpenIsNotBoolean.new
+    end
+    if is_locked.class != TrueClass && is_locked.class != FalseClass
+      raise IsLockedIsNotBoolean.new
     end
     @is_open = is_open #boleen
     @is_locked = is_locked #boleen
     @inscription = inscription # string
   end
 
+  # major conflicts among argument checking!! refacter it!!
+
   # assume the status of door(open/closed/lock/unlocked) is irrelavent to whether the door can be inscripted.
   def write(inscription)
+    # incription can not be a non-string expect nil
+    if inscription.class != String && inscription != nil
+      raise InscriptionIsNotString.new
+    end
     # request for writing an empty inscription is invalid
     if inscription == nil || inscription.empty?
       raise EmptyInscriptionError.new
     end
     # Once the writing (inscription) on a Door is set, it cannot be changed
-    if @inscription != nil
+    if self.inscription != nil
       raise HasInscriptionError.new
     end
     @inscription = inscription
@@ -41,9 +60,6 @@ class Door
     end
     @is_open = true
   end
-
-  # test: when open, can I lock it?
-  # 12 cases
 
   def close
     # You may close a Door if and only if it is open
@@ -74,30 +90,30 @@ class Door
 end
 
 
-puts "------TEST--------"
-puts "----initialize----"
-door = Door.new(false, false, nil)
-door.write("Castle entrence")
-puts door.is_open
-puts door.is_locked
-puts door.inscription
-puts "----open method----"
-door.open
-puts door.is_open
-puts door.is_locked
-puts door.inscription
-puts "----close method----"
-door.close
-puts door.is_open
-puts door.is_locked
-puts door.inscription
-puts "----lock method----"
-door.lock
-puts door.is_open
-puts door.is_locked
-puts door.inscription
-puts "----unlock method---"
-door.unlock
-puts door.is_open
-puts door.is_locked
-puts door.inscription
+# puts "------TEST--------"
+# puts "----initialize----"
+# door = Door.new(false, false, nil)
+# door.write("Castle entrence")
+# puts door.is_open
+# puts door.is_locked
+# puts door.inscription
+# puts "----open method----"
+# door.open
+# puts door.is_open
+# puts door.is_locked
+# puts door.inscription
+# puts "----close method----"
+# door.close
+# puts door.is_open
+# puts door.is_locked
+# puts door.inscription
+# puts "----lock method----"
+# door.lock
+# puts door.is_open
+# puts door.is_locked
+# puts door.inscription
+# puts "----unlock method---"
+# door.unlock
+# puts door.is_open
+# puts door.is_locked
+# puts door.inscription
