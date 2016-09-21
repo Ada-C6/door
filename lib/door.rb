@@ -7,7 +7,7 @@ class Door
   end
 
   def inscription
-    return inscription
+    return @inscription
   end
 
   def closed?
@@ -19,8 +19,10 @@ class Door
   end
 
   def open
-    if @closed
+    if @closed && !@locked
       @closed = false
+    elsif @locked
+      return "Door is locked"
     else
       return "Door is already open"
     end
@@ -53,3 +55,6 @@ class Door
 
 
 end
+#
+# door = Door.new("hi")
+# door.closed = true

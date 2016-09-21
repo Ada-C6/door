@@ -42,23 +42,22 @@ describe 'Test Door' do
   # You should be able to check whether or not a Door is closed, check whether or not it is locked, and look at the writing on the Door if there is any.
 
   it "Test that we can access the door's open/closed status" do
-    expect(door.closed?.class).must_equal(Boolean)
+    expect(door.closed?).must_equal(true || false)
   end
 
   it "Test that a user cannot simply override the open/closed status" do
-    expect( proc {door.closed? == true}).must_raise(Error)
+    expect( proc {door.closed == true}).must_raise(NoMethodError)
   end
 
   it "Test that we can access the door's locked/unlocked status" do
-    expect(door.locked?.class).must_equal(Boolean)
+    expect(door.locked?).must_equal(true || false)
   end
 
   it "Test that a user cannot simply override the locked/unlocked status" do
-    expect( proc {door.locked? == true}).must_raise(Error)
+    expect( proc {door.locked == true}).must_raise(NoMethodError)
   end
 
   it "Test that we can read the inscription on the door" do
-    skip
     expect(door.inscription).must_equal("Door Inscription")
   end
 
@@ -67,7 +66,7 @@ describe 'Test Door' do
   # Once the writing (inscription) on a Door is set, it cannot be changed
 
   it "Test that we cannot change the inscription of the door" do
-    expect( proc {door.inscription = "New Inscription"}).must_raise(Error)
+    expect( proc {door.inscription = "New Inscription"}).must_raise(NoMethodError)
   end
 
 
@@ -89,7 +88,7 @@ describe 'Test Door' do
 
   it "Test that we cannot open a door if it is not unlocked" do
     test_door = Door.new("Inscription", true, true)
-    expect(test_door.open).must_equal("Door is already open")
+    expect(test_door.open).must_equal("Door is locked")
   end
 
 
