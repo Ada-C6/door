@@ -7,42 +7,49 @@ class Door
   attr_reader :open, :unlocked, :inscription
 
   def initialize(open, unlocked)
+    if open && !unlocked
+      raise ArgumentError.new("Doors cannot be open and locked.")
+    end
     @open = open
     @unlocked = unlocked
     @inscription = ""
   end
 
   def open_door
-    if @open
-      raise ArgumentError.new("This door is already open")
+    if !@unlocked
+      raise ArgumentError.new("You cannot open a locked door.")
+    elsif @open
+      raise ArgumentError.new("This door is already open.")
     end
     return @open = true
   end
 
   def close_door
     if !@open
-      raise ArgumentError.new("This door is already closed")
+      raise ArgumentError.new("This door is already closed.")
     end
     return @open = false
   end
 
   def unlock_door
     if @unlocked
-      raise ArgumentError.new("This door is already unlocked")
+      raise ArgumentError.new("This door is already unlocked.")
     end
     return @unlocked = true
   end
 
   def lock_door
-    if !@unlocked
-      raise ArgumentError.new("This door is already locked")
+    if @open
+      raise ArgumentError.new("You have to close the door first.")
+    elsif !@unlocked
+      raise ArgumentError.new("This door is already locked.")
     end
     return @unlocked = false
   end
 
   def inscribe(inscription)
     if @inscription != ""
-      raise ArgumentError.new("You cannot inscribe this door again")
+      raise ArgumentError.new("You cannot inscribe this door again.")
     end
     return @inscription = inscription
   end

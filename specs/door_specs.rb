@@ -15,11 +15,16 @@ describe Door do
       # my_door.open.must_equal(false)
 
     end
+
+    it "cannot be instantiated open and locked" do
+        proc {Door.new(true, false)}.must_raise ArgumentError
+    end
   end
 
   describe "#open_door" do
     door_one = Door.new(false, true)
     door_two = Door.new(true, true)
+    door_three = Door.new(false, false)
 
     it "can be opened if closed" do
       door_one.open_door.must_equal(true)
@@ -27,6 +32,10 @@ describe Door do
 
     it "cannot be opened if already open" do
       proc {door_two.open_door}.must_raise(ArgumentError)
+    end
+
+    it "cannot be opened if locked" do
+      proc {door_three.open_door}.must_raise(ArgumentError)
     end
 
   end
@@ -64,7 +73,7 @@ describe Door do
   describe "#lock_door" do
     door_one = Door.new(false, true)
     door_two = Door.new(false, false)
-
+    door_three = Door.new(true, true)
     it "can be locked if unlocked" do
       door_one.lock_door.must_equal(false)
       door_one.unlocked.must_equal(false)
@@ -72,6 +81,10 @@ describe Door do
 
     it "cannot be locked if already locked" do
       proc {door_two.lock_door}.must_raise(ArgumentError)
+    end
+
+    it "cannot be locked if it is open" do
+      proc {door_three.lock_door}.must_raise(ArgumentError)
     end
   end
 
