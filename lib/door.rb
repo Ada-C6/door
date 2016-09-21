@@ -9,7 +9,7 @@ class Door
 
   def is_open?
     if @open == true
-      return true
+      return @open
     else
       return false
     end
@@ -18,6 +18,10 @@ class Door
   def open_door
     if is_open? == true
       raise "Door already open!"
+
+    elsif is_open? == false && is_unlocked? == false
+      raise "Door is lock and cannot be opened until it is unlocked"
+
     elsif is_open? == false && is_unlocked? == true
       @open = true
     end
@@ -62,18 +66,25 @@ class Door
       else
         raise 'Cannot change inscription. inscription already set.'
       end
+
     end
 
 
 
 
 end#end of class
+#test closed and locked
+# bob = Door.new
+# puts bob.close_door
+# puts bob.lock_door
+# puts bob.open_door
 #test inscription
 # bob = Door.new(open = true, unlocked = true, inscription = nil)
 
 # bob = Door.new(true, true, "Set if off")
 # puts bob.check_inscription("Set if off part two")
 # puts bob.inscription
+
 #test init
 # puts bob.open
 # puts bob.unlocked

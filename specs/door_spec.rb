@@ -30,6 +30,14 @@ describe 'Test of Door class' do
 
   end
 
+  it 'open_door must raise error  are not met to set to door instance to open' do
+    bob = Door.new
+    bob.close_door
+    bob.lock_door
+    expect( proc {bob.open_door}).must_raise(RuntimeError)
+
+  end
+
   it 'close_door must set door instance to "closed" if conditions are met' do
     bob = Door.new(open = true, unlocked = true, incription = nil)
     expect(bob.close_door).must_equal(false)
