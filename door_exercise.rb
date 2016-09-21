@@ -17,4 +17,19 @@ class Door
     @inscription = words
   end
 
+  def open
+    raise Exception, "This door can't be opened." unless closed? && unlocked?
+    @is_open = true
+  end
+
+  private
+  # Private helper methods for readability
+  def closed?
+    !is_open
+  end
+
+  def unlocked?
+    !is_locked
+  end
+
 end

@@ -5,6 +5,7 @@ describe Door do
   # with default inscription
   let(:door) { Door.new(true, true) }
   let(:inscribed_door) { Door.new(true, true, "None Shall Write!") }
+  let(:closed_unlocked) {Door.new(false, false)}
 
 
   it "Exists" do
@@ -39,6 +40,19 @@ describe Door do
 
     it "Inscriptions on doors cannot be changed" do
       assert_raises(Exception) {inscribed_door.inscribe(words)}
+    end
+  end
+
+  describe "Door#open" do
+    # May open a Door if and only if it is
+    # unlocked and
+    # closed
+    it "Cannot be opened if already open" do
+      assert_raises(Exception) {door.open}
+    end
+
+    it "Must be closed and unlocked to be opened" do
+      assert_equal true, closed_unlocked.open
     end
   end
 
