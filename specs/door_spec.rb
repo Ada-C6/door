@@ -12,23 +12,26 @@ describe Door do
     Door.wont_be_nil
   end
 
+  # You should be able to check whether or not a Door is:
+  describe "Door#is_open" do
+    # Closed
+    it "Can be either open or closed" do
+      refute_nil(door.is_open)
+    end
+  end
+  describe "Door#is_locked" do
+    # Check whether or not it is locked,
+    it "Can be either locked or unlocked" do
+      refute_nil(door.is_locked)
+    end
+  end
   describe "Door#inscription" do
+    # And look at the writing on the Door if there is any.
     it "Can have an inscription" do
       refute_nil(door.inscription)
     end
   end
 
-  describe "Door#is_open" do
-    it "Can be either open or closed" do
-      refute_nil(door.is_open)
-    end
-  end
-
-  describe "Door#is_locked" do
-    it "Can be either locked or unlocked" do
-      refute_nil(door.is_locked)
-    end
-  end
 
   describe "Door#inscribe" do
     # Once the writing (inscription) on a Door is set,
