@@ -101,7 +101,22 @@ describe Door do
   end
 
   describe "#lock_door" do
-    # You may lock a Door if and only if it is unlocked
+    it "should raise an error if door is already locked" do
+      # You may lock a Door if and only if it is unlocked
+      proc {@what_door.lock_door}.must_raise(RuntimeError)
+    end
+    it "should set security to 'locked' if successful" do
+      @what_door.unlock_door
+      @what_door.lock_door
+      @what_door.security.must_equal("locked")
+    end
+    it "should be successful if door is open" do
+      # It does not matter if the door is open or closed to unlock it.
+      @what_door.unlock_door # doors are initialized as locked and closed
+      @what_door.open_door
+      @what_door.lock_door
+      @what_door.security.must_equal("locked")
+    end
 
   end
 

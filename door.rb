@@ -53,6 +53,8 @@ class Door
   def lock_door
     if @security == "unlocked"
       @security = "locked"
+    else
+      raise RuntimeError.new("Door is already locked.")
     end
   end
 
