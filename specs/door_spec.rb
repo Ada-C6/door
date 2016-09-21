@@ -1,82 +1,107 @@
 require_relative 'spec_helper'
 
 describe Door do
+  before (:each) do
+    @what_door = Door.new
+  end
   describe "initialize" do
     # A door should be initalized without an inscription, it will have a position (let's say it is initalized as closed), and a security state (locked).
-    let(:new_door) {Door.new}
     it "should be a door object" do
-      new_door.must_be_instance_of(Door)
+      @what_door.must_be_instance_of(Door)
     end
 
     it "should not have an inscription" do
-      new_door.inscription.must_equal(nil)
+      @what_door.inscription.must_equal(nil)
     end
 
     it "should be closed" do
-      new_door.position.must_equal("closed")
+      @what_door.position.must_equal("closed")
     end
 
     it "should be locked" do
-      new_door.security.must_equal("locked")
+      @what_door.security.must_equal("locked")
     end
   end
 
   describe "#inscribe(message)" do
-    before (:each) do
-      @my_door = Door.new
-    end
     it "should set the inscription instance variable to the message" do
       # A door object can display an inscription
-      @my_door.inscribe("Karin!")
-      @my_door.inscription.must_equal("Karin!")
+      @what_door.inscribe("Karin!")
+      @what_door.inscription.must_equal("Karin!")
     end
     it "should return an error if door is already inscribed" do
       # A door can only be inscribed once
-      @my_door.inscribe("First!")
-      proc {@my_door.inscribe("Second.")}.must_raise(RuntimeError)
+      @what_door.inscribe("First!")
+      proc {@what_door.inscribe("Second.")}.must_raise(RuntimeError)
     end
     it "should return an error if door is open" do
       # A door object can only be inscribed if it's closed (it would be a pain to try and inscribe an open door, what with it swinging back and forth.)
-      @my_door.unlock_door
-      @my_door.open_door
-      proc {@my_door.inscribe("Can I inscribe an open door?")}.must_raise(RuntimeError)
+      @what_door.unlock_door
+      @what_door.open_door
+      proc {@what_door.inscribe("Can I inscribe an open door?")}.must_raise(RuntimeError)
     end
   end
 
   describe "#open_door" do
-    before (:each) do
-      @door_too = Door.new
-    end
     # - be either open or closed, and
     # - You may open a Door if and only if it is unlocked and closed
     it "should set position to 'open' if successful" do
-      @door_too.unlock_door
-      @door_too.open_door
-      @door_too.position.must_equal("open")
+      @what_door.unlock_door
+      @what_door.open_door
+      @what_door.position.must_equal("open")
     end
     it "should return an error if door is locked" do
-      proc {@door_too.open_door}.must_raise(RuntimeError)
+      proc {@what_door.open_door}.must_raise(RuntimeError)
     end
     it "should return an error if already open" do
-      @door_too.unlock_door
-      @door_too.open_door
-      proc {@door_too.open_door}.must_raise(RuntimeError)
+      @what_door.unlock_door
+      @what_door.open_door
+      proc {@what_door.open_door}.must_raise(RuntimeError)
     end
   end
 
   describe "#close_door" do
-    # - You may close a Door if and only if it is open
+    it "should raise an error if door is locked but open" do
+      # - You may close a Door if and only if it is open and not locked
+      @what_door.unlock_door #doors are initalized as locked and closed
+      @what_door.open_door #doors are initalized as locked and closed
+      @what_door.lock_door #after door is open, now lock it
+      proc {@what_door.close_door}.must_raise(RuntimeError)
+    end
+    it "should raise an error if door is already closed" do
+      proc {@what_door.close_door}.must_raise(RuntimeError)
+    end
+    it "should set the position to closed if successful" do
+      @what_door.unlock_door
+      @what_door.open_door
+      @what_door.close_door
+      @what_door.position.must_equal("closed")
+    end
   end
 
   describe "#unlock_door" do
-    # You may unlock a Door if and only if it is locked
-    # It does not matter if the door is open or closed to unlock it.
+    it "should raise an error if door is already unlocked" do
+      # You may unlock a Door if and only if it is locked
+      @what_door.unlock_door
+      proc {@what_door.unlock_door}.must_raise(RuntimeError)
+    end
+    it "should set security to 'unlocked' if successful" do
+      @what_door.unlock_door
+      @what_door.security.must_equal("unlocked")
+    end
+    it "should be successful if door is open" do
+      # It does not matter if the door is open or closed to unlock it.
+      @what_door.unlock_door # doors are initialized as locked and closed
+      @what_door.open_door
+      @what_door.lock_door
+      @what_door.unlock_door
+      @what_door.security.must_equal("unlocked")
+    end
 
   end
 
   describe "#lock_door" do
     # You may lock a Door if and only if it is unlocked
-    # If you lock a Door while it's open, you cannot close it until you unlock it
 
   end
 

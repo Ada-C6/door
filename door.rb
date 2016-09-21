@@ -33,17 +33,27 @@ class Door
   end
 
   def close_door
-
+    if @position == "open" && @security == "unlocked"
+      @position = "closed"
+    elsif @security == "locked"
+      raise RuntimeError.new("Door is locked and cannot be closed.")
+    else
+      raise RuntimeError.new("Door is already closed.")
+    end
   end
 
   def unlock_door
     if @security == "locked"
       @security = "unlocked"
+    else
+      raise RuntimeError.new("Door is already unlocked.")
     end
   end
 
   def lock_door
-
+    if @security == "unlocked"
+      @security = "locked"
+    end
   end
 
 end
