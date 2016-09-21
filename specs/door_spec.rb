@@ -121,10 +121,10 @@ describe Door do
   end
 
   describe "#read_inscription" do
-    it "should return 'no inscription' if inscription is nil" do
+    it "should raise an error if inscription is nil" do
       # If door object is not inscribed, what should happen?
-      @what_door.read_inscription.must_equal("no inscription")
-    end
+      proc {@what_door.read_inscription}.must_raise(RuntimeError)
+    end 
 
     it "should return the inscription message" do
       # If inscribed, return the message.
@@ -135,13 +135,4 @@ describe Door do
   end
 end
 
-# A `Door` object can
-#
-# - be either locked or unlocked
-#
-# Here are some rules about how Doors work:
-#
-# - Once the writing (inscription) on a Door is set, it cannot be changed
-# - You should be able to check whether or not a Door is closed, check whether or not it is locked, and look at the writing on the Door if there is any.
-#
 # Appropriate error messages should be displayed and no changes to the Door should be made, if any conditions of the functions are violated.

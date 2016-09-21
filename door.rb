@@ -59,10 +59,10 @@ class Door
   end
 
   def read_inscription
-    if @inscription == nil
-      return "no inscription"
-    else
+    if @inscription != nil
       return @inscription
+    else
+      raise RuntimeError.new("There is no inscription on this door.")
     end
   end
 
