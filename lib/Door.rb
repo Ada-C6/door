@@ -31,8 +31,6 @@ class Door
     @inscription = inscription # string
   end
 
-  # major conflicts among argument checking!! refacter it!!
-
   # assume the status of door(open/closed/lock/unlocked) is irrelavent to whether the door can be inscripted.
   def write(inscription)
     # incription can not be a non-string expect nil
@@ -85,7 +83,7 @@ class Door
     if @is_locked == false
       raise IsUnlockedError.new
     end
-    @is_locked == false
+    @is_locked = false
   end
 end
 
