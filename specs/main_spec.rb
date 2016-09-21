@@ -20,5 +20,19 @@ describe MainDoor do
       fridge.inscribe("cake")
       fridge.name.must_equal("yummy")
     end
+
+    it "will raise and error if you try to set a value other than a string" do
+      fridge = MainDoor.new
+      proc { fridge.inscribe(11)}.must_raise(ArgumentError)
+    end
+
+    it "will raise and error if the strings are not all letters" do
+      fridge = MainDoor.new
+      proc {fridge.inscribe("11")}.must_raise(ArgumentError)
+    end
+    it "will raise an error if the string is empty" do
+      fridge = MainDoor.new
+      proc {fridge.inscribe("")}.must_raise(ArgumentError)
+    end
   end
 end
