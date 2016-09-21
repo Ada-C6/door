@@ -46,4 +46,13 @@ describe Door do
       proc { door.lock.lock }.must_raise(ArgumentError)
     end
   end
+
+  describe "#unlock" do
+    it "should raise an ArgumentError if the door is already unlocked" do
+      door = Door.new("bathroom")
+      proc { door.unlock }.must_raise(ArgumentError)
+    end
+  end
+
+
 end

@@ -35,4 +35,25 @@ class Door
       @locked = false
   end
 
+  def inspect
+    if @opened == true
+      door_status = "open"
+    else
+      door_status = "closed"
+    end
+
+    if @locked == true
+      lock_status = "locked"
+    else
+      lock_status = "unlocked"
+    end
+
+    return "There is a door that is #{door_status} and #{lock_status}."
+  end
+
+
+
+
+  end
+
 end
