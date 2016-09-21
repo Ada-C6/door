@@ -65,9 +65,23 @@ describe Door do
         it "must raise an ArgumentError if the door's inscription is blank" do
             proc {Door.new("").writing}.must_raise(ArgumentError)
         end
-        
+
         it "must raise an ArgumentError if the door's inscription is nil" do
             proc {Door.new(nil).writing}.must_raise(ArgumentError)
         end
+    end
+
+    describe "closed?" do
+        it "will return true if the door position is closed" do
+            d.closed?.must_equal(true)
+        end
+
+        it "will return false if the door position is open" do
+            d.unlock.open.closed?.must_equal(false)
+        end
+
+        # it "must raise an ArgumentError if the door's inscription is blank" do
+        #     proc {Door.new("").writing}.must_raise(ArgumentError)
+        # end
     end
 end

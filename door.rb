@@ -6,6 +6,7 @@ class Door
         @position = "closed"
         @security = "locked"
     end
+    # please note: a door's position has to be either open or closed and it's security status is either locked or unlocked, so since these instance variables needed default values, I arbitrarily decided to initiate all doors as closed and locked at the time of the door object's creation.
 
     def unlock
         if @security == "locked"
@@ -49,6 +50,10 @@ class Door
         else
             return @inscription
         end
+    end
+
+    def closed?
+        return true if @position == "closed"; false
     end
 end
 
