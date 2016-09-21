@@ -58,4 +58,12 @@ class Door
     end
   end
 
+  def read_inscription
+    if @inscription == nil
+      return "no inscription"
+    else
+      return @inscription
+    end
+  end
+
 end

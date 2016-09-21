@@ -120,15 +120,16 @@ describe Door do
 
   end
 
-  describe "#inscription?" do
+  describe "#read_inscription" do
     it "should return 'no inscription' if inscription is nil" do
-      skip
       # If door object is not inscribed, what should happen?
+      @what_door.read_inscription.must_equal("no inscription")
     end
 
     it "should return the inscription message" do
-      skip
       # If inscribed, return the message.
+      @what_door.inscribe("This is the door to end all doors.")
+      @what_door.read_inscription.must_equal("This is the door to end all doors.")
     end
 
   end
