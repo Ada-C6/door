@@ -22,8 +22,18 @@ class Door
     @is_open = true
   end
 
+  def close
+    raise Exception, "This door can't be closed." unless open?
+    @is_open = false
+  end
+
   private
   # Private helper methods for readability
+
+  def open?
+    is_open
+  end
+
   def closed?
     !is_open
   end
