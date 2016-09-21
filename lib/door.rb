@@ -1,7 +1,7 @@
 class Door
   attr_reader :open, :unlocked, :inscription
 
-  def initialize(open = true, unlocked = true, incription = nil)
+  def initialize(open = true, unlocked = true, inscription = nil)
   @open = open
   @unlocked = unlocked
   @inscription = inscription
@@ -16,9 +16,9 @@ class Door
   end
 
   def open_door
-    if is_open == true
+    if is_open? == true
       raise "Door already open!"
-    else
+    elsif is_open? == false && is_unlocked? == true
       @open = true
     end
   end
@@ -45,7 +45,7 @@ class Door
     elsif @unlocked == true
         @unlocked = false
     end
-
+  end
     def unlock_door
       if @unlocked == true
         puts "Cannot unlock door. Door already unlocked!"
@@ -54,11 +54,26 @@ class Door
       end
     end
 
-  end
+    def check_inscription(new_inscription)
+
+      if @inscription == nil
+        @inscription = new_inscription
+        return @inscription
+      else
+        puts 'Cannot change inscription. inscription already set.'
+      end
+    end
+
+
 
 
 end#end of class
-#bob = Door.new
+#test inscription
+# bob = Door.new(open = true, unlocked = true, inscription = nil)
+
+bob = Door.new(true, true, "Set if off")
+puts bob.check_inscription("Set if off part two")
+puts bob.inscription
 #test init
 # puts bob.open
 # puts bob.unlocked
@@ -76,5 +91,3 @@ end#end of class
 # puts bob.lock_door
 # puts bob.unlock_door
 # puts bob.is_unlocked?
-
-#test inscription
