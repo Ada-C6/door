@@ -24,66 +24,86 @@ class Door
     }
   end
 
-  def is_door_closed?
+  def is_door_open?
     if @door[:is_open] == "open"
-      return "Door is open."
+      return true
+    elsif @door[:is_open] == "closed"
+      return false
     else
-      return "Door is closed."
+      raise ArgumentError.new("This parameter was initialized incorrectly.")
     end
   end
 
   def open_door
     if @door[:is_open] == "open"
       raise ArgumentError.new("The door is already open.")
-    else
+    elsif @door[:is_open] == "closed"
       @door[:is_open] = "open"
+    else
+      raise ArgumentError
     end
   end
 
   def close_door
     if @door[:is_open] == "open"
       @door[:is_open] = "closed"
-    else
+    elsif @door[:is_open] == "closed"
       raise ArgumentError.new("The door is already closed.")
+    else
+      raise ArgumentError
     end
   end
 
-  def is_door_locked?
-    if @door[:is_unlocked]
-      return "Door is unlocked."
+  def is_door_unlocked?
+    if @door[:is_unlocked] == "unlocked"
+      return true
+    elsif @door[:is_unlocked] == "locked"
+      return false
     else
-      return "Door is locked."
+      raise ArgumentError.new("This parameter was initialized incorrectly.")
     end
   end
 
   def lock_door
+    if @door[:is_open] == "open"
+      raise ArgumentError.new("Not possible to lock because the door is open.")
+    elsif @door[:is_unlocked] == "locked"
+      return "The door is already locked."
+    elsif @door[:is_unlocked] == "unlocked"
+      @door[:is_unlocked] = "locked"
+    else
+      raise ArgumentError.new("double U tee eff")
+    end
   end
 
   def unlock_door
+    if @door[:is_unlocked] == "unlocked"
+      raise ArgumentError.new("The door is already unlocked.")
+    else
+      @door[:is_unlocked] = "unlocked"
+    end
   end
 
   def is_there_inscription?
+    if @door[:inscription] != nil
+      return true
+    else
+      return false
+    end
   end
 
   def read_inscription
+    if @door[:inscription] != nil
+      return "The door is inscribed with this message: #{@door[:inscription]}"
+    else
+      return "There is no inscription."
+    end
   end
 
 end
 
-# closed_unlocked = Door.new(true,false,)
-# closed_unlocked.open_door
-# puts closed_unlocked.is_door_closed?
-
-# closed_door = Door.new(false,false,"inscription")
-# ap closed_door
-# ap closed_door.is_door_closed? #Door is closed
-# ap closed_door.open_door #true
-# ap closed_door
-# ap closed_door.is_open
-# ap closed_door.is_door_closed? #"Door is open"
-# ap closed_door #false
-# puts now_open.open #true
-# puts now_open.is_door_closed?
-# puts now_open.open
-# an_open_door = Door.new
-# puts an_open_door.open
+# door_initialized_wrong = Door.new("l","o",)
+# ap door_initialized_wrong.is_door_open?
+# ap door_initialized_wrong.open_door
+# puts door_initialized_wrong.is_there_inscription?
+# puts door_initialized_wrong.read_inscription
