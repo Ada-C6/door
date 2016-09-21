@@ -9,7 +9,7 @@ describe Door do
     end
 
     it "should not have an inscription" do
-      new_door.inscription.must_equal(false)
+      new_door.inscription.must_equal(nil)
     end
 
     it "should be closed" do
@@ -19,13 +19,45 @@ describe Door do
     it "should be locked" do
       new_door.security.must_equal("locked")
     end
+  end
+
+  describe "#inscribe(message)" do
+    before (:each) do
+      @my_door = Door.new
+    end
+    it "should set the inscription instance variable to the message" do
+      # A door object can display an inscription
+      @my_door.inscribe("Karin!")
+      @my_door.inscription.must_equal("Karin!")
+    end
+    it "should return an error if door is already inscribed" do
+      skip
+      # A door can only be inscribed once
+      @my_door.inscribe("First!")
+      proc {@my_door.inscribe("Second.")}.must_raise(RuntimeError)
+    end
+    it "should return an error if door is open" do
+      skip
+      # A door object can only be inscribed if it's closed (it would be a pain to try and inscribe an open door, what with it swinging back and forth.)
+      @my_door.open_door
+      proc {@my_door.inscribe("Can I inscribe an open door?")}.must_raise(RuntimeError)
+    end
+  end
+
+  describe "#inscription?" do
+    it "should return 'no inscription' if inscription is false" do
+      # If door object is not inscribed, what should happen?
+    end
+
+    it "should return the inscription message" do
+      # If inscribed, return the message.
+    end
 
   end
 end
 
 # A `Door` object can
 #
-# - display an inscription
 # - be either open or closed, and
 # - be either locked or unlocked
 #
