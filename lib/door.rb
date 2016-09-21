@@ -37,8 +37,10 @@ class Door
   end
 
   def lock
-    if !@locked
+    if !@locked && @closed
       @locked = true
+    elsif !@closed
+      return "Open door cannot be locked"
     else
       return "Door is already locked"
     end

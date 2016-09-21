@@ -137,6 +137,10 @@ describe 'Test Door' do
     expect(test_door.unlock).must_equal("Door is already unlocked")
   end
 
+  it "Test that we cannot lock a door if it is open" do
+    test_door = Door.new("Inscription", false, false)
+    expect(test_door.lock).must_equal("Open door cannot be locked")
+  end
 
   # CAN YOU LOCK AN OPEN DOOR?
 
