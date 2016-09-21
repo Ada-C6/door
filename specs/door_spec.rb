@@ -68,7 +68,13 @@ describe Door do
       @what_door.lock_door #after door is open, now lock it
       proc {@what_door.close_door}.must_raise(RuntimeError)
     end
+    it "should raise an error if door is already locked and closed" do
+      proc {@what_door.close_door}.must_raise(RuntimeError)
+    end
     it "should raise an error if door is already closed" do
+      @what_door.unlock_door
+      @what_door.open_door
+      @what_door.close_door
       proc {@what_door.close_door}.must_raise(RuntimeError)
     end
     it "should set the position to closed if successful" do
@@ -124,7 +130,7 @@ describe Door do
     it "should raise an error if inscription is nil" do
       # If door object is not inscribed, what should happen?
       proc {@what_door.read_inscription}.must_raise(RuntimeError)
-    end 
+    end
 
     it "should return the inscription message" do
       # If inscribed, return the message.

@@ -37,7 +37,7 @@ class Door
       @position = "closed"
     elsif @security == "locked"
       raise RuntimeError.new("Door is locked and cannot be closed.")
-    else
+    elsif @position == "closed"
       raise RuntimeError.new("Door is already closed.")
     end
   end
