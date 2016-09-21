@@ -1,7 +1,7 @@
 require_relative './spec_helper'
 
 describe Door do
-  # door instance that is opened and locked
+  # Door instance that is opened and locked
   # with default inscription
   let(:door) { Door.new(true, true) }
 
