@@ -20,6 +20,10 @@ describe Door do
       @door.must_respond_to(:locked)
     end
 
+    # Note: this seems unelegant if the inscription is blank, but
+    # most of the other things I tried had other problems (harder
+    # to edit, difficult to test without entanglements with other
+    # tests, etc.)
     it "should say if there is writing on the Door" do
       @door.must_respond_to(:inscription)
     end
@@ -32,7 +36,7 @@ describe Door do
       @door.inscription.must_equal("something")
     end
 
-    it "should prevent writing on a door that's already been written on" do
+    it "should prevent writing on a door with something on it" do
       @door.inscribe("something")
       proc { @door.inscribe("something else") }.must_raise(RuntimeError)
     end
