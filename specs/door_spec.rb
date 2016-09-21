@@ -93,12 +93,68 @@ describe Door do
     d.unlock
     d.open
     d.close
-    expect( d.is_open ).must_equal false
+    expect( d.is_open ).must_equal(false)
   end
   #===============lock method==================
   #17
-
-
-
-
+  it "A door can not be locked when the door is initialized as opened" do
+    d = Door.new(true, false, "Castle")
+    expect( proc { d.open } ).must_raise Door::IsOpenError
+  end
+  #18
+  it "A door can not be locked when the door is initialized as locked" do
+    d = Door.new(false, true, "Castle")
+    expect( proc { d.lock } ).must_raise Door::IsLockedError
+  end
+  #19
+  it "A door can be locked when the door is initialized as open and not locked" do
+    d = Door.new(false, false, "Castle")
+    d.lock
+    expect( d.is_locked ).must_equal(true)
+  end
+  #20
+  it "A door can not be locked when the door is opened" do
+    d = Door.new(false, false, "Castle")
+    d.open
+    expect( proc { d.lock } ).must_raise Door::IsOpenError
+  end
+  #21
+  it "A door can be locked when the door is closed" do
+    d = Door.new(false, false, "Castle")
+    d.open
+    d.close
+    d.lock
+    expect( d.is_locked ).must_equal(true)
+  end
+  #===============unlock method==================
+  #22
+  it "Player can not unlock a door when the door is initialized as unlocked" do
+    d = Door.new(false, false, "Castle")
+    expect( proc {d.unlock} ).must_raise Door::IsUnlockedError
+  end
+  #23
+  it "Player can unlock a door when the door is initialized as closed and locked" do
+    d = Door.new(false, true, "Castle")
+    expect( d.unlock ).must_equal(false)
+  end
+  #24
+  it "Player can unlock a door after the door is closed" do
+    d = Door.new(true, false, "Castle")
+    d.close
+    d.lock
+    d.unlock
+    expect( d.is_locked ).must_equal(false)
+  end
+#===============show inscription==================
+  #25
+  it "The initialized inscription 'Castle' can be displayed" do
+    d = Door.new(false, false, "Castle")
+    expect( d.inscription ).must_equal("Castle")
+  end
+  #26
+  it "The inscription 'Castle' can be displayed after the player write it" do
+    d = Door.new(false, false, nil)
+    d.write("Castle")
+    expect( d.inscription ).must_equal("Castle")
+  end
 end
