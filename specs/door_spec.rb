@@ -98,47 +98,44 @@ describe 'Test Door' do
   # Appropriate error messages should be displayed and no changes to the Door should be made condition is violated.
 
   it "Test that we can close a door it if is open" do
-    test_door = Door.new("Inscription", True, False)
-    test_door.open
-    expect(test_door.closed?).must_equal(False)
+    test_door = Door.new("Inscription", False, False)
+    test_door.close
+    expect(test_door.closed?).must_equal(True)
   end
 
   it "Test that we cannot close a door if it is closed" do
     test_door = Door.new("Inscription", True, False)
-    test_door.open
-    expect(test_door.closed?).must_equal(False)
+    expect( proc {test_door.close}).must_raise(Error)
   end
 
 
 
+  # Door.new(Inscription, Closed = True, Locked = True)
   # You may lock a Door if and only if it is unlocked
   # You may unlock a Door if and only if it is locked
   # Appropriate error messages should be displayed and no changes to the Door should be made condition is violated.
 
   it "Test that we can lock a door if it is unlocked" do
     test_door = Door.new("Inscription", True, False)
-    test_door.open
-    expect(test_door.closed?).must_equal(False)
+    test_door.lock
+    expect(test_door.locked?).must_equal(True)
   end
 
   it "Test that we cannot lock a door if it is locked" do
-    test_door = Door.new("Inscription", True, False)
-    test_door.open
-    expect(test_door.closed?).must_equal(False)
+    test_door = Door.new("Inscription", True, True)
+    expect( proc {test_door.lock}).must_raise(Error)
   end
 
   it "Test that we can unlock a door if it is locked" do
-    test_door = Door.new("Inscription", True, False)
-    test_door.open
-    expect(test_door.closed?).must_equal(False)
+    test_door = Door.new("Inscription", True, True)
+    test_door.unlock
+    expect(test_door.locked?).must_equal(False)
   end
 
   it "Test that we cannot unlock a door if it is unlocked" do
     test_door = Door.new("Inscription", True, False)
-    test_door.open
-    expect(test_door.closed?).must_equal(False)
+    expect( proc {test_door.unlock}).must_raise(Error)
   end
-
 
 
   # CAN YOU LOCK AN OPEN DOOR?
