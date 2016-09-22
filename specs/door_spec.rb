@@ -34,10 +34,24 @@ describe 'testing Door object and its attributes' do
   end
 end
 
-# describe 'testing Door instance methods' do
-#
-#   it 'expect locked Door not to be openable' do
-#   end
+describe 'testing Door instance methods' do
+
+  let(:door) { Door.new }
+
+  it 'expect Door with no inscription to be able to be inscribed' do
+    expect(door.inscribe("Lauren is great at Ruby")).must_return(door.inscription)
+    expect(door.inscription).must_equal("Lauren is great at Ruby")
+  end
+
+  it 'expect Door with inscription to raise error' do
+    door.inscribe("Hello this is an inscription")
+    expect( proc { door.inscribe("here is another inscription")}).must_raise(InscriptionError)
+  end
+
+  # it 'expect locked Door not to be openable' do
+  #   door.lock
+  #   expect( proc { door.open_door }).must_raise()
+  # end
 #
 #   it 'expect unlocked Door to be openable' do
 #
@@ -63,4 +77,4 @@ end
 #
 #   end
 #
-# end
+end
