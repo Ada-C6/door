@@ -10,10 +10,15 @@ describe 'testing Door object and its attributes' do
   end
 
   it 'expect new Door to have attributes "inscription", "opened", "locked", which are readable' do
-    expect( proc { door.inscription }).must_raise(NoMethodError)
+    expect(door.inscription.class).must_equal(NilClass || String)
     expect(door.opened).wont_equal(nil)
     expect(door.locked).wont_equal(nil)
-    expect(door.bloop).wont_equal(nil)
+  end
+
+  it 'expect new Door not to have random attributes that do not exist' do
+    expect( proc { door.bloop } ).must_raise(NoMethodError)
+    expect( proc { door.lseijgsk } ).must_raise(NoMethodError)
+    expect( proc { door.cats   } ).must_raise(NoMethodError)
   end
 
   it 'expect new Door to have no inscription' do
