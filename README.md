@@ -8,14 +8,14 @@ A `Door` object can
   - method to see the inscription on the door
 - be either open or closed, and
   - attribute is open or closed (default? (true/false))
-  - .open? method checks whether it is open
+  #- .open? method checks whether it is open
   - door cannot be opened if it is open
   - cannot be closed if it is closed
   - cannot be opened if it is locked & closed
 - be either locked or unlocked (default - true/false)
   - door cannot be locked if it is not closed
   - door cannot be locked if it is locked
-  - .locked? checks whether it is locked 
+  #- .locked? checks whether it is locked
 
 Here are some rules about how Doors work:
 
