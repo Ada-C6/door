@@ -32,9 +32,9 @@ describe 'testing Door object and its attributes' do
   it 'expect new Door to be locked' do
     expect(door.locked?).must_equal(true)
   end
-end
+end # end of object & attr testing
 
-describe 'testing Door instance methods' do
+describe 'testing Door inscribe method' do
 
   let(:door) { Door.new }
 
@@ -54,33 +54,44 @@ describe 'testing Door instance methods' do
     expect( proc { door.inscribe(["3","4","5"]) }).must_raise(ArgumentError)
   end
 
-  # it 'expect locked Door not to be openable' do
-  #   door.lock
-  #   expect( proc { door.open_door }).must_raise()
-  # end
-#
-#   it 'expect unlocked Door to be openable' do
-#
-#   end
-#
-#   it 'expect open Door not to be openable' do
-#
-#   end
-#
-#   it 'expect open Door not to be lockable' do
-#
-#   end
-#
-#   it 'expect closed Door to be lockable' do
-#
-#   end
-#
-#   it 'expect closed Door to be openable' do
-#
-#   end
-#
-#   it 'expect closed Door not to be closeable' do
-#
-#   end
-#
-end
+end # end of inscribe
+
+describe 'testing Door open method' do
+
+  it 'expect locked Door cannot be opened' do
+
+  end
+
+  it 'expect open Door cannot be opened' do
+
+  end
+
+  it 'expect unlocked, closed Door can be opened' do
+
+  end
+end # end of open
+
+describe 'testing Door close method' do
+
+  it 'expect closed Door cannot be closed' do
+
+  end
+
+  it 'expect open Door can be closed' do
+
+  end
+
+end # end of close
+
+
+describe 'testing Door lock method' do
+
+    it 'expect open Door cannot be locked' do
+
+    end
+
+    it 'expect closed Door can be locked' do
+
+    end
+  
+end # end of lock method
