@@ -47,5 +47,14 @@ class Door
     end
   end
 
+  # if the door is open, this method closes the door
+  def close
+    if self.open?
+      @opened = false
+    elsif
+      raise TypeError.new("This door is already closed. It cannot be closed again.")
+    end     
+  end
+
 
 end
