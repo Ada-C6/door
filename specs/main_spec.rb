@@ -64,4 +64,10 @@ describe MainDoor do
       proc {fridge.swing}.must_raise(ArgumentError)
     end
   end
+  describe "#lock_check" do
+    it " can check if the door is locked" do
+      fridge = MainDoor.new
+      fridge.lock_check.must_equal("unlocked")
+    end
+  end
 end
