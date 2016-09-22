@@ -1,3 +1,5 @@
+# I used a whole bunch of TypeErrors here and I'm not convinced that was the correct decision. Oh well, maybe we will learn about exception handling soon!!!!
+
 class Door
   attr_accessor :inscription, :opened, :locked
 
@@ -32,6 +34,18 @@ class Door
     end
   end
 
-  
+  # if the door is not open and not locked, this method opens the door.
+  def open_door
+    if !self.open? && !self.locked?
+      @opened = true
+    elsif self.open?
+      raise TypeError.new("This door is already opened. It cannot be opened again.")
+    elsif self.locked?
+      raise TypeError.new("This door is locked. It cannot be opened.")
+    else
+      return "this door can't be opened and we don't know why!!!!!!!!!!!!"
+    end
+  end
+
 
 end
