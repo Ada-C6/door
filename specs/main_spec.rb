@@ -6,6 +6,7 @@ describe MainDoor do
       fridge = MainDoor.new
       fridge.must_be_instance_of(MainDoor)
     end
+
   end
   describe "#inscribe" do
     it "can set a value for the inscription" do
@@ -33,6 +34,34 @@ describe MainDoor do
     it "will raise an error if the string is empty" do
       fridge = MainDoor.new
       proc {fridge.inscribe("")}.must_raise(ArgumentError)
+    end
+  end
+
+  describe "#check_state" do
+    it "should return the state of the door" do
+      fridge = MainDoor.new
+      fridge.check_state.must_equal("open")
+    end
+  end
+  describe "#slam" do
+    it "should change the state if you slam the door" do
+      fridge = MainDoor.new
+      fridge.slam
+      fridge.check_state.must_equal("closed")
+    end
+    it "should not allow a closed door to be slammed" do
+      fridge = MainDoor.new
+      fridge.slam
+      fridge.check_state
+      proc {fridge.slam}.must_raise(ArgumentError)
+    end
+  end
+  describe "#swing" do
+    it "should raise Arguement if door is already closed and the door should remain closed" do
+      fridge = MainDoor.new
+      fridge.slam
+      fridge.check_state
+      proc {fridge.swing}.must_raise(ArgumentError)
     end
   end
 end
