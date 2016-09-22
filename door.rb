@@ -85,7 +85,7 @@ class Door
   end
 
   def is_there_inscription?
-    if @door[:inscription] != nil
+    if @door[:has_inscription] != nil
       return true
     else
       return false
@@ -93,17 +93,11 @@ class Door
   end
 
   def read_inscription
-    if @door[:inscription] != nil
-      return "The door is inscribed with this message: #{@door[:inscription]}"
+    if @door[:has_inscription] != nil
+      return "The door is inscribed with this message: #{@door[:has_inscription]}"
     else
       return "There is no inscription."
     end
   end
 
 end
-
-# door_initialized_wrong = Door.new("l","o",)
-# ap door_initialized_wrong.is_door_open?
-# ap door_initialized_wrong.open_door
-# puts door_initialized_wrong.is_there_inscription?
-# puts door_initialized_wrong.read_inscription

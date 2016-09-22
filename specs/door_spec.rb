@@ -12,16 +12,18 @@ describe Door do
     expect ( an_open_door.class ).must_equal( Door )
     expect ( an_open_door.is_door_open? ).must_equal( true )
     expect ( an_open_door.is_door_unlocked? ).must_equal( true )
-    expect ( an_open_door.is_there_inscription ).must_equal( nil )
+    expect ( an_open_door.is_there_inscription? ).must_equal( false )
 
     expect ( a_closed_door.is_door_open? ).must_equal( false )
     expect ( a_closed_door.is_door_unlocked? ).must_equal( false )
-    expect ( a_closed_door.is_there_inscription ).must_equal( "inscription" )
+    expect ( a_closed_door.is_there_inscription? ).must_equal( true )
 
     expect ( closed_unlocked.is_door_open? ).must_equal( false )
     expect ( closed_unlocked.is_door_unlocked? ).must_equal( true )
-    expect ( closed_unlocked.is_there_inscription ).must_equal( nil )
+    expect ( closed_unlocked.is_there_inscription? ).must_equal( false )
     # expect ( proc{ door_initialized_wrong.is_door_open? } ).must_raise ArgumentError # NOT SURE WHY THIS TEST FAILS
+
+    # expect ( door_initialized_wrong.is_there_inscription? ).must_equal( true ) # NOT SURE WHY THIS TEST FAILS
   end
 
   it 'opening and closing doors' do
