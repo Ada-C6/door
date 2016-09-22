@@ -38,10 +38,11 @@ module Dungeon
       end
 
       it "should be possible to inspect an open door without/with an inscription for its state" do
-        skip # @todo until method to open_door available
-        wide_open_door_no_inscript = unlocked_door_no_inscript.open_door
+        wide_open_door_no_inscript = unlocked_door_no_inscript
+        wide_open_door_no_inscript.open_door
         wide_open_door_no_inscript.inspect_door.must_equal("Here stands an ancient and sturdy door wide open.")
-        wide_open_door_with_inscript = unlocked_door_with_inscript.open_door
+        wide_open_door_with_inscript = unlocked_door_with_inscript
+        wide_open_door_with_inscript.open_door
         wide_open_door_with_inscript.inspect_door.must_equal("Here stands an ancient and sturdy door wide open. The door has a sign with the inscription: Push to open")
       end
 

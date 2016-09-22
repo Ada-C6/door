@@ -1,10 +1,11 @@
+# @todo rescue for ArgumentErrors
+
 module Dungeon
   class Door
 
     attr_accessor :lock_status, :inscription, :closed
 
     attr_reader :key_id
-
 
     # initialize with door closed, locked/unlocked, and with/without inscription
     def initialize(lock_status, key_id, inscription = nil)
@@ -15,9 +16,9 @@ module Dungeon
       @lock_status = lock_status #true for locked
 
       @lock_status == true ? init_state = "locked" : init_state = "unlocked"
-      puts "Here stands an ancient and sturdy door. It appears to be #{ init_state }."
+      puts "Here stands an ancient and sturdy door. It is closed #{ @lock_status == true ? "and" : "but" } appears to be #{ init_state }."
       if @inscription != nil
-        puts "The inscription over the door reads: '#{ @inscription }''"
+        puts "The inscription on the door reads: '#{ @inscription }''"
       end
     end
 
@@ -71,10 +72,24 @@ module Dungeon
       raise ArgumentError.new("The door must be closed to use the lock") if closed? == false
       raise ArgumentError.new("The key does not match the door key hole") if @key_id != key
 
-
       @lock_status == true ? @lock_status = false : @lock_status = true
 
       return @lock_status
     end
   end
 end
+
+# door = Dungeon::Door.new(true, "GOODKEY")
+# # door.open_door
+# # door.turn_key("BADKEY")
+# door.turn_key("GOODKEY")
+# puts door.inspect_door
+# door.open_door
+# puts door.inspect_door
+# door.close_door
+# door.turn_key("GOODKEY")
+# puts door.inspect_door
+# door.inscribe_door("Awesome door!")
+# puts door.inspect_door
+# door.inscribe_door("Alma was here")
+# puts door.inspect_door
