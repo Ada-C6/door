@@ -56,22 +56,31 @@ describe 'testing Door inscribe method' do
 
 end # end of inscribe
 
-describe 'testing Door open method' do
+describe 'testing Door open_door method' do
+
+  let(:door) { Door.new }
 
   it 'expect locked Door cannot be opened' do
-
+    door.lock unless door.lock? == true
+    expect( proc { door.open_door }).must_raise(TypeError)
   end
 
   it 'expect open Door cannot be opened' do
-
+    door.open_door unless door.open? == true
+    expect( proc{ door.open_door}).must_raise(TypeError)
   end
 
   it 'expect unlocked, closed Door can be opened' do
-
+    door.unlock unless door.locked? == false
+    door.close unless door.open? == false
+    door.open_door
+    expect(door.open?).must_equal(true)
   end
 end # end of open
 
 describe 'testing Door close method' do
+
+  let(:door) { Door.new }
 
   it 'expect closed Door cannot be closed' do
 
@@ -86,12 +95,36 @@ end # end of close
 
 describe 'testing Door lock method' do
 
-    it 'expect open Door cannot be locked' do
+  let(:door) { Door.new }
 
-    end
+  it 'expect open Door cannot be locked' do
 
-    it 'expect closed Door can be locked' do
+  end
 
-    end
-  
+  it 'expect closed Door can be locked' do
+
+  end
+
+  it 'expect locked Door cannot be locked' do
+
+  end
+
 end # end of lock method
+
+describe 'testing Door unlock method' do
+
+  let(:door) { Door.new }
+
+  it 'expect open Door cannot be unlocked (because open Doors cannot be locked)' do
+
+  end
+
+  it 'expect locked Door can be unlocked' do
+
+  end
+
+  it 'expect unlocked Door cannot be unlocked' do
+
+  end
+
+end
