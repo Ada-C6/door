@@ -3,7 +3,6 @@
 class Door
   attr_accessor :inscription, :opened, :locked
 
-
   # new doors are by default created with no inscription.
   # they are closed and locked by default, but that can be changed if the creator prefers.
   def initialize(inscription = nil, opened = false, locked = true)
@@ -56,7 +55,7 @@ class Door
     end
   end
 
-  # if the door is closed and not locked, this method locks the door.
+  # if the door is not open and not locked, this method locks the door.
   # it will not lock an open door!
   def lock
     if self.open?
@@ -64,8 +63,20 @@ class Door
     elsif self.locked?
       raise TypeError.new("Door is already locked. Locked doors cannot be locked again.")
     else
-      @locked = true
-    end    
+      @locked = false
+    end
+  end
+
+  # if the door is not open and locked, then this method will unlock the door.
+  def unlock
+    if !self.open? && self.locked?
+      @locked = false
+    elsif self.open?
+      raise TypeError.new("Door is open. Opne doors cannot be unlocked since they are already unlocked.")
+    elsif !self.locked?
+      raise TypeError.new("Door is already unlocked. Unlocked doors cannot be unlocked again.")
+    end
+
   end
 
 end
