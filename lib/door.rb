@@ -20,7 +20,7 @@ class Door
     return @locked
   end
 
-
+  # if there is not already an inscription on the door, this inscribes one.
   def inscribe(string)
     raise ArgumentError unless string.class == String
 
@@ -30,7 +30,8 @@ class Door
     else
       raise TypeError.new("This door is already inscribed. Its inscription cannot be changed.")
     end
-
   end
+
+  
 
 end
