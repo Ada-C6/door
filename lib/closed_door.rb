@@ -1,0 +1,3 @@
+class ClosedDoor 
+
+end
