@@ -2,7 +2,7 @@ class Door
 
   # I am going off the idea of a door with the lock in the knob.
 
-  # attr_accessor :door_state, :lock_state
+  attr_accessor :door_state, :lock_state
   # Not sure I need these, but included them in my troubleshooting attempts
 
   attr_reader :door_inscription
@@ -56,6 +56,8 @@ end
 
 
 # x = Door.new
-# print x.inspect
+# # print x.inspect
 # x.ajar
 # puts x.door_state
+# print y.door_state.inspect
+# print y.door_state
