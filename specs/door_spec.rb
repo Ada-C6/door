@@ -83,11 +83,14 @@ describe 'testing Door close method' do
   let(:door) { Door.new }
 
   it 'expect closed Door cannot be closed' do
-
+    door.close unless door.open? == false
+    expect( proc{ door.close }).must_raise(TypeError)
   end
 
   it 'expect open Door can be closed' do
-
+    door.open_door unless door.open? == true
+    door.close
+    expect(door.open?,must_equal(false)
   end
 
 end # end of close
