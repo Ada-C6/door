@@ -51,10 +51,21 @@ class Door
   def close
     if self.open?
       @opened = false
-    elsif
+    else
       raise TypeError.new("This door is already closed. It cannot be closed again.")
-    end     
+    end
   end
 
+  # if the door is closed and not locked, this method locks the door.
+  # it will not lock an open door!
+  def lock
+    if self.open?
+      raise TypeError.new("Open doors cannot be locked. Close the door and try again.")
+    elsif self.locked?
+      raise TypeError.new("Door is already locked. Locked doors cannot be locked again.")
+    else
+      @locked = true
+    end    
+  end
 
 end
