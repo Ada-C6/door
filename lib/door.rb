@@ -7,4 +7,12 @@ class Door
     @locked = locked
   end
 
+  def open?
+    return @opened
+  end
+
+  def locked?
+    return @locked
+  end     
+
 end
