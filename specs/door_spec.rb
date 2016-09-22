@@ -95,7 +95,6 @@ describe 'testing Door close method' do
 
 end # end of close
 
-
 describe 'testing Door lock method' do
 
   let(:door) { Door.new }
@@ -123,15 +122,19 @@ describe 'testing Door unlock method' do
   let(:door) { Door.new }
 
   it 'expect open Door cannot be unlocked (because open Doors cannot be locked)' do
-
+    door.open_door unless door.open? == true
+    expect(proc{ door.unlock }).must_raise(TypeError)
   end
 
   it 'expect locked Door can be unlocked' do
-
+    door.lock unless door.locked? == true
+    door.unlock
+    expect(door.locked?).must_equal(false)
   end
 
   it 'expect unlocked Door cannot be unlocked' do
-
+    door.unlock unless door.locked? == false
+    expect(proc{ door.unlock }).must_raise(TypeError)
   end
 
 end
