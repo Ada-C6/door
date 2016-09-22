@@ -11,7 +11,7 @@ module Dungeon
 
       @closed = true
       @inscription = inscription
-      @key = key_id #key identifier for lockable doors, key_id == nil means lock_status cannot change
+      @key_id = key_id #key identifier for lockable doors, key_id == nil means lock_status cannot change
       @lock_status = lock_status #true for locked
 
       @lock_status == true ? init_state = "locked" : init_state = "unlocked"
@@ -45,9 +45,36 @@ module Dungeon
       end
     end #def
 
+    def open_door
+      raise ArgumentError.new("This door is already open") if @closed == false
+      raise ArgumentError.new("This door is locked. Use a key to unlock it") if @lock_status == true
+
+      return @closed = false
+    end
+
+    def close_door
+      raise ArgumentError.new("This door is already closed") if @closed == true
+
+      return @closed = true
+    end
+
+    def closed?
+      return @closed
+    end
+
+    def locked?
+      return @lock_status
+    end
+
+    def turn_key(key = nil)
+      raise ArgumentError.new("This door has no lock") if @key_id == nil
+      raise ArgumentError.new("The door must be closed to use the lock") if closed? == false
+      raise ArgumentError.new("The key does not match the door key hole") if @key_id != key
 
 
+      @lock_status == true ? @lock_status = false : @lock_status = true
 
-
+      return @lock_status
+    end
   end
 end

@@ -1,9 +1,4 @@
 require_relative 'spec_helper'
-
-
-
-# @todo would like to see more negative tests, what-if
-
 module Dungeon
   describe Door do
 
@@ -26,7 +21,7 @@ module Dungeon
 
     end #init
 
-    describe "#inspect" do
+    describe "#inspect_door" do
       let(:unlocked_door_no_inscript) { Door.new(false, nil) }
       let(:locked_door_no_inscript) { Door.new(true, "ABC123") }
       let(:unlocked_door_with_inscript) { Door.new(false, nil, "Push to open") }
@@ -72,40 +67,101 @@ module Dungeon
 
     end #inscription
 
-    describe "open" do
-      it "should be possible to open, when closed and unlocked" do
-        skip
+    describe "#open_door" do
+      before(:each) do
+        @unlocked_door = Door.new(false, nil)
+      end
+      let(:locked_door) { Door.new(true, "123ABC") }
+
+
+      it "should be possible to open the door" do
+        @unlocked_door.open_door
+        @unlocked_door.closed.must_equal(false)
       end
 
-      it "should be possible to close a door, if open" do
-        skip
+      it "should not be possible to open a locked door" do
+        proc{locked_door.open_door}.must_raise(ArgumentError)
       end
 
+      it "should not be possible to open an already open door" do
+        door = @unlocked_door
+        door.open_door
+        proc{door.open_door}.must_raise(ArgumentError)
+      end
     end #open
 
-    describe "#turn_key" do
+    describe "#close_door" do
+      let(:door) { Door.new(false, nil) }
 
-      it "if closed, should be possible to lock or unlocked, by switching state" do
-        skip
+      it "should be possible to close an open door" do
+        door.open_door
+        door.close_door
+        door.closed.must_equal(true)
       end
 
-    end
+      it "should not be possible to close a door when it is already closed" do
+        proc{door.close_door}.must_raise(ArgumentError)
+      end
+    end #closed
 
     describe "#closed?" do
+      before(:each) do
+        @door = Door.new(false, nil)
+      end
 
-    end
+      it "should return true if the door is closed" do
+        @door.closed?.must_equal(true)
+      end
 
-    describe "locked?" do
+      it "should return false if the door is open" do
+        @door.open_door
+        @door.closed?.must_equal(false)
+      end
+    end #closed?
 
+    describe "#locked?" do
+      before(:each) do
+        @locked_door = Door.new(true, "ABC123")
+        @unlocked_door = Door.new(false, nil)
+      end
 
+      it "should return true if the door is locked" do
+        @locked_door.locked?.must_equal(true)
+      end
 
+      it "should return false if the door is unlocked" do
+        @unlocked_door.locked?.must_equal(false)
+      end
+    end #locked?
 
-      it "should give a warning message if the door is used in the wrong way" do
-        # missing key?
-        # check for warning for opening a locked door without first unlocked
-        # check for warning for changing the inscription when there is already once
-        # check for warning for closing/opening an already closed/open door
-        skip
+    describe "#turn_key" do
+      before(:each) do
+        @locked_door = Door.new(true, "ABC123")
+        @unlocked_door = Door.new(false, "ABC123")
+        @door_without_lock = Door.new(false,nil)
+      end
+
+      it "should be possible to turn the key in the lock to switch lock state" do
+        @locked_door.turn_key("ABC123")
+        @locked_door.locked?.must_equal(false)
+
+        @unlocked_door.turn_key("ABC123")
+        @unlocked_door.locked?.must_equal(true)
+      end
+
+      it "can only have a key turning if it has a key assigned/if it has a lock" do
+        proc{@door_without_lock.turn_key}.must_raise(ArgumentError)
+        proc{@door_without_lock.turn_key}.must_raise(ArgumentError)
+      end
+
+      it "must fail to lock/unlock unless key identifier match input key" do
+        proc{@locked_door.turn_key("BADKEY")}.must_raise(ArgumentError)
+      end
+
+      it "should only be possible to unlock/lock a closed door" do
+        door = @unlocked_door
+        door.open_door
+        proc{door.turn_key("ABC123")}.must_raise(ArgumentError)
       end
     end #method
   end #Door
