@@ -3,10 +3,12 @@ require_relative 'closed_door'
 
 class MainDoor
 attr_reader :name
-attr_accessor :state
+attr_accessor :state, :lock_status
   def initialize
     @name = name
    @state = "open"
+   @lock_status = "unlocked"
+
   end
 
   def inscribe (name)
@@ -53,5 +55,8 @@ attr_accessor :state
     if @state == "closed"
       raise ArgumentError.new("The door is already closed. You can't do that to a closed door")
     end
+  end
+  def lock_check
+    return @lock_status
   end
 end
