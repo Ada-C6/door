@@ -1,12 +1,8 @@
 class Door
 
-  # I am going off the idea of a door with the lock in the knob.
+  # I am going off the idea of a door with the lock in the knob. In a dungeon. Like we're playing a tabletop game.
 
-  attr_accessor :door_state, :lock_state
-  # Not sure I need these, but included them in my troubleshooting attempts
-
-  attr_reader :door_inscription
-  # , :door_state, :lock_state
+  attr_reader :door_inscription, :door_state, :lock_state
 
   def initialize(door_inscription = "Private", door_state = "closed", lock_state = "unlocked")
     @door_inscription = door_inscription
@@ -32,7 +28,7 @@ class Door
     if @door_state == "closed"
       raise ArgumentError.new("You cannot close a closed door")
     else
-      return @door_state = "closed"
+      @door_state = "closed"
     end
   end
 
@@ -40,7 +36,7 @@ class Door
     if @lock_state == "locked"
       raise ArgumentError.new("You cannot lock a locked door")
     else
-      return @lock_state = "locked"
+      @lock_state = "locked"
     end
   end
 
@@ -48,12 +44,11 @@ class Door
     if @lock_state == "unlocked"
       raise ArgumentError.new("You cannot unlock an unlocked door")
     else
-      return @lock_state = "unlocked"
+      @lock_state = "unlocked"
     end
   end
 
 end
-
 
 # x = Door.new
 # # print x.inspect
