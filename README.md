@@ -4,9 +4,10 @@ A computer game usually has many different objects that can be seen and manipula
 A `Door` object can
 
 - display an inscription
-  - method to inscribe the door
-  - method to see the inscription on the door
+  #- method to inscribe the door
+  #- method to see the inscription on the door
 - be either open or closed, and
+  #
   - attribute is open or closed (default? (true/false))
   #- .open? method checks whether it is open
   - door cannot be opened if it is open

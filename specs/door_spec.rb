@@ -39,13 +39,19 @@ describe 'testing Door instance methods' do
   let(:door) { Door.new }
 
   it 'expect Door with no inscription to be able to be inscribed' do
-    expect(door.inscribe("Lauren is great at Ruby")).must_return(door.inscription)
+    door.inscribe("Lauren is great at Ruby")
     expect(door.inscription).must_equal("Lauren is great at Ruby")
   end
 
   it 'expect Door with inscription to raise error' do
     door.inscribe("Hello this is an inscription")
-    expect( proc { door.inscribe("here is another inscription")}).must_raise(InscriptionError)
+    expect( proc { door.inscribe("here is another inscription") } ).must_raise(TypeError)
+    expect( proc { door.inscribe("what if we try it again?") }).must_raise(TypeError)
+  end
+
+  it 'expect inscribe to raise ArgError if a non-string is given' do
+    expect( proc { door.inscribe(798765667) }).must_raise(ArgumentError)
+    expect( proc { door.inscribe(["3","4","5"]) }).must_raise(ArgumentError)
   end
 
   # it 'expect locked Door not to be openable' do

@@ -10,12 +10,27 @@ class Door
     @locked = locked
   end
 
+  # returns true if open, false if closed (aka not opened)
   def open?
     return @opened
   end
 
+  # returns true if locked, false if not locked
   def locked?
     return @locked
+  end
+
+
+  def inscribe(string)
+    raise ArgumentError unless string.class == String
+
+    if @inscription == nil
+      @inscription = string
+      return @inscription
+    else
+      raise TypeError.new("This door is already inscribed. Its inscription cannot be changed.")
+    end
+
   end
 
 end
