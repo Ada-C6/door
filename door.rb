@@ -21,7 +21,7 @@ module Dungeon
       end
     end
 
-    def inspect
+    def inspect_door
       if @inscription == nil #no inscription
         if @closed == true
           return "Here stands an ancient and sturdy door. It is closed #{ @lock_status == true ? "and" : "but" } appears to be #{ @lock_status == true ? "locked" : "unlocked" }."
@@ -34,10 +34,16 @@ module Dungeon
         else # open door
           return "Here stands an ancient and sturdy door wide open. The door has a sign with the inscription: #{ @inscription }"
         end
+      end #if-inscription
+    end #def
 
+    def inscribe_door(inscription)
+      if @inscription == nil
+        return @inscription = inscription
+      else
+        raise ArgumentError.new("The door is already inscribed with the words: '#{ @inscription }' and it cannot be changed.")
       end
-
-    end
+    end #def
 
 
 

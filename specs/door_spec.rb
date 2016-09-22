@@ -33,32 +33,41 @@ module Dungeon
       let(:locked_door_with_inscript) { Door.new(true, "ABC123", "Use key to open") }
 
       it "should be possible to inspect a closed door without an inscription for its state of locked/unlocked" do
-        unlocked_door_no_inscript.inspect.must_equal("Here stands an ancient and sturdy door. It is closed but appears to be unlocked.")
-        locked_door_no_inscript.inspect.must_equal("Here stands an ancient and sturdy door. It is closed and appears to be locked.")
+        unlocked_door_no_inscript.inspect_door.must_equal("Here stands an ancient and sturdy door. It is closed but appears to be unlocked.")
+        locked_door_no_inscript.inspect_door.must_equal("Here stands an ancient and sturdy door. It is closed and appears to be locked.")
       end
 
       it "should be possible to inspect a closed door with an inscription for its state of locked/unlocked" do
-        unlocked_door_with_inscript.inspect.must_equal("Here stands an ancient and sturdy door. It is closed but appears to be unlocked. The door has a sign with the inscription: Push to open")
-        locked_door_with_inscript.inspect.must_equal("Here stands an ancient and sturdy door. It is closed and appears to be locked. The door has a sign with the inscription: Use key to open")
+        unlocked_door_with_inscript.inspect_door.must_equal("Here stands an ancient and sturdy door. It is closed but appears to be unlocked. The door has a sign with the inscription: Push to open")
+        locked_door_with_inscript.inspect_door.must_equal("Here stands an ancient and sturdy door. It is closed and appears to be locked. The door has a sign with the inscription: Use key to open")
       end
 
       it "should be possible to inspect an open door without/with an inscription for its state" do
         skip # @todo until method to open_door available
         wide_open_door_no_inscript = unlocked_door_no_inscript.open_door
-        wide_open_door_no_inscript.inspect.must_equal("Here stands an ancient and sturdy door wide open.")
+        wide_open_door_no_inscript.inspect_door.must_equal("Here stands an ancient and sturdy door wide open.")
         wide_open_door_with_inscript = unlocked_door_with_inscript.open_door
-        wide_open_door_with_inscript.inspect.musmust_equal("Here stands an ancient and sturdy door wide open. The door has a sign with the inscription: Push to open")
+        wide_open_door_with_inscript.inspect_door.must_equal("Here stands an ancient and sturdy door wide open. The door has a sign with the inscription: Push to open")
       end
 
     end #inspect
 
-    describe "#inscription" do
-      it "should display an inscription, if there is one written" do
-        skip
+    describe "#inscribe_door" do
+      before(:each) do
+        @unlocked_door_no_inscript = Door.new(false, nil)
       end
 
-      it "should be possible to inscribe the door only once" do
-        skip
+
+      it "should set a value to inscription" do
+        door = @unlocked_door_no_inscript
+        door.inscribe_door("Come through here for danger")
+        door.inscription.must_equal("Come through here for danger")
+      end
+
+      it "should not be possible to change the inscription once set" do
+        door = @unlocked_door_no_inscript
+        door.inscribe_door("Come through here for danger")
+        proc{door.inscribe_door("Free candy this way")}.must_raise(ArgumentError)
       end
 
     end #inscription
