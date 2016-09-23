@@ -9,7 +9,8 @@ describe Door do
   let(:new_door_3) { "Kelly!" } # this is an object of String class
   let(:new_door_4) { Door.new("Kelly!", false, false) }
   let(:new_door_5) { Door.new("Kelly!", "yes", "no") }
-
+  let(:new_door_6) { Door.new( "" , true, false) }
+  let(:new_door_7) { Door.new( nil , true, false) }
 
   describe "#initialize" do
     it "should verify if the object is an instance of Door class" do
@@ -27,6 +28,9 @@ describe Door do
     it "should raise an error if an invalid arguments are passed into the initializer's parameters" do
       proc { new_door_5.is_open }.must_raise(ArgumentError)
       proc { new_door_5.is_locked }.must_raise(ArgumentError)
+
+      proc { new_door_6.inscription }.must_raise(ArgumentError)
+      proc { new_door_7.inscription }.must_raise(ArgumentError)
     end
   end
 

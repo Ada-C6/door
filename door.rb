@@ -3,7 +3,8 @@ class Door
   attr_accessor :is_open, :is_locked
 
   # attr_reader and attr_accessor would allow users to  check whether or not a Door is closed, check whether or not it is locked, and look at the writing on the Door if there is any.
-  # attr_reader ensures that once the writing (inscription) on a Door is set, it cannot be changed.
+
+  # attr_reader ensures that once the writing (inscription) on a Door is set, it cannot be changed. I assume that the user must provide an inscription right at the time of creating (initializing) the door. (I am thinking of a scenario a similar to setting up an email account. In this context, the user must create a password right at the time of creating his/her email account.)
 
   def initialize(inscription, is_open, is_locked)
     @inscription = inscription
@@ -13,6 +14,11 @@ class Door
     if !is_open.is_a?(TrueClass) && !is_open.is_a?(FalseClass) && !is_locked.is_a?(TrueClass) && !is_locked.is_a?(FalseClass)
       raise ArgumentError , "Invalid input. Please give me a True or False value."
     end
+
+    if @inscription == nil || @inscription.length == 0
+      raise ArgumentError , "You must provide an inscription when you create this door."
+    end
+    # This is to make sure the user set the inscription right at the beginning.
   end
 
   def open
