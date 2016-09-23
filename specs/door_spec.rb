@@ -5,6 +5,7 @@ describe Door do
   let(:new_door_1) { Door.new("Kelly!", true, false) }
   let(:new_door_2) { Door.new("Kelly!", false, true) }
   let(:new_door_3) { "Kelly!" } # this is an object of String class
+  let(:new_door_4) { Door.new("Kelly!", false, false) }
 
   describe "#initialize" do
     it "should verify if the object is an instance of Door class" do
@@ -20,5 +21,23 @@ describe Door do
     end
   end
 
+  describe "open" do
+    it "should open a Door if and only if it is unlocked and closed" do
+      new_door_4.open.must_equal(true)
+    end
 
+    it "should not change the Door if someone tries to open a locked door" do
+      new_door_2.open.must_be_nil
+    end
+  end
+
+  describe "close" do
+    it "close a Door if and only if it is open" do
+      new_door_1.close.must_equal(false)
+    end
+
+    it "should not change the Door if someone tries to close it even though it's already closed" do
+      new_door_2.close.must_be_nil 
+    end
+  end
 end

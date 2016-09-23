@@ -13,5 +13,34 @@ class Door
     end
   end
 
+  def open
+    if @is_open == false && @is_locked == false
+      puts "The door is opened now."
+      @is_open = true
+      return @is_open
+    else
+      puts "You can't open the door now. Is it currently closed and unlocked?"
+      return nil
+    end
+    return @is_open
+  end
 
+  def close
+    if @is_open == true
+      puts "The door is closed now."
+      @is_open = false
+      return @is_open
+    else
+      puts "You can't close the door now. Is it currently open?"
+      return nil
+    end
+  end
+
+  def lock
+
+  end
+
+  def unlock
+
+  end
 end
