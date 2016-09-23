@@ -2,6 +2,8 @@ class Door
   attr_reader :inscription, :locked, :opened
 
   def initialize(inscription)
+    raise ArgumentError.new("The inscription on the door must be a string") unless inscription.is_a? String
+
     @inscription = inscription
     @locked = false
     @opened = true
@@ -48,7 +50,7 @@ class Door
       lock_status = "unlocked"
     end
 
-    return "There is a door that is #{door_status} and #{lock_status}."
+    return "There is a door that is #{door_status} and #{lock_status}. Its inscription reads \"#{@inscription}\"."
   end
 
 end

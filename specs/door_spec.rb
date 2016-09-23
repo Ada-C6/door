@@ -14,6 +14,10 @@ describe Door do
     it "should create an open door" do
       Door.new("bathroom").opened.must_equal true
     end
+
+    it "should only accept a string" do
+      proc { Door.new(2) }.must_raise(ArgumentError)
+    end
   end
 
   describe "#open" do
@@ -31,7 +35,8 @@ describe Door do
   describe "#close" do
     it "should raise an ArgumentError if the door is already closed" do
       door = Door.new("bathroom")
-      proc { door.close.close }.must_raise(ArgumentError)
+      door.close
+      proc { door.close }.must_raise(ArgumentError)
     end
   end
 
