@@ -3,6 +3,7 @@ require_relative '../lib/door.rb'
 
 describe 'Testing Door class with defaults' do
   let(:treasure_door) {Door.new("Enter at your own risk")}
+  let(:treasure_door_unlocked) {treasure_door.unlock_door}
 
   it "must be a closed Door" do
     expect treasure_door.state.must_equal "closed"
@@ -25,17 +26,17 @@ describe 'Testing Door class with defaults' do
   end
 
   it "must return a message when the user successfully opens a door" do
-    expect treasure_door.open_door.must_equal "You have opened the door"
+    expect treasure_door_unlocked.open_door.must_equal "You have opened the door"
   end
 
   it "must return a message when the user successfully unlocks a door" do
-    expect treasure_door.unlock_door.must_equal "You have ulocked the door"
+    expect treasure_door.unlock_door.must_equal "You have unlocked the door"
   end
 
 end
 
 describe 'Testing Door class with open and unlocked states' do
-  let(:portal_door) {Door.new("Enter into an alternate reality", state = "open", l_state = "unlocked")}
+  let(:portal_door) {Door.new("Enter into an alternate reality", state="open", l_state="unlocked")}
 
   it "must allow the user to create a new door that is open" do
     expect portal_door.must_equal "open"
@@ -51,10 +52,6 @@ describe 'Testing Door class with open and unlocked states' do
 
   it "must return an error message if the user attempts to unlock an unlocked door" do
     expect portal_door.unlock_door.must_equal "Door already unlocked"
-  end
-
-  it "must return an error messge if the user attempts to open a locked door" do
-    expect portal_door.lock_door.must_equal "Can not open a locked door"
   end
 
   it "must return a message when the user has closed a door" do

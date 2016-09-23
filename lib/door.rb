@@ -5,52 +5,56 @@ class Door
   attr_reader :inscription
   attr :state, :l_state
 # upon initializing any door, the default door state is closed and locked.
-  def initialize (inscription, state = "closed", l_state = "locked")
+  def initialize (inscription, state="closed", l_state="locked")
     @inscription = inscription
-    @state = "closed"
-    @l_state = "locked"
+    @state = state
+    @l_state = l_state
   end
 
   def open_door
-    if @state == "closed"
+    if @state == "closed" && @l_state == "unlocked"
       @state = "open"
-      puts "you've opened the door"
+      puts "You have opened the door"
+    elsif @state == "closed" && @l_state == "locked"
+      puts "Can not open a locked door"
     else
-      return "Door is already open"
+      puts "Door already open"
     end
+    return @state
   end
 
   def close_door
     if @state == "open"
       @state = "closed"
-      puts "you've closed the door."
+      puts "You have closed the door"
     else
-      return "Door is already closed"
+      puts "The door is already closed"
     end
+    return @state
   end
 
   def lock_door
     if @l_state == "unlocked"
       @l_state = "locked"
-      puts "you've locked the door."
+      puts "you have locked the door"
     else
-      return "Door is already locked"
+      puts "Door is already locked"
     end
+    return @state
   end
 
   def unlock_door
     if @l_state == "locked"
       @l_state = "unlock"
-      puts "you've unlocked the door."
+      puts "You have unlocked the door"
     else
-      return "Door is already unlocked"
+      puts "Door already unlocked"
     end
+    return @state
   end
 
-  # def read_inscription
-  # end
 
 end
 
-portal = Door.new("A New World")
-puts portal.inscription
+# portal = Door.new("A New World")
+# puts portal.inscription
