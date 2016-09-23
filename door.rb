@@ -1,21 +1,6 @@
 # Door Exercise
-# A computer game usually has many different objects that can be seen and manipulated.
-# Here are some rules about how Doors work:
-# - Once the writing (inscription) on a Door is set, it cannot be changed
-# - You may open a Door if and only if it is unlocked and closed
-# - You may close a Door if and only if it is open
-# - You may lock a Door if and only if it is unlocked
-# - You may unlock a Door if and only if it is locked
-# - You should be able to check whether or not a Door is closed, check whether or not it is locked, and look at the writing on the Door if there is any.
-#
-# Appropriate error messages should be displayed and no changes to the Door should be made, if any conditions of the functions are violated.
-#
-# You should write specs for this class, to achieve at least 90% test coverage (using `simplecov`).
-require 'awesome_print'
 
 class Door
-  attr_reader :is_unlocked, :is_open, :has_inscription
-
   def initialize(unlocked="unlocked",open="open",inscription=nil)
     @door = {
       is_unlocked: unlocked,
@@ -35,22 +20,20 @@ class Door
   end
 
   def open_door
-    if @door[:is_open] == "open"
+    if self.is_door_open?
       raise ArgumentError.new("The door is already open.")
-    elsif @door[:is_open] == "closed"
+    elsif self.is_door_unlocked?
       @door[:is_open] = "open"
     else
-      raise ArgumentError
+      raise ArgumentError.new("The door is locked.")
     end
   end
 
   def close_door
-    if @door[:is_open] == "open"
+    if self.is_door_open?
       @door[:is_open] = "closed"
-    elsif @door[:is_open] == "closed"
-      raise ArgumentError.new("The door is already closed.")
     else
-      raise ArgumentError
+      raise ArgumentError.new("The door is already closed.")
     end
   end
 
@@ -60,24 +43,22 @@ class Door
     elsif @door[:is_unlocked] == "locked"
       return false
     else
-      raise ArgumentError.new("This parameter was initialized incorrectly.")
+      raise ArgumentError.new("This parameter initialied incorrectly.")
     end
   end
 
   def lock_door
-    if @door[:is_open] == "open"
+    if self.is_door_open?
       raise ArgumentError.new("Not possible to lock because the door is open.")
-    elsif @door[:is_unlocked] == "locked"
-      return "The door is already locked."
-    elsif @door[:is_unlocked] == "unlocked"
+    elsif self.is_door_unlocked?
       @door[:is_unlocked] = "locked"
-    else
-      raise ArgumentError.new("double U tee eff")
+    else 
+      raise ArgumentError.new ("The door is already locked.")
     end
   end
 
   def unlock_door
-    if @door[:is_unlocked] == "unlocked"
+    if self.is_door_unlocked?
       raise ArgumentError.new("The door is already unlocked.")
     else
       @door[:is_unlocked] = "unlocked"
@@ -85,16 +66,16 @@ class Door
   end
 
   def is_there_inscription?
-    if @door[:has_inscription] != nil
-      return true
-    else
+    if @door[:has_inscription] == nil || @door[:has_inscription] == ""
       return false
+    else
+      return true
     end
   end
 
   def read_inscription
-    if @door[:has_inscription] != nil
-      return "The door is inscribed with this message: #{@door[:has_inscription]}"
+    if self.is_there_inscription?
+      return "The door is inscribed with this message: #{@door[:has_inscription].to_s}"
     else
       return "There is no inscription."
     end
