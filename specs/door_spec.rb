@@ -51,8 +51,9 @@ describe Door do
 
 #6
   it "Once the writing (inscription) on a Door is set, it cannot be changed" do
-    door1[:inscription] = "Come on in!"
-    door2[:inscription] = "Just kidding...but seriously...BEWARE!"
+    door1.inscription["Come on in!"]
+    door2.inscription["Just kidding...but seriously...BEWARE!"]
+    expect(door1.inscription.frozen?).must_equal(true)
     expect(door1.inscription).must_equal("Welcome to our home!")
     expect(door2.inscription).must_equal("Beware!")
   end
