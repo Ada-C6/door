@@ -11,14 +11,21 @@ class Door
     @is_open = is_open # open = true, closed = false
     @is_locked = is_locked # locked = true, unlocked = false
 
-    if !is_open.is_a?(TrueClass) && !is_open.is_a?(FalseClass) && !is_locked.is_a?(TrueClass) && !is_locked.is_a?(FalseClass)
+    # Make sure the user passes in true or false value into @is_open
+    if !is_open.is_a?(TrueClass) && !is_open.is_a?(FalseClass)
       raise ArgumentError , "Invalid input. Please give me a True or False value."
     end
 
+    # Make sure the user passes in true or false value into @is_locked
+    if !is_locked.is_a?(TrueClass) && !is_locked.is_a?(FalseClass)
+      raise ArgumentError , "Invalid input. Please give me a True or False value."
+    end
+
+    # Make sure the user set the inscription right at the beginning.
     if @inscription == nil || @inscription.length == 0
       raise ArgumentError , "You must provide an inscription when you create this door."
     end
-    # This is to make sure the user set the inscription right at the beginning.
+
   end
 
   def open
