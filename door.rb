@@ -16,7 +16,7 @@ class Door
   end
 
   def close
-    raise ArgumentError.new("The door is already closed") if @opened == true
+    raise ArgumentError.new("The door is already closed") if @opened == false
 
     @opened = false
   end
@@ -49,11 +49,6 @@ class Door
     end
 
     return "There is a door that is #{door_status} and #{lock_status}."
-  end
-
-
-
-
   end
 
 end

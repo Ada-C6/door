@@ -54,5 +54,11 @@ describe Door do
     end
   end
 
+  describe "#inspect" do
+    it "should return a string" do
+      door = Door.new("bathroom")
+      door.inspect.must_be_kind_of String
+    end
+  end
 
 end
