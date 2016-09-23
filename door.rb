@@ -52,7 +52,7 @@ class Door
       raise ArgumentError.new("Not possible to lock because the door is open.")
     elsif self.is_door_unlocked?
       @door[:is_unlocked] = "locked"
-    else 
+    else
       raise ArgumentError.new ("The door is already locked.")
     end
   end
