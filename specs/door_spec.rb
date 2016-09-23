@@ -101,9 +101,15 @@ class Door
 
       it "should not let you through if the door is open but locked, or vice versa" do
         door.unlock #makes door unlocked, but still closed
-        puts door.locked_door
-        puts door.closed_door
+        # puts door.locked_door
+        # puts door.closed_door
         door.gain_access.must_equal(false)
+      end
+
+      it "should let the play through if the player attempts to open an unlocked door" do
+        door.unlock
+        door.open_sesame
+        door.gain_access.must_equal(true)
       end
     end
 
@@ -114,10 +120,5 @@ class Door
       door.read_door.must_equal("Door has a sign. It says: #{door.inscription}")
     end
   end
-
-
-
-  #describe "read door" method, to read the inscpription, ALso write a test to make sure you cannot change the text maybe?
-
 
 end #end class

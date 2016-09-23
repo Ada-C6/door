@@ -3,7 +3,7 @@ class Door
   attr_accessor :locked_door, :closed_door
 
   def initialize(inscription)
-    #I chose to make the inscpription to have a reader property set when creating an instance of a door, because it makes sense that once a door is made, it would have an inscpription on it that the user couldn't change. Door also starts at a default of locked and closed, since most games require the player to find a way to unlock and open a door when the player comes across a door.
+    #I chose to make the inscpription to have a reader property set when creating an instance of a door, because it makes sense that once a door is made, it would have an inscpription on it that the user couldn't change. Door also starts at a default of locked and closed, since many games require the player to find a way to unlock and open a door when the player comes across a door.
     @inscription = inscription
     @locked_door = true #means door is locked
     @closed_door = true #door is closed
@@ -54,7 +54,7 @@ def closed?
   end
 end
 
-def open_sesame #if a door is unlocked, you can just open the door.
+def open_sesame #if a door is unlocked, you can open the door with this method.
   if @locked_door == false
     @closed_door = false
     puts "The door is unlocked, so you open the door!"
@@ -66,9 +66,12 @@ def open_sesame #if a door is unlocked, you can just open the door.
 end
 
 
-def gain_access #moves you through the door
-  if @locked_door = true && @closed_door == true
+def gain_access #moves you through the door. requires that the door be unlocked by the player, as well as opened by the player. Requiring the two steps/methods is more explicit in this case, as I'm imagining that the player would have to take a key to unlock the door and then physically push the door open.
+  if (@locked_door == true) && (@closed_door == true)
     puts "You cannot gain access to a locked and closed door."
+    return false
+  elsif (@locked_door == false) && (@closed_door == true)
+    puts "the door is unlocked, but you'll need to try opening the door"
     return false
   else
     puts "The door is open and unlocked! Yay, you can go through!"
