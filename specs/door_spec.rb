@@ -1,11 +1,15 @@
-require_relative '../door'
 require_relative 'spec_helper'
+
+require_relative '../door'
+
 
 describe Door do
   let(:new_door_1) { Door.new("Kelly!", true, false) }
   let(:new_door_2) { Door.new("Kelly!", false, true) }
   let(:new_door_3) { "Kelly!" } # this is an object of String class
   let(:new_door_4) { Door.new("Kelly!", false, false) }
+  let(:new_door_5) { Door.new("Kelly!", "yes", "no") }
+
 
   describe "#initialize" do
     it "should verify if the object is an instance of Door class" do
@@ -18,6 +22,11 @@ describe Door do
       new_door_2.inscription.wont_equal("hello")
       new_door_1.is_open.must_equal(true)
       new_door_2.is_locked.wont_equal(false)
+    end
+
+    it "should raise an error if an invalid arguments are passed into the initializer's parameters" do
+      proc { new_door_5.is_open }.must_raise(ArgumentError)
+      proc { new_door_5.is_locked }.must_raise(ArgumentError)
     end
   end
 

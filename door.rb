@@ -24,7 +24,6 @@ class Door
       puts "You can't open the door now. Is it currently closed and unlocked?"
       return nil
     end
-    return @is_open
   end
 
   def close
