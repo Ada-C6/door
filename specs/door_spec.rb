@@ -99,14 +99,14 @@ class Door
         door.gain_access.must_equal(true)
       end
 
-      it "should not let you through if the door is open but locked, or vice versa" do
+      it "should not let you through if the door is unlocked but closed" do
         door.unlock #makes door unlocked, but still closed
         # puts door.locked_door
         # puts door.closed_door
         door.gain_access.must_equal(false)
       end
 
-      it "should let the play through if the player attempts to open an unlocked door" do
+      it "should let the player through if the player attempts to open an unlocked door" do
         door.unlock
         door.open_sesame
         door.gain_access.must_equal(true)
