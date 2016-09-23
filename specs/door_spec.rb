@@ -24,31 +24,29 @@ describe Door do
 #2
   it "You may open a Door if and only if it is unlocked and closed" do
     proc {door1.opens}.must_raise(ArgumentError)
-    expect(door2.opens).must_equal("Please proceed with caution.")
+    expect(door2.opens).must_equal(true)
     expect(door1.open_status).must_equal(true)
-    expect(door2.open_status).must_equal(true)
   end
 
 #3
   it "You may close a Door if and only if it is open" do
-    expect(door1.close).must_equal("The door is now closed.")
+    expect(door1.close).must_equal(false)
     proc {door2.close}.must_raise(ArgumentError)
-    expect(door1.open_status).must_equal(false)
+    expect(door2.open_status).must_equal(false)
   end
 
 #4
   it "You may lock a Door if and only if it is unlocked" do
-    expect(door1.lock).must_equal("The door is now locked.")
+    expect(door1.lock).must_equal(false)
     proc {door3.lock}.must_raise(ArgumentError)
-    expect(door1.unlocked_status).must_equal(false)
+    expect(door3.unlocked_status).must_equal(false)
   end
 
 #5
   it "You may unlock a Door if and only if it is locked" do
-    expect(door3.unlock).must_equal("The door is now unlocked.")
+    expect(door3.unlock).must_equal(true)
     proc {door1.unlock}.must_raise(ArgumentError)
-    door3.unlock
-    expect(door3.unlocked_status).must_equal(true)
+    expect(door1.unlocked_status).must_equal(true)
   end
 
 #6

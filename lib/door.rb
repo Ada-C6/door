@@ -16,7 +16,6 @@ class Door
       raise ArgumentError.new("You cannot open a door that is already open or locked!")
     else
       door_hash[:open_status] = true
-      return "Please proceed with caution."
     end
   end
   # closes a door if certain conditions are met
@@ -25,7 +24,6 @@ class Door
       raise ArgumentError.new("You cannot close a door that is already shut")
     else
       door_hash[:open_status] = false
-      return "The door is now closed."
     end
   end
   # locks a door if certain conditions are met
@@ -34,7 +32,6 @@ class Door
       raise ArgumentError.new("You cannot lock this door - it is already locked")
     else
       door_hash[:unlocked_status] = false
-      return "The door is now locked."
     end
   end
   #unlocks a door if certain conditions are met
@@ -43,7 +40,6 @@ class Door
       raise ArgumentError.new("The door is already unlocked!")
     else
       door_hash[:unlocked_status] = true
-      return "The door is now unlocked."
     end
   end
 
