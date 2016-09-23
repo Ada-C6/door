@@ -1,7 +1,4 @@
 # @todo rescue for ArgumentErrors
-# @todo discuss if Errors are ArgumentErrors?
-# @todo check for argument type in initialize
-# @todo commit message for refactor
 
 module Dungeon
   class Door
@@ -12,6 +9,10 @@ module Dungeon
 
     # initialize with door closed, locked/unlocked, and with/without inscription
     def initialize(lock_status, key_id, inscription = nil)
+
+      raise ArgumentError.new("Parameter lock_status must be true or false") unless lock_status == true || lock_status == false
+      raise ArgumentError.new("Parameter key_id must be of type String") unless key_id.class == String || key_id.class == NilClass
+      raise ArgumentError.new("Parameter inscription must be nil or of String type") unless inscription.class == NilClass || inscription.class == String
 
       @closed = true
       @inscription = inscription
@@ -82,17 +83,17 @@ module Dungeon
   end
 end
 
-door = Dungeon::Door.new(true, "GOODKEY")
+# door = Dungeon::Door.new(true, "GOODKEY")
+# # door.open_door
+# # door.turn_key("BADKEY")
+# door.turn_key("GOODKEY")
+# puts door.inspect_door
 # door.open_door
-# door.turn_key("BADKEY")
-door.turn_key("GOODKEY")
-puts door.inspect_door
-door.open_door
-puts door.inspect_door
-door.close_door
-door.turn_key("GOODKEY")
-puts door.inspect_door
-door.inscribe_door("Awesome door!")
-puts door.inspect_door
-door.inscribe_door("Alma was here")
-puts door.inspect_door
+# puts door.inspect_door
+# door.close_door
+# door.turn_key("GOODKEY")
+# puts door.inspect_door
+# door.inscribe_door("Awesome door!")
+# puts door.inspect_door
+# door.inscribe_door("Alma was here")
+# puts door.inspect_door

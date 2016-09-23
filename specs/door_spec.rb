@@ -3,7 +3,8 @@ module Dungeon
   describe Door do
 
     describe "#initialize" do
-      let(:door) { Door.new(:lock_status, :key_id) }
+      let(:door) { Door.new(true, "ABC123") }
+      let(:odd_door) { Door.new("LOCKED", :key, :inscription) }
 
       it "can create an object of Door" do
         door.must_be_instance_of(Door)
@@ -17,6 +18,12 @@ module Dungeon
 
       it "should be a closed door that initializes" do
         door.closed.must_equal(true)
+      end
+
+      it "should check parameters are the correct type" do
+        proc{odd_door.lock_status}.must_raise(ArgumentError)
+        proc{odd_door.key_id.class}.must_raise(ArgumentError)
+        proc{odd_door.inscription.class}.must_raise(ArgumentError)
       end
 
     end #init
