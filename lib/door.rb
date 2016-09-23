@@ -63,8 +63,9 @@ class Door
     elsif self.locked?
       raise TypeError.new("Door is already locked. Locked doors cannot be locked again.")
     else
-      @locked = false
+      @locked = true #omg i can't believe i had this as false for so long.
     end
+    return self
   end
 
   # if the door is not open and locked, then this method will unlock the door.
@@ -76,7 +77,7 @@ class Door
     elsif !self.locked?
       raise TypeError.new("Door is already unlocked. Unlocked doors cannot be unlocked again.")
     end
-
+    return self
   end
 
 end
