@@ -24,6 +24,7 @@ describe Door do
   describe "open" do
     it "should open a Door if and only if it is unlocked and closed" do
       new_door_4.open.must_equal(true)
+      new_door_2.open.wont_equal(true)
     end
 
     it "should not change the Door if someone tries to open a locked door" do
@@ -32,12 +33,35 @@ describe Door do
   end
 
   describe "close" do
-    it "close a Door if and only if it is open" do
+    it "should close a Door if and only if it is open" do
       new_door_1.close.must_equal(false)
+      new_door_2.close.wont_equal(false)
     end
 
     it "should not change the Door if someone tries to close it even though it's already closed" do
-      new_door_2.close.must_be_nil 
+      new_door_2.close.must_be_nil
+    end
+  end
+
+  describe "lock" do
+    it "should lock a Door if and only if it is unlocked" do
+      new_door_1.lock.must_equal(true)
+      new_door_2.lock.wont_equal(true)
+    end
+
+    it "should not change the Door if someone tries lock it even though it's already locked" do
+      new_door_2.lock.must_be_nil
+    end
+  end
+
+  describe "unlocked" do
+    it "should unlock a Door if and only if it is locked" do
+      new_door_1.unlock.wont_equal(false)
+      new_door_2.unlock.must_equal(false)
+    end
+
+    it "should not change the Door if someone tries to unlock it even though it's already unlocked" do
+      new_door_4.unlock.must_be_nil
     end
   end
 end

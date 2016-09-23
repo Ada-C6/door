@@ -5,8 +5,8 @@ class Door
 
   def initialize(inscription, is_open, is_locked)
     @inscription = inscription
-    @is_open = is_open
-    @is_locked = is_locked
+    @is_open = is_open # open = true, closed = false
+    @is_locked = is_locked # locked = true, unlocked = false
 
     if !is_open.is_a?(TrueClass) && !is_open.is_a?(FalseClass) && !is_locked.is_a?(TrueClass) && !is_locked.is_a?(FalseClass)
       raise ArgumentError , "Invalid input. Please give me a True or False value."
@@ -37,10 +37,24 @@ class Door
   end
 
   def lock
-
+    if @is_locked == false
+      puts "The door is locked now."
+      @is_locked = true
+      return @is_locked
+    else
+      puts "You can't lock the door now. It's already locked."
+      return nil
+    end
   end
 
   def unlock
-
+    if @is_locked == true
+      puts "The door is unlocked now."
+      @is_locked = false
+      return @is_locked
+    else
+      puts "You can't unlock the door now. It's already unlocked."
+      return nil
+    end
   end
 end
