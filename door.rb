@@ -4,6 +4,8 @@ class Door
   def initialize(inscription)
     raise ArgumentError.new("The inscription on the door must be a string") unless inscription.is_a? String
 
+    raise ArgumentError.new("The inscription on the door cannot be blank") if inscription.length <= 0
+
     @inscription = inscription
     @locked = false
     @opened = true

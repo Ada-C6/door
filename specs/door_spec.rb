@@ -18,6 +18,10 @@ describe Door do
     it "should only accept a string" do
       proc { Door.new(2) }.must_raise(ArgumentError)
     end
+
+    it "should not accept an empty string" do
+      proc { Door.new ("") }.must_raise(ArgumentError)
+    end
   end
 
   describe "#open" do
