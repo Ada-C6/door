@@ -2,7 +2,7 @@ class Door
   attr_reader :inscription
   attr_accessor :is_open, :is_locked
 
-  # attr_reader and attr_accessor would allow users to  check whether or not a Door is closed, check whether or not it is locked, and look at the writing on the Door if there is any. 
+  # attr_reader and attr_accessor would allow users to  check whether or not a Door is closed, check whether or not it is locked, and look at the writing on the Door if there is any.
   # attr_reader ensures that once the writing (inscription) on a Door is set, it cannot be changed.
 
   def initialize(inscription, is_open, is_locked)
@@ -59,4 +59,5 @@ class Door
       return nil
     end
   end
+
 end
