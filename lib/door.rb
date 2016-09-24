@@ -1,33 +1,30 @@
 # @todo rescue for ArgumentErrors
+# @todo working on inspect door method
+# @todo same object sign can be assigned to different doors, same with locks. FIX THIS
 
 module Dungeon
   class Door
 
-    attr_accessor :lock_status, :inscription, :closed
+    attr_accessor :closed
 
-    attr_reader :key_id
+    attr_reader :lock, :sign
 
-    # initialize with door closed, locked/unlocked, and with/without inscription
-    def initialize(lock_status, key_id, inscription = nil)
-
-      raise ArgumentError.new("Parameter lock_status must be true or false") unless lock_status == true || lock_status == false
-      raise ArgumentError.new("Parameter key_id must be of type String") unless key_id.class == String || key_id.class == NilClass
-      raise ArgumentError.new("Parameter inscription must be nil or of String type") unless inscription.class == NilClass || inscription.class == String
+    # initialize with door closed, and with/without sign/lock that have/have not been locked/inscribed
+    def initialize(sign, lock = nil)
 
       @closed = true
-      @inscription = inscription
-      @key_id = key_id #key identifier for lockable doors, key_id == nil means there is no lock on the door object
-      @lock_status = lock_status #true for locked
+      @sign = sign
+      @lock = lock
 
       locked? ? init_state = "locked" : init_state = "unlocked"
       puts "Here stands an ancient and sturdy door. It is closed #{ locked? ? "and" : "but" } appears to be #{ init_state }."
-      if @inscription != nil
-        puts "The inscription on the door reads: '#{ @inscription }''"
+      if sign.inscription != nil
+        puts "The inscription on the door reads: '#{ sign.inscription }''"
       end
     end
 
     def inspect_door
-      if @inscription == nil #no inscription
+      if sign.inscription == nil #no inscription
         if closed?
           return "Here stands an ancient and sturdy door. It is closed #{ locked? ? "and" : "but" } appears to be #{ locked? ? "locked" : "unlocked" }."
         else # open door
@@ -35,32 +32,29 @@ module Dungeon
         end
       else #inscription exists
         if closed?
-          return "Here stands an ancient and sturdy door. It is closed #{ locked? ? "and" : "but" } appears to be #{ locked? ? "locked" : "unlocked" }. The door has a sign with the inscription: #{ @inscription }"
+          return "Here stands an ancient and sturdy door. It is closed #{ locked? ? "and" : "but" } appears to be #{ locked? ? "locked" : "unlocked" }. The door has a sign with the inscription: #{ sign.inscription }"
         else # open door
-          return "Here stands an ancient and sturdy door wide open. The door has a sign with the inscription: #{ @inscription }"
+          return "Here stands an ancient and sturdy door wide open. The door has a sign with the inscription: #{ sign.inscription }"
         end
       end #if-inscription
     end #def
 
     def inscribe_door(words)
-      if @inscription == nil
-        return @inscription = words.to_s
-      else
-        raise ArgumentError.new("The door is already inscribed with the words: '#{ @inscription }' and it cannot be changed.")
-      end
+      sign.inscribe(words)
+      return self
     end #def
 
     def open_door
-      raise ArgumentError.new("This door is already open") unless closed?
+      raise ArgumentError.new("This door is already open") if !closed?
       raise ArgumentError.new("This door is locked. Use a key to unlock it") if locked?
-
-      return @closed = false
+      @closed = false
+      return self
     end
 
     def close_door
       raise ArgumentError.new("This door is already closed") if closed?
-
-      return @closed = true
+      @closed = true
+      return self
     end
 
     def closed?
@@ -68,29 +62,38 @@ module Dungeon
     end
 
     def locked?
-      return @lock_status
+      if lock == nil
+        return false
+      else
+        return lock.locked?
+      end
     end
 
-    def turn_key(key = nil)
-      raise ArgumentError.new("This door has no lock") if @key_id == nil
-      raise ArgumentError.new("The door must be closed to use the lock") unless closed?
-      raise ArgumentError.new("The key does not match the door key hole") if @key_id != key
+    def turn_key(key_id = nil)
+      raise ArgumentError.new("This door has no lock") if lock == nil
+      raise ArgumentError.new("The door must be closed to use the lock") if !closed?
+      # raise ArgumentError.new("The key does not match the door key hole") if @key_id != key
 
-      @lock_status = lock.turn_key(key_id)
-      return @lock_status
+      lock.turn_key(key_id)
+      puts "#{self.locked?} AND SOME OTHER STUFF"
+      return self
     end
   end
 end
 
-# door = Dungeon::Door.new(true, "GOODKEY")
+# sign = Dungeon::Sign.new
+# lock = Dungeon::Lock.new("ABC123")
+# key = Dungeon::Key.new("ABC123")
+# bad_key = Dungeon::Key.new("BADKEY")
+# door = Dungeon::Door.new(sign, lock)
 # # door.open_door
 # # door.turn_key("BADKEY")
-# door.turn_key("GOODKEY")
+# door.turn_key("ABC123")
 # puts door.inspect_door
 # door.open_door
 # puts door.inspect_door
 # door.close_door
-# door.turn_key("GOODKEY")
+# door.turn_key("ABC123")
 # puts door.inspect_door
 # door.inscribe_door("Awesome door!")
 # puts door.inspect_door

@@ -13,15 +13,12 @@ module Dungeon
 
     # Here the method will not return @inscription unless it is changed. Is that bad practice or ok? What does it return?
     def inscribe(words)
-      if words.class == String
+      if words.class == String && words != ""
         if @inscription == nil
           @inscription = words
         else
           puts "There is already an inscription and it cannot be changed."
-          exit
         end
-      else
-        exit
       end
       return @inscription
     end
