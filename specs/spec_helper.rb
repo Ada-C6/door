@@ -6,5 +6,5 @@ require "minitest/autorun"
 require "minitest/reporters"
 require 'minitest/pride'
 
-require_relative '../door'
+require_relative '../complex_door'
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new

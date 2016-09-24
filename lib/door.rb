@@ -76,8 +76,7 @@ module Dungeon
       raise ArgumentError.new("The door must be closed to use the lock") unless closed?
       raise ArgumentError.new("The key does not match the door key hole") if @key_id != key
 
-      locked? ? @lock_status = false : @lock_status = true
-
+      @lock_status = lock.turn_key(key_id)
       return @lock_status
     end
   end

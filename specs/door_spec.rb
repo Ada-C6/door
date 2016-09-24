@@ -62,12 +62,14 @@ module Dungeon
 
 
       it "should set a value to inscription" do
+        skip
         door = @unlocked_door_no_inscript
         door.inscribe_door("Come through here for danger")
         door.inscription.must_equal("Come through here for danger")
       end
 
       it "should not be possible to change the inscription once set" do
+        skip
         door = @unlocked_door_no_inscript
         door.inscribe_door("Come through here for danger")
         proc{door.inscribe_door("Free candy this way")}.must_raise(ArgumentError)
@@ -134,10 +136,12 @@ module Dungeon
       end
 
       it "should return true if the door is locked" do
+        skip
         @locked_door.locked?.must_equal(true)
       end
 
       it "should return false if the door is unlocked" do
+        skip
         @unlocked_door.locked?.must_equal(false)
       end
     end #locked?
@@ -150,6 +154,7 @@ module Dungeon
       end
 
       it "should be possible to turn the key in the lock to switch lock state" do
+        skip
         @locked_door.turn_key("ABC123")
         @locked_door.locked?.must_equal(false)
 
@@ -163,6 +168,7 @@ module Dungeon
       end
 
       it "must fail to lock/unlock unless key identifier match input key" do
+        skip
         proc{@locked_door.turn_key("BADKEY")}.must_raise(ArgumentError)
       end
 
