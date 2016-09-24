@@ -6,8 +6,7 @@ describe 'method for displaying an inscription' do
   let(:door) {Door.new}
 
   it 'must display the inscription string when called' do
-    expect(door.get_inscription).must_equal("This shall not be changed.")
-    expect(door.get_inscription).must_be_kind_of(String)
+    proc{door.get_inscription}.must_output ("A-door-able")
   end
 end
 
@@ -101,21 +100,14 @@ describe 'method for displaying the door status' do
 
   let(:door) {Door.new}
 
-  it 'must display if a door is open/closed' do
-    expect(door.get_status).must_include("Open:")
+  it 'must display the status with open/close, unlocked/locked, and inscription' do
+    proc{door.get_status}.must_output (
+    "Here is the door's status...
+    Open: true
+    Unlocked: true
+    Inscription: A-door-able")
   end
 
-  it 'must display if a door is unlocked/locked' do
-    expect(door.get_status).must_include("Unlocked:")
-  end
-
-  it 'must display if door inscription' do
-    expect(door.get_status).must_include("This shall not be changed.")
-  end
-
-  it 'must display a string' do
-    expect(door.get_status.class).must_equal(String)
-  end
 end
 
   # - display an inscription
