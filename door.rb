@@ -1,13 +1,14 @@
 class Door
+  attr_reader :inscription
   attr_accessor :is_open, :is_unlocked
 
-  INSCRIPTION = "This shall not be changed."
   OPEN_ERROR = "Error, the door is open."
   CLOSE_ERROR = "Error, the door is closed."
   UNLOCK_ERROR = "Error, the door is unlocked."
   LOCK_ERROR = "Error, the door is locked."
 
-  def initialize(opened=true, unlocked=true)
+  def initialize(inscription="A-door-able", opened=true, unlocked=true)
+    @inscription = inscription
     @is_open = opened
     @is_unlocked = unlocked
   end
@@ -19,6 +20,7 @@ class Door
       raise LOCK_ERROR
     else
       @is_open = true
+      print "Door opened\n"
     end
   end
 
@@ -27,6 +29,7 @@ class Door
       raise CLOSE_ERROR
     else
       @is_open = false
+      print "Door closed\n"
     end
   end
 
@@ -37,6 +40,7 @@ class Door
       raise UNLOCK_ERROR
     else
       @is_unlocked = true
+      print "Door unlocked\n"
     end
   end
 
@@ -47,26 +51,25 @@ class Door
       raise LOCK_ERROR
     else
       @is_unlocked = false
+      print "Door locked\n"
     end
   end
 
   def get_inscription
-    return INSCRIPTION
+    print inscription
   end
 
   def get_status
-    status = "Here is the door's status
+    print "Here is the door's status...
     Open: #{self.is_open}
     Unlocked: #{self.is_unlocked}
-    Inscription: #{INSCRIPTION}"
-
-    return status
+    Inscription: #{self.inscription}"
   end
 
 end
 
-# door1 = Door.new
+# door1 = Door.new("testing", true, true)
 # door1.close_door
 # door1.open_door
-# door1.display_status
-# door1.display_inscription
+# door1.get_status
+# door1.get_inscription
