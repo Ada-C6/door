@@ -8,7 +8,6 @@ class MainDoor
     @state = "open"
     @lock_status = "unlocked"
     @code = code
-
   end
 
   def inscribe (name)
@@ -61,6 +60,16 @@ class MainDoor
       raise ArgumentError.new("Please close the door to perform this action")
     end
   end
+  def locked?
+    if @lock_status == "locked"
+      raise ArgumentError.new(" You need to unlock this door to perform this action")
+    end
+  end
+  def unlocked?
+    if @lock_status == "unlocked"
+      raise ArgumentError.new(" You need to lock this door to perform this action")
+    end
+  end
   def lock_check
     return @lock_status
   end
@@ -75,7 +84,7 @@ class MainDoor
       else
         code.to_s
         @code  = code
-          return "Your code is #{@code}. Use this to unlock and lock the door"
+        return "Your code is #{@code}. Use this to unlock and lock the door"
       end
     end
   end
@@ -84,9 +93,8 @@ class MainDoor
     if @code == nil
       return "You need to set code before locking the door"
     elsif open?
-
+    elsif locked?
     end
-
     code.to_s.reverse!
     if @code != code
       return "Please lock with the reverse string of your original code"
@@ -94,7 +102,22 @@ class MainDoor
       @lock_status = "locked"
       return "The door is now #{@lock_status}"
     end
+  end
 
+  def unlock(code)
+    open?
+    unlocked?
+    if code == @code
+      @lock_status = "unlocked"
+      return "The door is now #{@lock_status}"
+    else
+      return "You have entered the wrong code. This door will remain #{@lock_status}"
+    end
+  end
+  def pry_open
+    open?
+    locked?
+    @state = "open"
   end
 
 end
