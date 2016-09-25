@@ -27,13 +27,6 @@ describe Door do
     end
   end
 
-
-  # def initialize(lock, open)
-  #   @locked = true
-  #   @open = false
-  #   @inscription = nil
-  # end
-
   describe "#open_door" do
 
     it "should raise an ArgumentError if the door was already open" do
@@ -56,5 +49,35 @@ describe Door do
       end
     end
 
+  end
+
+
+
+    # def initialize(lock, open)
+    #   @locked = true
+    #   @open = false
+    #   @inscription = nil
+    # end
+
+  describe "#close_door" do
+    it "should raise an ArgumentError if the door was already closed" do
+      d = Door.new(false, false)
+      proc { d.close_door }.must_raise(ArgumentError)
+    end
+
+    it "should raise an ArgumentError if the door was locked" do
+      d = Door.new(true, true)
+      proc { d.close_door }.must_raise(ArgumentError)
+    end
+
+    it "should raise an ArgumentError if the door is closed and locked" do
+      d = Door.new(true, false)
+      proc { d.close_door }.must_raise(ArgumentError)
+    end
+    it "should close the door" do
+      if @open == true && @locked == false
+        d.close_door.must_equal(true)
+      end
+    end
   end
 end

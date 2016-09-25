@@ -32,4 +32,18 @@ class Door
     end
   end
 
+  def close_door
+    # You may close a Door if and only if it is open
+    # Appropriate error messages should be displayed and no changes to the Door should be made, if any conditions of the functions are violated.
+    if @locked == false && @open == false
+      raise ArgumentError.new("A door is already closed.")
+    elsif @locked == true && @open == true
+      raise ArgumentError.new("A door must be unlocked before it can be closed.")
+    elsif @locked == true && @open == false
+      raise ArgumentError.new("A door must be opened and unlocked before it can be open.")
+    else @open = false
+      return "A door has been closed."
+    end
+  end
+
 end
