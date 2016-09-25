@@ -2,12 +2,12 @@ require_relative 'open_door'
 require_relative 'closed_door'
 
 class MainDoor
-attr_reader :name
-attr_accessor :state, :lock_status
+  attr_reader :name, :code, :state, :lock_status
   def initialize
     @name = name
-   @state = "open"
-   @lock_status = "unlocked"
+    @state = "open"
+    @lock_status = "unlocked"
+    @code = code
 
   end
 
@@ -16,8 +16,8 @@ attr_accessor :state, :lock_status
     if @name != nil
       return "You have already inscribed the door with #{@name}!"
     else
-    @name = name
-    return "The inscription on the door is now and forver #{@name}"
+      @name = name
+      return "The inscription on the door is now and forver #{@name}"
     end
   end
 
@@ -36,7 +36,7 @@ attr_accessor :state, :lock_status
   def slam
     closed?
     @state = "closed"
-    return "Oof the door is now #{@state}"
+    return "Oof, the door is now #{@state}"
   end
 
   def swing
@@ -56,7 +56,45 @@ attr_accessor :state, :lock_status
       raise ArgumentError.new("The door is already closed. You can't do that to a closed door")
     end
   end
+  def open?
+    if @state == "open"
+      raise ArgumentError.new("Please close the door to perform this action")
+    end
+  end
   def lock_check
     return @lock_status
   end
+
+  def set_code(code)
+    open?
+    if @code != nil
+      return "You have already set a code. This code cannot be changed"
+    else
+      if !code.is_a? String
+        return "Please put in a valid string code"
+      else
+        code.to_s
+        @code  = code
+          return "Your code is #{@code}. Use this to unlock and lock the door"
+      end
+    end
+  end
+
+  def lock(code)
+    if @code == nil
+      return "You need to set code before locking the door"
+    elsif open?
+
+    end
+
+    code.to_s.reverse!
+    if @code != code
+      return "Please lock with the reverse string of your original code"
+    else
+      @lock_status = "locked"
+      return "The door is now #{@lock_status}"
+    end
+
+  end
+
 end
