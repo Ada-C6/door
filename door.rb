@@ -28,7 +28,7 @@ class Door
         return @state_of_door
       end
     else
-      raise ArgumentError, "Be more aware, this door is already open."
+      raise ArgumentError, "You don't need to open this door, it's already open."
     end
   end
 
@@ -37,13 +37,13 @@ class Door
       @state_of_door = "closed"
       return @state_of_door
     else
-      raise ArgumentError, "Be more aware, this door is already closed."
+      raise ArgumentError, "You don't need to close this door, it's already closed."
     end
   end
 
   def lock
     if locked?
-      raise ArgumentError, "Sorry, this door is currently locked."
+      raise ArgumentError, "You don't need to lock this door, it's already locked."
     else
       @state_of_lock = "locked"
       return @state_of_lock
