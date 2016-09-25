@@ -36,6 +36,12 @@ describe MainDoor do
       proc {fridge.inscribe("")}.must_raise(ArgumentError)
     end
   end
+  describe "#open?" do
+    it "will raise arguement if door is open" do
+      fridge = MainDoor.new
+      proc{fridge.open?}.must_raise(ArgumentError)
+    end
+  end
 
   describe "#check_state" do
     it "should return the state of the door" do
@@ -72,6 +78,7 @@ describe MainDoor do
       fridge.lock_check.must_equal("unlocked")
     end
   end
+
   describe "#set_code" do
     it "can set a code only if door is closed" do
       fridge = MainDoor.new
@@ -104,7 +111,47 @@ describe MainDoor do
       fridge.lock("ymmuy")
       fridge.lock_status.must_equal("locked")
     end
-
+  end
+  describe "#unlock" do
+    it "unlocks the door using the code" do
+      fridge = MainDoor.new
+      fridge.slam
+      fridge.set_code("yummy")
+      fridge.lock("ymmuy")
+      fridge.unlock("yummy")
+      fridge.lock_status.must_equal("unlocked")
+    end
+    it "will raise an error if the door is unlocked" do
+      fridge = MainDoor.new
+      fridge.slam
+      fridge.set_code("yummy")
+      proc {fridge.unlock("yummy")}.must_raise(ArgumentError)
+    end
+    it "will remain locked if you enter in the wrong code" do
+      fridge = MainDoor.new
+      fridge.slam
+      fridge.set_code("yummy")
+      fridge.lock("ymmuy")
+      fridge.unlock("pizza")
+      fridge.lock_status.wont_equal("unlocked")
+    end
+  end
+  describe "#locked?" do
+    it "will raise arguement if door is locked" do
+      fridge = MainDoor.new
+      fridge.slam
+      fridge.set_code("yummy")
+      fridge.lock("ymmuy")
+      proc{fridge.locked?}.must_raise(ArgumentError)
+    end
+  end
+  describe "#pry_open" do
+    it " can pry a door open only if the door had been closed and unlocked" do
+      fridge = MainDoor.new
+      fridge.slam
+      fridge.pry_open
+      fridge.state.must_equal("open")
+    end
   end
 
 end
