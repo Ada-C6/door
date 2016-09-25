@@ -7,13 +7,14 @@ describe Door do
   end
 
   describe "#initialize" do
+
     it "should create a new instance of Door" do
       @d.must_be_instance_of(Door)
     end
+
   end
 
   describe "#inscribe(message)" do
-
     before(:all) do
       @d.inscribe("HEY GURL")
     end
@@ -25,6 +26,7 @@ describe Door do
     it "should raise an ArgumentError if the message is already inscribed" do
       proc { @d.inscribe("NEW MESSAGE") }.must_raise(ArgumentError)
     end
+
   end
 
   describe "#open_door" do
@@ -43,6 +45,7 @@ describe Door do
       d = Door.new(true, true)
       proc { d.open_door }.must_raise(ArgumentError)
     end
+
     it "should open the door" do
       if @open == false && @locked == false
         d.open_door.must_equal(true)
@@ -51,15 +54,8 @@ describe Door do
 
   end
 
-
-
-    # def initialize(lock, open)
-    #   @locked = true
-    #   @open = false
-    #   @inscription = nil
-    # end
-
   describe "#close_door" do
+
     it "should raise an ArgumentError if the door was already closed" do
       d = Door.new(false, false)
       proc { d.close_door }.must_raise(ArgumentError)
@@ -74,10 +70,39 @@ describe Door do
       d = Door.new(true, false)
       proc { d.close_door }.must_raise(ArgumentError)
     end
+
     it "should close the door" do
       if @open == true && @locked == false
         d.close_door.must_equal(true)
       end
     end
+
   end
+
+
+      # def initialize(lock, open)
+      #   @locked = true
+      #   @open = false
+      #   @inscription = nil
+      # end
+
+  describe "#lock_door" do
+
+    it "should raise an ArgumentError if the door was already locked" do
+      d = Door.new(true, false)
+      proc { d.lock_door }.must_raise(ArgumentError)
+    end
+
+    it "should lock the door" do
+      d = Door.new(false, true)
+      if @locked == false
+        d.lock_door.must_equal(true)
+      end
+    end
+
+  end
+
+
+
+
 end

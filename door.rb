@@ -1,7 +1,7 @@
 class Door
   attr_accessor :locked, :open_door, :inscription
 
-   # initialized door, closed and locked with no inscription
+  # initialized door, closed and locked with no inscription
   def initialize(lock, open)
     @locked = true
     @open = false
@@ -43,6 +43,14 @@ class Door
       raise ArgumentError.new("A door must be opened and unlocked before it can be open.")
     else @open = false
       return "A door has been closed."
+    end
+  end
+
+  def lock_door
+    if @locked == true
+      raise ArgumentError.new("A door is already locked.")
+    else @locked = true
+      return "A door has been locked."
     end
   end
 
