@@ -1,17 +1,33 @@
 require_relative 'spec_helper.rb'
 require_relative '../door.rb'
 
-describe 'method for displaying an inscription' do
-
+describe 'creating a Door object' do
   let(:door) {Door.new}
+  let(:door2) {Door.new("Test")}
+  let(:door3) {Door.new(2)}
 
-  it 'must display the inscription string when called' do
-    proc{door.get_inscription}.must_output ("A-door-able")
+  it 'must create a Door with the default inscription when no argument is passed' do
+    expect(door.inscription).must_equal("A-door-able")
+  end
+
+  it 'must create a Door with a custom inscription when one argument is passed' do
+    expect(door2.inscription).must_equal("Test")
+  end
+
+  it 'must have a string as the inscription' do
+    expect(door2.inscription.class).must_equal(String)
+  end
+
+  it 'must raise an error if too many arguments are given' do
+    proc{Door.new("test", true, true)}.must_raise(ArgumentError)
+  end
+
+  it 'must not allow re-writing of the inscription' do
+    proc{door.inscription = "New"}.must_raise(NoMethodError)
   end
 end
 
 describe 'method for opening a door' do
-
   let(:door) {Door.new}
 
   it 'must open the door when it is unlocked & closed' do
@@ -34,7 +50,6 @@ describe 'method for opening a door' do
 end
 
 describe 'method for closing a door' do
-
   let(:door) {Door.new}
 
   it 'must close the door when it is open' do
@@ -51,7 +66,6 @@ describe 'method for closing a door' do
 end
 
 describe 'method for locking a door' do
-
     let(:door) {Door.new}
 
     it 'must lock the door when it is unlocked & closed' do
@@ -74,7 +88,6 @@ describe 'method for locking a door' do
 end
 
 describe 'method for unlocking a door' do
-
     let(:door) {Door.new}
 
     it 'must lock the door when it is unlocked & closed' do
@@ -96,8 +109,15 @@ describe 'method for unlocking a door' do
     end
 end
 
-describe 'method for displaying the door status' do
+describe 'method for displaying an inscription' do
+  let(:door) {Door.new}
 
+  it 'must display the inscription string when called' do
+    proc{door.get_inscription}.must_output ("A-door-able")
+  end
+end
+
+describe 'method for displaying the door status' do
   let(:door) {Door.new}
 
   it 'must display the status with open/close, unlocked/locked, and inscription' do
@@ -109,18 +129,3 @@ describe 'method for displaying the door status' do
   end
 
 end
-
-  # - display an inscription
-  # - be either open or closed, and
-  # - be either locked or unlocked
-  #
-  # Here are some rules about how Doors work:
-  #
-  # - Once the writing (inscription) on a Door is set, it cannot be changed
-  # - You may open a Door if and only if it is unlocked and closed
-  # - You may close a Door if and only if it is open
-  # - You may lock a Door if and only if it is unlocked
-  # - You may unlock a Door if and only if it is locked
-  # - You should be able to check whether or not a Door is closed, check whether or not it is locked, and look at the writing on the Door if there is any.
-  #
-  # Appropriate error messages should be displayed and no changes to the Door should be made, if any conditions of the functions are violated.
