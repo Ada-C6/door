@@ -1,30 +1,32 @@
-# @todo rescue for ArgumentErrors
-# @todo working on inspect door method
-# @todo same object sign can be assigned to different doors, same with locks. FIX THIS
+# @todo rescue for ArgumentErrors, alternatively make Errors redundant
+# @todo same object lock can be assigned to different doors FIX THIS
 
 module Dungeon
   class Door
 
-    attr_accessor :closed
+    attr_accessor :closed, :inscription
 
-    attr_reader :lock, :sign
+    attr_reader :lock
 
     # initialize with door closed, and with/without sign/lock that have/have not been locked/inscribed
-    def initialize(sign, lock = nil)
+    def initialize(inscription, lock = nil)
+      if inscription.class != String && inscription != nil
+        raise ArgumentError.new("The inscription needs to be a string or nil")
+      end
 
       @closed = true
-      @sign = sign
+      @inscription = inscription
       @lock = lock
 
       locked? ? init_state = "locked" : init_state = "unlocked"
       puts "Here stands an ancient and sturdy door. It is closed #{ locked? ? "and" : "but" } appears to be #{ init_state }."
-      if sign.inscription != nil
-        puts "The inscription on the door reads: '#{ sign.inscription }''"
+      if @inscription != nil
+        puts "The inscription on the door reads: '#{ @inscription }''"
       end
     end
 
     def inspect_door
-      if sign.inscription == nil #no inscription
+      if @inscription == nil #no inscription
         if closed?
           return "Here stands an ancient and sturdy door. It is closed #{ locked? ? "and" : "but" } appears to be #{ locked? ? "locked" : "unlocked" }."
         else # open door
@@ -32,16 +34,22 @@ module Dungeon
         end
       else #inscription exists
         if closed?
-          return "Here stands an ancient and sturdy door. It is closed #{ locked? ? "and" : "but" } appears to be #{ locked? ? "locked" : "unlocked" }. The door has a sign with the inscription: #{ sign.inscription }"
+          return "Here stands an ancient and sturdy door. It is closed #{ locked? ? "and" : "but" } appears to be #{ locked? ? "locked" : "unlocked" }. The door has an inscription: #{ @inscription }"
         else # open door
-          return "Here stands an ancient and sturdy door wide open. The door has a sign with the inscription: #{ sign.inscription }"
+          return "Here stands an ancient and sturdy door wide open. The door has an inscription: #{ @inscription }"
         end
       end #if-inscription
     end #def
 
     def inscribe_door(words)
-      sign.inscribe(words)
-      return self
+      if words.class == String && words != ""
+        if @inscription == nil
+          @inscription = words
+        else
+          puts "There is already an inscription and it cannot be changed."
+        end
+      end
+      return @inscription
     end #def
 
     def open_door
@@ -62,22 +70,24 @@ module Dungeon
     end
 
     def locked?
-      if lock == nil
+      if @lock == nil
         return false
       else
-        return lock.locked?
+        return @lock.locked?
       end
     end
 
-    def turn_key(key_id = nil)
+    def locking(key_id)
       raise ArgumentError.new("This door has no lock") if lock == nil
       raise ArgumentError.new("The door must be closed to use the lock") if !closed?
-      # raise ArgumentError.new("The key does not match the door key hole") if @key_id != key
-
-      lock.turn_key(key_id)
-      puts "#{self.locked?} AND SOME OTHER STUFF"
-      return self
+      lock.locking(key_id) # returns the lock object
     end
+
+    def unlocking(key_id)
+      raise ArgumentError.new("This door has no lock") if lock == nil
+      lock.unlocking(key_id) # returns the lock object
+    end
+
   end
 end
 

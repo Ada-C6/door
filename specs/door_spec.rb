@@ -4,12 +4,11 @@ module Dungeon
 
     describe "#initialize" do
       before(:each) do
-        sign = Sign.new
-        sign_with_words = Sign.new("Awesome door")
+        inscription = "Awesome door!!"
         lock = Lock.new("ABC123") #initializes unlocked
-        @door = Door.new(sign, lock)
-        @door_with_words = Door.new(sign_with_words, lock)
-        @door_no_lock = Door.new(sign)
+        @door = Door.new(nil, lock)
+        @door_with_words = Door.new(inscription, lock)
+        @door_no_lock = Door.new(nil)
       end
 
       it "can create an object of Door" do
@@ -17,7 +16,7 @@ module Dungeon
       end
 
       it "should respond to parameters of door status" do
-        @door.must_respond_to(:sign)
+        @door.must_respond_to(:inscription)
         @door.must_respond_to(:lock)
       end
 
@@ -26,7 +25,7 @@ module Dungeon
       end
 
       it "should check parameters are the correct type" do
-        @door.sign.must_be_instance_of(Sign)
+        @door_with_words.inscription.must_be_instance_of(String)
         @door.lock.must_be_instance_of(Lock)
         @door_no_lock.lock.must_equal(nil)
       end
@@ -35,60 +34,75 @@ module Dungeon
 
     describe "#inspect_door" do
       before(:each) do
-        sign = Sign.new
         lock = Lock.new("ABC123") #initializes unlocked
-        @door = Door.new(sign, lock)
-        sign_with_words = Sign.new("Awesome door")
-
-        locked_sign = Sign.new("LOCK THIS DOOR!")
+        @door = Door.new(nil, lock)
+        locked_inscription = "LOCK THIS DOOR!"
         locking_lock = Lock.new("ABC123")
-        locked_lock = locking_lock.turn_key("ABC123")
-        @locked_door = Door.new(locked_sign, locked_lock)
-        # @door_with_words = Door.new(sign_with_words, lock)
-        # @wide_open_door_no_inscript = door.open_door
-        # @wide_open_door_with_inscript = door_with_words.open_door
+        locking_lock.locking("ABC123")
+        another_locking_lock = Lock.new("ABC123")
+        another_locking_lock.locking("ABC123")
+        @locked_door_with_inscript = Door.new(locked_inscription, locking_lock)
+        @locked_door_no_inscript = Door.new(nil, another_locking_lock)
+        @wide_open_door_no_inscript = Door.new(nil).open_door
+        inscription = "Awesome door!!"
+        @door_with_words = Door.new(inscription, lock)
+        @wide_open_door_with_inscript = @door_with_words.open_door
       end
 
       it "should be possible to inspect a closed door without an inscription for its state of locked/unlocked" do
-        skip
         @door.inspect_door.must_equal("Here stands an ancient and sturdy door. It is closed but appears to be unlocked.")
-        @locked_door.inspect_door.must_equal("Here stands an ancient and sturdy door. It is closed and appears to be locked.")
+        @locked_door_no_inscript.inspect_door.must_equal("Here stands an ancient and sturdy door. It is closed and appears to be locked.")
       end
 
       it "should be possible to inspect a closed door with an inscription for its state of locked/unlocked" do
-        skip
-        @door.inspect_door.must_equal("Here stands an ancient and sturdy door. It is closed but appears to be unlocked. The door has a sign with the inscription: Push to open")
-        @locked_door.inspect_door.must_equal("Here stands an ancient and sturdy door. It is closed and appears to be locked. The door has a sign with the inscription: Awesome door")
+        @door.inscribe_door("Awesome door!!")
+        @door.inspect_door.must_equal("Here stands an ancient and sturdy door. It is closed but appears to be unlocked. The door has an inscription: Awesome door!!")
+        @locked_door_with_inscript.inspect_door.must_equal("Here stands an ancient and sturdy door. It is closed and appears to be locked. The door has an inscription: LOCK THIS DOOR!")
       end
 
       it "should be possible to inspect an open door without/with an inscription for its state" do
-        skip
         @wide_open_door_no_inscript.inspect_door.must_equal("Here stands an ancient and sturdy door wide open.")
-        @wide_open_door_with_inscript.inspect_door.must_equal("Here stands an ancient and sturdy door wide open. The door has a sign with the inscription: Awesome door")
+        @wide_open_door_with_inscript.inspect_door.must_equal("Here stands an ancient and sturdy door wide open. The door has an inscription: Awesome door!!")
       end
 
     end #inspect
 
     describe "#inscribe_door" do
       before(:each) do
-        sign = Sign.new
-        @door = Door.new(sign)
+        @door = Door.new(nil)
       end
 
-      it "should return the door with inscribed words to its sign" do
+      it "should return the door with inscribed words to its inscription" do
         @door.inscribe_door("Awesome door")
-        @door.sign.inscription.must_equal("Awesome door")
+        @door.inscription.must_equal("Awesome door")
       end
 
-    end #inscription
+      it "should set a value to inscription" do
+        @door.inscribe_door("Warning! Danger!")
+        @door.inscription.must_equal("Warning! Danger!")
+      end
+
+      it "should not be possible to change the inscription once set" do
+        @door.inscribe_door("Warning! Danger!")
+        @door.inscribe_door("Free candy this way")
+        @door.inscription.must_equal("Warning! Danger!")
+      end
+
+      it "should be inscribed with a String type of at least one character" do
+        @door.inscribe_door(:words)
+        @door.inscribe_door(1234)
+        @door.inscribe_door(3.14)
+        @door.inscribe_door("")
+        @door.inscription.must_equal(nil)
+      end
+
+    end #inscribe_door
 
     describe "#open_door" do
       before(:each) do
-        sign = Sign.new
-        @door = Door.new(sign)
+        @door = Door.new(nil)
         lock = Lock.new("GOODKEY")
-        door = Door.new(sign, lock)
-        @locked_door = door.turn_key("GOODKEY") #returns a locked door
+        @locked_door = Door.new(nil, lock.locking("GOODKEY"))
       end
 
       it "should be possible to open the door" do
@@ -108,8 +122,7 @@ module Dungeon
 
     describe "#close_door" do
       before(:each) do
-        sign = Sign.new
-        @door = Door.new(sign)
+        @door = Door.new(nil)
       end
 
       it "should be possible to close an open door" do
@@ -125,8 +138,7 @@ module Dungeon
 
     describe "#closed?" do
       before(:each) do
-        sign = Sign.new
-        @door = Door.new(sign)
+        @door = Door.new(nil)
       end
 
 
@@ -142,12 +154,12 @@ module Dungeon
 
     describe "#locked?" do
       before(:each) do
-        sign = Sign.new
-        lock_to_lock = Lock.new("LOCK THIS")
-        lock_door = Door.new(sign, lock_to_lock)
-        @locked_door = lock_door.turn_key("LOCK THIS") #returns a locked door
-        lock_to_not_lock = Lock.new("LEAVE-UNLOCKED")
-        @unlocked_door = Door.new(sign, lock_to_not_lock)
+        lock_to_lock = Lock.new("ID-LOCK-THIS")
+        @locked_door = Door.new(nil, lock_to_lock)
+        @locked_door.locking("ID-LOCK-THIS")
+        lock_to_not_lock = Lock.new("ID-LEAVE-UNLOCKED")
+        @unlocked_door = Door.new(nil, lock_to_not_lock)
+        @lockfree_door = Door.new(nil)
       end
 
       it "should return true if the door is locked" do
@@ -156,36 +168,56 @@ module Dungeon
 
       it "should return false if the door is unlocked or if there is no lock on the door" do
         @unlocked_door.locked?.must_equal(false)
+        @lockfree_door.locked?.must_equal(false)
       end
     end #locked?
 
-    describe "#turn_key" do
+    describe "#locking" do
       before(:each) do
-        sign = Sign.new
         lock = Lock.new("GOODKEY")
-        @door_without_lock = Door.new(sign)
-        @door = Door.new(sign, lock)
+        @door_without_lock = Door.new(nil)
+        @door = Door.new(nil, lock)
       end
 
-      it "should be possible to turn the key in the lock to switch lock state" do
-        @door.turn_key("GOODKEY")
+      it "should be possible to lock the door" do
+        @door.locking("GOODKEY")
         @door.locked?.must_equal(true)
-        @door.turn_key("GOODKEY")
-        @door.locked?.must_equal(false)
       end
 
-      it "can only have a key turning if it has a key assigned/if it has a lock" do
-        proc{@door_without_lock.turn_key}.must_raise(ArgumentError)
+      it "can only lock if it has a key assigned/if it has a lock" do
+        proc{@door_without_lock.locking}.must_raise(ArgumentError)
       end
 
-      it "must fail to lock/unlock unless key identifier match input key" do
-        proc{@door.turn_key("BADKEY")}.must_raise(ArgumentError)
+      it "must fail to lock unless key identifier match input key" do
+        proc{@door.locking("BADKEY")}.must_raise(ArgumentError)
       end
 
       it "should only be possible to lock a closed door" do
         @door.open_door
-        proc{@door.turn_key("GOODKEY")}.must_raise(ArgumentError)
+        proc{@door.locking("GOODKEY")}.must_raise(ArgumentError)
       end
-    end #method
+    end #locking
+
+    describe "#unlocking" do
+      before(:each) do
+        lock = Lock.new("GOODKEY")
+        @door_without_lock = Door.new(nil)
+        @door = Door.new(nil, lock)
+      end
+
+      it "should be possible to unlock the door" do
+        @door.locking("GOODKEY")
+        @door.unlocking("GOODKEY")
+        @door.locked?.must_equal(false)
+      end
+
+      it "can only unlock if it has a key assigned/if it has a lock" do
+        proc{@door_without_lock.unlocking}.must_raise(ArgumentError)
+      end
+
+      it "must fail to unlock unless key identifier match input key" do
+        proc{@door.locking("BADKEY")}.must_raise(ArgumentError)
+      end
+    end #locking
   end #Door
 end #mod
