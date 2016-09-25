@@ -14,10 +14,10 @@ attr_accessor :state, :lock_status
   def inscribe (name)
     inscribe_rules(name)
     if @name != nil
-      return @name
+      return "You have already inscribed the door with #{@name}!"
     else
     @name = name
-    return @name
+    return "The inscription on the door is now and forver #{@name}"
     end
   end
 
@@ -30,13 +30,13 @@ attr_accessor :state, :lock_status
   end
 
   def check_state
-    return @state
+    return "The door is currently #{@state}"
   end
 
   def slam
     closed?
     @state = "closed"
-
+    return "Oof the door is now #{@state}"
   end
 
   def swing
