@@ -10,7 +10,7 @@ class Door
 
   #Initializes Door object with a set inscription as well as starting out open & unlocked
   def initialize(inscription="A-door-able")
-    @inscription = inscription
+    @inscription = inscription.to_s
     @is_open = true
     @is_unlocked = true
   end
