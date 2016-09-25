@@ -1,34 +1,18 @@
-# Door Exercise
-#
-# A computer game usually has many different objects that can be seen and manipulated. One typical object is a door. Whether a player runs through a castle, attacks the forces of an evil empire, or places furniture in a room, a door often comes into play.
-#
-# A Door object can
-#
-# display an inscription
-# be either open or closed, and
-# be either locked or unlocked
-# Here are some rules about how Doors work:
-#
-# Once the writing (inscription) on a Door is set, it cannot be changed
-# You may open a Door if and only if it is unlocked and closed
-# You may close a Door if and only if it is open
-# You may lock a Door if and only if it is unlocked
-# You may unlock a Door if and only if it is locked
-# You should be able to check whether or not a Door is closed, check whether or not it is locked, and look at the writing on the Door if there is any.
-# Appropriate error messages should be displayed and no changes to the Door should be made, if any conditions of the functions are violated.
-#
-# You should write specs for this class, to achieve at least 90% test coverage (using simplecov).
+# Door Class
 
 class Door
   attr_reader :ajar, :text, :locked
 
-  # New doors are created closed, unlocked and with no inscription
+  # New doors are created with defaults: closed, unlocked and with no inscription
   def initialize(ajar = false, text = nil, locked = false)
     @ajar = ajar
     @text = text
     @locked = locked
   end
 
+  # If the text for the inscription has already been set (i.e., text = some string),
+  # the inscription will not be over-written. Otherwise, the inscription text will
+  # be set.
   def inscription(words)
     if @text.class != String
       @text = words
@@ -38,12 +22,14 @@ class Door
 
   def shut(action)
     if action == "open"
+      # A door can only be opened if it is both unlocked and closed
       if @locked == false && @ajar == false
         @ajar = true
       else
         raise ArgumentError.new("You cannot open this door")
       end
     elsif action == "close"
+      # A door can only be closed if it is open
       if @ajar == true
         @ajar = false
       else
@@ -55,13 +41,16 @@ class Door
 
   def latch(action)
     if action == "lock"
-      # Doors cannot be locked unless they are both unlocked and closed
+      # A door cannot be locked unless it is both unlocked and closed
       if @locked == false && @ajar == false
         @locked = true
       else
         raise ArgumentError.new("You cannot lock this door")
       end
     elsif action == "unlock"
+      # A door cannot be unlocked unless it locked
+      # Because doors cannot be locked unless they are closed, I do not need to
+      # check that the door is also closed before unlocking it.
       if @locked == true
         @locked = false
       else
