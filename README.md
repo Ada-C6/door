@@ -21,9 +21,9 @@ Appropriate error messages should be displayed and no changes to the Door should
 You should write specs for this class, to achieve at least 90% test coverage (using `simplecov`).
 
 METHODS
-- display_inscription => displays the inscription (which is a constant)
+- get_inscription => displays the inscription
 - open_door => opens the door if it's unlocked and closed
 - close_door => closes the door if it's open
 - lock_door => locks the door if it's closed and unlocked
 - unlock_door => unlocks the door if it's locked and closed
-- display_status => see if door is open/closed, locked/unlocked, and the inscription
+- get_status => see if door is open/closed, locked/unlocked, and the inscription
