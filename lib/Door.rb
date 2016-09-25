@@ -1,9 +1,9 @@
 class Door
   class IsOpenAndLockedError < ArgumentError; end
   class InscriptionIsNotString < ArgumentError; end
-  class EmptyInscriptionError < ArgumentError; end
   class IsOpenIsNotBoolean < ArgumentError; end
   class IsLockedIsNotBoolean < ArgumentError; end
+  class EmptyInscriptionError < ArgumentError; end
   class HasInscriptionError < StandardError; end
   class IsOpenError < StandardError; end
   class IsLockedError < StandardError; end
