@@ -1,6 +1,6 @@
 class Door
 
-  attr_reader :open, :unlocked, :locked
+  attr_reader :open, :unlocked
   attr_accessor :writing
 
   def initialize(open, unlocked)
@@ -26,5 +26,14 @@ class Door
     end
     return @open
   end
+
+  def door_close
+    if @open == true
+    @open = false
+    else
+      raise ArgumentError.new("Sorry, you cannot close the door")
+    end
+  end
+
 
 end

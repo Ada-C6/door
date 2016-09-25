@@ -43,6 +43,17 @@ describe 'Door' do
 
   end
 
+  describe '#door_close' do
+    it 'should close the door if the door is open' do
+    @door_one = Door.new(true, true)
+      @door_one.door_close.must_equal false
+    end
+   it 'should raise an ArgumentError if the door is closed' do
+      @door_one = Door.new(false, false)
+      proc {@door_one.door_close}.must_raise(ArgumentError)
+   end
+  end
+
 
 end
 
@@ -50,10 +61,6 @@ end
 
 
 
-
-
-# Once the writing (inscription) on a Door is set, it cannot be changed
-# You may open a Door if and only if it is unlocked and closed
 # You may close a Door if and only if it is open
 # You may lock a Door if and only if it is unlocked
 # You may unlock a Door if and only if it is locked
