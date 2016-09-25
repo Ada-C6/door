@@ -1,6 +1,5 @@
 class Door
-  attr_reader :inscription
-  attr_accessor :is_open, :is_unlocked
+  attr_reader :inscription, :is_open, :is_unlocked
 
   #Errors to raise when user tries unallowed move
   OPEN_ERROR = "Error, the door is open."
