@@ -14,7 +14,7 @@ class Door
   # the inscription will not be over-written. Otherwise, the inscription text will
   # be set.
   def inscription(words)
-    if @text.class != String
+    if @text.nil?
       @text = words
     end
     return @text
