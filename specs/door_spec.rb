@@ -9,17 +9,21 @@ describe 'Testing Door Class' do
     expect door1.text.must_equal(nil)
   end
 
-  it 'testing to ensure true is returned as ajar for new Door initialized with defaults' do
-    expect door1.ajar.must_equal(true)
+  it 'testing to ensure false is returned as ajar for new Door initialized with defaults' do
+    expect door1.ajar.must_equal(false)
   end
 
   it 'testing to ensure false is returned as locked for new Door initialized with defaults' do
     expect door1.locked.must_equal(false)
   end
 
-  it 'testing to ensure a door in default state can be closed' do
+  it 'testing to ensure a door in default state cannot be closed' do
+    expect(proc {door1.shut("close")}).must_raise ArgumentError
+  end
+
+  it 'testing to ensure a door in default state can be opened' do
     door2 = Door.new
-    expect door2.shut("close").must_equal(false)
+    expect door2.shut("open").must_equal(true)
   end
 
   it 'testing to ensure a door in default state can be locked' do
@@ -49,4 +53,11 @@ describe 'Testing Door Class' do
     door7.latch("lock")
     expect(proc {door7.latch("lock")}).must_raise ArgumentError
   end
+
+  it 'testing to ensure a door that is locked can be unlocked' do
+    door7 = Door.new
+    door7.latch("lock")
+    expect door7.latch("unlock").must_equal(false)
+  end
+
 end

@@ -21,7 +21,9 @@
 
 class Door
   attr_reader :ajar, :text, :locked
-  def initialize(ajar = true, text = nil, locked = false)
+
+  # New doors are created closed, unlocked and with no inscription
+  def initialize(ajar = false, text = nil, locked = false)
     @ajar = ajar
     @text = text
     @locked = locked
@@ -36,7 +38,7 @@ class Door
 
   def shut(action)
     if action == "open"
-      if locked == false && ajar == false
+      if @locked == false && @ajar == false
         @ajar = true
       else
         raise ArgumentError.new("You cannot open this door")
@@ -53,7 +55,8 @@ class Door
 
   def latch(action)
     if action == "lock"
-      if @locked == false
+      # Doors cannot be locked unless they are both unlocked and closed
+      if @locked == false && @ajar == false
         @locked = true
       else
         raise ArgumentError.new("You cannot lock this door")
