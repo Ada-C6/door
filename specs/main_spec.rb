@@ -40,14 +40,16 @@ describe MainDoor do
   describe "#check_state" do
     it "should return the state of the door" do
       fridge = MainDoor.new
-      fridge.check_state.must_equal("open")
+      fridge.check_state
+      fridge.state.must_equal("open")
     end
   end
   describe "#slam" do
     it "should change the state if you slam the door" do
       fridge = MainDoor.new
       fridge.slam
-      fridge.check_state.must_equal("closed")
+      fridge.check_state
+      fridge.state.must_equal("closed")
     end
     it "should not allow a closed door to be slammed" do
       fridge = MainDoor.new
@@ -70,4 +72,39 @@ describe MainDoor do
       fridge.lock_check.must_equal("unlocked")
     end
   end
+  describe "#set_code" do
+    it "can set a code only if door is closed" do
+      fridge = MainDoor.new
+      proc {fridge.set_code}.must_raise(ArgumentError)
+    end
+    it "cannot change the code once set" do
+      fridge = MainDoor.new
+      fridge.slam
+      fridge.set_code("yummy")
+      fridge.set_code("beans")
+      fridge.code.must_equal("yummy")
+    end
+    it "should only allow a string as the code" do
+      fridge = MainDoor.new
+      fridge.slam
+      fridge.set_code(19)
+      fridge.code.wont_equal(19)
+    end
+  end
+  describe "#lock" do
+    it "should only be able to lock if the door is closed" do
+      fridge = MainDoor.new
+      fridge.lock("ymmuy")
+      fridge.lock_status.wont_equal("locked")
+    end
+    it "needs a code that is the reverse of the set code" do
+      fridge = MainDoor.new
+      fridge.slam
+      fridge.set_code("yummy")
+      fridge.lock("ymmuy")
+      fridge.lock_status.must_equal("locked")
+    end
+
+  end
+
 end
