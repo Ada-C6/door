@@ -3,8 +3,9 @@ require_relative '../lib/door'
 
 describe 'Door' do
 
+# let(:door) {Door.new  }
   before(:each) do
-  @door_one = Door.new
+  @door_one = Door.new(false, true)
   end
 
   describe '#initialize' do
@@ -23,13 +24,24 @@ describe 'Door' do
       @door_one.inscription("wrting")
       proc {@door_one.inscription("hyab")}.must_raise(ArgumentError)
     end
+  end
 
+  describe '#door_open' do
+    it 'should open the door if the door is unlocked, but closed' do
+      @open = false
+      @unlocked = true
+      @door_one.door_open.must_equal true
+    end
+   it 'should raise an ArgumentError if the door is locked' do
+      @door_one = Door.new(false, false)
+      proc {@door_one.door_open}.must_raise(ArgumentError)
+   end
+   it 'should raise an ArgumentError if the door is open' do
+      @door_one = Door.new(true, true)
+      proc {@door_one.door_open}.must_raise(ArgumentError)
+   end
 
   end
-    # Once the writing (inscription) on a Door is set, it cannot be changed
-    # it "it  "
-
-
 
 
 end

@@ -1,12 +1,12 @@
 class Door
 
-
+  attr_reader :open, :unlocked, :locked
   attr_accessor :writing
 
-  def initialize
-
+  def initialize(open, unlocked)
   @writing = ""
-
+  @open = open
+  @unlocked = unlocked
   end
 
   def inscription(writing)
@@ -18,5 +18,13 @@ class Door
     return @writing
   end
 
+  def door_open
+    if @open == false && @unlocked == true
+      @open = true
+    else
+      raise ArgumentError.new("Sorry, you cannot open the door")
+    end
+    return @open
+  end
 
 end
