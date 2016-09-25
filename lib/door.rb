@@ -12,43 +12,38 @@ class Door
   end
 
   def open_door
+    raise StatusError, "Door already open" if @state == "open"
+    raise LStatusError, "The door is locked" if @l_state == "locked"
     if @state == "closed" && @l_state == "unlocked"
-      @state = "open"
+      @state= "open"
       puts "You have opened the door"
-    elsif @state == "closed" && @l_state == "locked"
-      puts "Can not open a locked door"
-    else
-      puts "Door already open"
     end
     return @state
   end
 
   def close_door
+    raise StatusError, "Door already closed" if @state == "closed"
     if @state == "open"
-      @state = "closed"
+      @state= "closed"
       puts "You have closed the door"
-    else
-      puts "The door is already closed"
     end
     return @state
   end
 
   def lock_door
+    raise LStatusError, "The door is locked" if @l_state == "locked"
     if @l_state == "unlocked"
       @l_state = "locked"
       puts "you have locked the door"
-    else
-      puts "Door is already locked"
     end
     return @state
   end
 
   def unlock_door
+    raise LStatusError, "Door already unlocked" if @l_state == "unlocked"
     if @l_state == "locked"
       @l_state = "unlock"
       puts "You have unlocked the door"
-    else
-      puts "Door already unlocked"
     end
     return @state
   end

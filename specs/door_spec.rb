@@ -1,5 +1,5 @@
 require_relative 'Spec_helper'
-require_relative '../lib/door.rb'
+require_relative '../door_mod.rb'
 
 describe 'Testing Door class with defaults' do
   let(:treasure_door) {Door.new("Enter at your own risk")}
@@ -14,23 +14,23 @@ describe 'Testing Door class with defaults' do
   end
 
   it "must not be able to change inscription" do
-    proc {treasure_door.inscription("Welcome")}.must_raise(ArgumentError)
+    proc {treasure_door.inscription("Welcome")}.must_raise(InscriptionError "inscription can not be changed")
   end
 
   it "must return an error message if user attempts to open a locked door" do
-    expect treasure_door.open_door.must_equal "The door is locked"
+    proc {treasure_door.open_door}.must_raise(LStatusError "The door is locked")
   end
 
   it "must return an error message if user attempts to close an already closed door" do
-    expect treasure_door.close_door.must_equal "The door is already closed"
+    proc {treasure_door.close_door}.must_raise (StatusError "Door already closed")
   end
 
   it "must return a message when the user successfully opens a door" do
-    expect treasure_door_unlocked.open_door.must_equal "You have opened the door"
+    expect treasure_door_unlocked.open_door.must_output "You have opened the door"
   end
 
   it "must return a message when the user successfully unlocks a door" do
-    expect treasure_door.unlock_door.must_equal "You have unlocked the door"
+    expect treasure_door.unlock_door.must_output "You have unlocked the door"
   end
 
 end
@@ -39,27 +39,27 @@ describe 'Testing Door class with open and unlocked states' do
   let(:portal_door) {Door.new("Enter into an alternate reality", state="open", l_state="unlocked")}
 
   it "must allow the user to create a new door that is open" do
-    expect portal_door.must_equal "open"
+    expect portal_door.status.must_equal "open"
   end
 
   it "must allow the user to create a new door that is unlocked" do
-    expect portal_door.must_equal "unlocked"
+    expect portal_door.l_status.must_equal "unlocked"
   end
 
   it "must return an error message if the user attempts to open an already open door" do
-    expect portal_door.open_door.must_equal "Door already open"
+    proc {portal_door.open_door}.must_raise (StatusError "Door already open")
   end
 
   it "must return an error message if the user attempts to unlock an unlocked door" do
-    expect portal_door.unlock_door.must_equal "Door already unlocked"
+    proc {portal_door.unlock_door}.must_raise (LStatusError "Door already unlocked")
   end
 
   it "must return a message when the user has closed a door" do
-    expect portal_door.close_door.must_equal "You have closed the door"
+    expect portal_door.close_door.must_output "You have closed the door"
   end
 
   it "must return a message when the user has locked a door" do
-    expect portal_door.lock_door.must_equal "you have locked the door"
+    expect portal_door.lock_door.must_output "you have locked the door"
   end
 
   it "must allow the user to check the state of a door" do
