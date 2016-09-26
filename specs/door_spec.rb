@@ -1,7 +1,6 @@
 require_relative 'spec_helper'
 require_relative '../door'
 
-
 describe "Door" do
   let(:unlocked_closed_door) { Door.new(false, true) }
   let(:unlocked_open_door) { Door.new(false, false) }

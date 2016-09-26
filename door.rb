@@ -1,5 +1,3 @@
-# @todo - use errors other than ArgumentError for invalid things user attempts? (unlock a door that can't be, inscribe a door that can't be, etc)
-
 class Door
   attr_accessor :locked, :closed
   attr_reader :inscription
