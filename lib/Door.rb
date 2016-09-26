@@ -10,37 +10,37 @@ class Door
     @locked = locked
   end
 
-  def close
-    if closed == false
-      closed = true
+  def close_door
+    if @closed == false
+      @closed = true
+      return @closed
     end
-    raise ArgumentError.new("Door is already closed") if closed == true
-    return closed
+    raise ArgumentError, "Door is already closed" if closed == true
   end
 
-  def open
-    if closed == true && locked == false
-      closed = false
+  def open_door
+    if @closed == true && @locked == false
+      @closed = false
+      return @closed
     end
-    raise ArgumentError.new("Door is already open") if closed == false
-    raise ArgumentError.new("Door is locked") if locked == true
-    return closed
+    raise ArgumentError, "Door is already open" if closed == false
+    raise ArgumentError, "Door is locked" if locked == true
   end
 
   def lock
-    if locked == false
-      locked = true
+    if @locked == false
+      @locked = true
+      return @locked
     end
-    raise ArgumentError.new("Door is already locked") if locked == true
-    return locked
+    raise ArgumentError, "Door is already locked" if locked == true
   end
 
   def unlock
-    if locked == true
-      locked = false
+    if @locked == true
+      @locked = false
+      return @locked
     end
-    raise ArgumentError.new("Door is already unlocked") if locked == false
-    return locked
+    raise ArgumentError, "Door is already unlocked" if locked == false
   end
 
 end
