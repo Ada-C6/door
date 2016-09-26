@@ -36,4 +36,13 @@ class Door
       @closed = false
     end
   end
+
+
+  def close
+    if @closed == true || @locked == true
+      raise ArgumentError, "A door is EITHER already closed, locked, OR both. Try checking door_status."
+    else
+      @closed = true
+    end
+  end
 end

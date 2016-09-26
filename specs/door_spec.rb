@@ -75,6 +75,26 @@ describe Door do
       proc { @f.open }.must_raise(ArgumentError)
     end
   end
+  
+  describe "#close" do
+    before(:each) do
+      @g = Door.new
+    end
 
+    it "should close the door if it was open and unlocked" do
+      @g.open
+      @g.close
+      @g.closed.must_equal(true)
+    end
+
+    it "should raise an Argument Error if the door was already closed" do
+      proc { @g.close }.must_raise(ArgumentError)
+    end
+
+    it "should raise an Argument Error if the door was locked" do
+      @g.lock
+      proc { @g.close }.must_raise(ArgumentError)
+    end
+  end
 
 end
