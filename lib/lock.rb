@@ -2,14 +2,16 @@ module Dungeon
   # Locks initializes with an assigned lock_id and unlocked
   class Lock
 
-    attr_reader :id, :is_locked
+    attr_reader :id, :lock_type, :is_locked
 
-    def initialize(lock_id)
+    def initialize(lock_id, lock_type = :default_lock)
       @id = lock_id
+      @lock_type = lock_type # does not come into play unless subclasses of this class are created
+
       @is_locked = false
     end
 
-    # This method is specific to a certain type of lock that locks/unlocks like this. Door does not need to know this.
+    # This method and locking/unlocking too are specific to a certain type of lock that locks/unlocks like this. Door does not need to know this.
     def turn_key
       locked? ? @is_locked = false : @is_locked = true
       return self

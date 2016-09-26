@@ -10,8 +10,9 @@ module Dungeon
         lock.must_be_instance_of(Lock)
       end
 
-      it"responds to parameter lock id" do
+      it"responds to information about the lock object" do
         lock.must_respond_to(:id)
+        lock.must_respond_to(:lock_type)
         lock.must_respond_to(:is_locked)
       end
 
