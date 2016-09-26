@@ -10,4 +10,16 @@ describe Door do
     end
   end
 
-end 
+  describe "#inscribe" do
+    d = Door.new
+    d.inscribe("YOLO")
+
+    it "should inscribe a message" do
+      d.inscription.must_equal("YOLO")
+    end
+
+    it "should raise an ArgumentError if the message is already inscribed" do
+      proc { d.inscribe("Carpe Diem") }.must_raise(ArgumentError)
+    end
+  end
+end

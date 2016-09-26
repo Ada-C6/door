@@ -6,5 +6,11 @@ class Door
     @locked = false
     @inscription = nil
   end
-
-end 
+  def inscribe(inscription)
+    if @inscription == nil
+      @inscription = inscription
+    else
+      raise ArgumentError, "A door already has an inscription. Try checking door_status."
+    end
+  end
+end
