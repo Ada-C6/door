@@ -20,4 +20,13 @@ class Door
       @locked = true
     end
   end
+
+  def unlock
+    if @locked == false
+      raise ArgumentError, "A door is already unlocked. Try checking door_status."
+    else
+      @locked = false
+    end
+  end
+
 end

@@ -39,5 +39,20 @@ describe Door do
     end
   end
 
+  describe "#unlock" do
+    before(:each) do
+      @e = Door.new
+    end
+
+    it "should unlock the door (@locked will equal false)" do
+      @e.lock
+      @e.unlock
+      @e.locked.must_equal(false)
+    end
+
+    it "should raise an ArgumentError if the door is already unlocked" do
+      proc { @e.unlock }.must_raise(StandardError)
+    end
+  end
 
 end
