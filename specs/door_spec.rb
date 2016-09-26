@@ -83,7 +83,7 @@ describe Door do
   end
 
   it 'door initialized incorrectly' do
-    expect ( proc{ door_initialized_wrong.is_door_open? } ).must_raise ArgumentError # NOT SURE WHY THIS TEST FAILS
+    expect ( proc{ door_initialized_wrong.is_door_open? } ).must_raise ArgumentError
     expect ( door_initialized_wrong.is_there_inscription? ).must_equal( false )
     expect ( proc{ door_initialized_wrong.lock_door } ).must_raise ArgumentError
     expect ( proc{ door_initialized_wrong.unlock_door } ).must_raise ArgumentError
