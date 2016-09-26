@@ -29,4 +29,11 @@ class Door
     end
   end
 
+  def open
+    if @closed == false || @locked == true
+      raise ArgumentError, "A door is EITHER already open, locked, OR both. Try checking door_status."
+    else
+      @closed = false
+    end
+  end
 end
