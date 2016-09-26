@@ -84,4 +84,21 @@ describe Door do
     end
   end
 
+  describe "#inscribe" do
+    it "inscribes the door" do
+      door = Door.new
+      door.inscribe("enter here you'll die")
+      door.inscription.must_equal("enter here you'll die")
+    end
+    it "raises an error if argument input is not a string" do
+      d = Door.new
+      proc {d.inscribe(hi)}.must_raise(NameError)
+    end
+    it "raises an ArgumentError if the door already has an inscription" do
+      my_door = Door.new
+      my_door.inscribe("Enter")
+      proc {my_door.inscribe("Exit")}.must_raise(ArgumentError)
+    end
+  end
+
 end
