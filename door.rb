@@ -27,7 +27,7 @@ class Door
 
   def open
     raise StandardError, "Door is already open" if @closed == false
-    raise StandardError, "Door is already locked" if @locked == true
+    raise StandardError, "Door is locked" if @locked == true
 
     @closed = false
   end
