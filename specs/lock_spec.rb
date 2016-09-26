@@ -20,7 +20,7 @@ module Dungeon
         lock.is_locked.must_equal(false)
       end
 
-    end
+    end #init
 
     # for this lock it is using the lock-specific turn_key method which is implicitly tested
     describe "#locking" do
@@ -38,7 +38,7 @@ module Dungeon
         proc{@another_lock.locking("BADKEY")}.must_raise(ArgumentError)
       end
 
-    end #method
+    end #locking
 
     describe "#unlocking" do
       before(:each) do
@@ -56,7 +56,7 @@ module Dungeon
         proc{@another_lock.unlocking("BADKEY")}.must_raise(ArgumentError)
       end
 
-    end #method
+    end #unlocking
 
     describe "#locked?" do
       before(:each) do
@@ -75,10 +75,6 @@ module Dungeon
         @another_lock.locking("ABC123")
         @another_lock.locked?.must_equal(true)
       end
-    end
-
-
-
-
+    end #locked?
   end
 end

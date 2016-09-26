@@ -1,5 +1,4 @@
-# @todo rescue for ArgumentErrors, alternatively make Errors redundant
-# @todo same object lock can be assigned to different doors FIX THIS
+# @todo rescue for ArgumentErrors, alternatively make some errors rescued before they happen
 
 module Dungeon
   class Door
@@ -9,14 +8,17 @@ module Dungeon
     attr_reader :lock
 
     # initialize with door closed, and with/without sign/lock that have/have not been locked/inscribed
-    def initialize(inscription, lock = nil)
+    def initialize(inscription, lock_factory = nil)
       if inscription.class != String && inscription != nil
         raise ArgumentError.new("The inscription needs to be a string or nil")
       end
 
+      if lock_factory != nil # lock_factory can create a lock
+        @lock = lock_factory.create
+      end #else this instance of Door has no lock
+
       @closed = true
       @inscription = inscription
-      @lock = lock
 
       locked? ? init_state = "locked" : init_state = "unlocked"
       puts "Here stands an ancient and sturdy door. It is closed #{ locked? ? "and" : "but" } appears to be #{ init_state }."
@@ -90,22 +92,3 @@ module Dungeon
 
   end
 end
-
-# sign = Dungeon::Sign.new
-# lock = Dungeon::Lock.new("ABC123")
-# key = Dungeon::Key.new("ABC123")
-# bad_key = Dungeon::Key.new("BADKEY")
-# door = Dungeon::Door.new(sign, lock)
-# # door.open_door
-# # door.turn_key("BADKEY")
-# door.turn_key("ABC123")
-# puts door.inspect_door
-# door.open_door
-# puts door.inspect_door
-# door.close_door
-# door.turn_key("ABC123")
-# puts door.inspect_door
-# door.inscribe_door("Awesome door!")
-# puts door.inspect_door
-# door.inscribe_door("Alma was here")
-# puts door.inspect_door

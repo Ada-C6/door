@@ -1,5 +1,4 @@
 module Dungeon
-  # Locks initializes with an assigned lock_id and unlocked
   class Lock
 
     attr_reader :id, :lock_type, :is_locked
@@ -11,7 +10,7 @@ module Dungeon
       @is_locked = false
     end
 
-    # This method and locking/unlocking too are specific to a certain type of lock that locks/unlocks like this. Door does not need to know this.
+    # This method and locking/unlocking too are specific to a certain type of lock that locks/unlocks like this, the only implemented in my Dungeon. Door does not need to know this.
     def turn_key
       locked? ? @is_locked = false : @is_locked = true
       return self
