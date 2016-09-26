@@ -14,6 +14,7 @@ class Door
     if closed == false
       closed = true
     end
+    raise ArgumentError.new("Door is already closed") if closed == true
     return closed
   end
 
@@ -21,6 +22,8 @@ class Door
     if closed == true && locked == false
       closed = false
     end
+    raise ArgumentError.new("Door is already open") if closed == false
+    raise ArgumentError.new("Door is locked") if locked == true
     return closed
   end
 
@@ -28,6 +31,7 @@ class Door
     if locked == false
       locked = true
     end
+    raise ArgumentError.new("Door is already locked") if locked == true
     return locked
   end
 
@@ -35,6 +39,7 @@ class Door
     if locked == true
       locked = false
     end
+    raise ArgumentError.new("Door is already unlocked") if locked == false
     return locked
   end
 
