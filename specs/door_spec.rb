@@ -22,4 +22,22 @@ describe Door do
       proc { d.inscribe("Carpe Diem") }.must_raise(ArgumentError)
     end
   end
+
+  describe "#lock" do
+    before(:each) do
+      @d = Door.new
+    end
+
+    it "should lock the door (@locked will equal true)" do
+      @d.lock
+      @d.locked.must_equal(true)
+    end
+
+    it "should raise an ArgumentError if the door is already locked" do
+      @d.lock
+      proc { @d.lock }.must_raise(ArgumentError)
+    end
+  end
+
+
 end
