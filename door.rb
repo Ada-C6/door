@@ -29,14 +29,6 @@ module House
       end
     end
 
-    # def inscription
-    #   if @door_message == ""
-    #     return "Nothing has been written yet."
-    #   else
-    #     return @door_message
-    #   end
-    # end
-
     def open
       if @is_closed == true && @is_locked == false
           @is_closed = false
