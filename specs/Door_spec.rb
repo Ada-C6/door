@@ -21,23 +21,28 @@ describe 'Testing Door' do
   end
 
   it "Door must open if and only if it is unlocked and closed" do
+    proc {new_door.open_door}.must_raise(ArgumentError)
     new_door.unlock
     expect(new_door.open_door).must_equal(false)
+    proc {new_door.open_door}.must_raise(ArgumentError)
   end
 
   it "Door must close if and only if it is open" do
     new_door.unlock
+    proc {new_door.close_door}.must_raise(ArgumentError)
     new_door.open_door
     expect(new_door.close_door).must_equal(true)
   end
 
   it "Door must lock if and only if it is unlocked" do
+    proc {new_door.lock}.must_raise(ArgumentError)
     new_door.unlock
     expect(new_door.lock).must_equal(true)
   end
 
   it "Door must unlock if and only if it is locked" do
     expect(new_door.unlock).must_equal(false)
+    proc {new_door.unlock}.must_raise(ArgumentError)
   end
 
 end
