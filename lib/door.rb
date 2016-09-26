@@ -4,9 +4,9 @@ class Door
   attr_accessor :writing
 
   def initialize(open, unlocked)
-  @writing = ""
-  @open = open
-  @unlocked = unlocked
+    @writing = ""
+    @open = open
+    @unlocked = unlocked
   end
 
   def inscription(writing)
@@ -29,11 +29,25 @@ class Door
 
   def door_close
     if @open == true
-    @open = false
+      @open = false
     else
       raise ArgumentError.new("Sorry, you cannot close the door")
     end
   end
 
+  def door_locked
+    if @unlocked == true
+      @unlocked = false
+    else
+      raise ArgumentError.new("Sorry, the door is already locked")
+    end
+  end
 
+  def door_unlock
+    if @unlocked == false
+      @unlocked = true
+    else
+      raise ArgumentError.new("Sorry, the door is already unlocked")
+    end
+  end
 end
