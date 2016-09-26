@@ -1,4 +1,5 @@
 require_relative 'spec_helper'
+require_relative '../main_door'
 
 describe MainDoor do
   describe "#initialize" do

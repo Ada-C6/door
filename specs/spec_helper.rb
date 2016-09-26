@@ -10,4 +10,4 @@ require 'minitest/pride'
 #These are all the things about mini test that we are using
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
-require_relative '../doors'
+require_relative '../main_door'
