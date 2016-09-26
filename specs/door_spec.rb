@@ -50,7 +50,7 @@ describe 'Test Door' do
   end
 
   it "Test that a user cannot simply override the open/closed status" do
-    expect( proc {door.closed == true}).must_raise(NoMethodError)
+    expect( proc {door.closed = true}).must_raise(NoMethodError)
   end
 
   it "Test that we can access the door's locked/unlocked status" do
@@ -58,7 +58,7 @@ describe 'Test Door' do
   end
 
   it "Test that a user cannot simply override the locked/unlocked status" do
-    expect( proc {door.locked == true}).must_raise(NoMethodError)
+    expect( proc {door.locked = true}).must_raise(NoMethodError)
   end
 
   it "Test that we can read the inscription on the door" do
