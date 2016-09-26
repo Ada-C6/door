@@ -6,6 +6,7 @@ class Door
     @locked = false
     @inscription = nil
   end
+  
   def inscribe(inscription)
     if @inscription == nil
       @inscription = inscription
@@ -13,6 +14,7 @@ class Door
       raise ArgumentError, "A door already has an inscription. Try checking door_status."
     end
   end
+
   def lock
     if @locked == true
       raise ArgumentError, "A door is already locked. Try checking door_status."
@@ -37,7 +39,6 @@ class Door
     end
   end
 
-
   def close
     if @closed == true || @locked == true
       raise ArgumentError, "A door is EITHER already closed, locked, OR both. Try checking door_status."
@@ -45,4 +46,9 @@ class Door
       @closed = true
     end
   end
+
+  def door_status
+    return "Is the door closed? #{@closed}; Is the door locked? #{@locked}; What is inscribed? #{@inscription}."
+  end
+
 end

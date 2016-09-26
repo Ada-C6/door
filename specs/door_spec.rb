@@ -75,7 +75,7 @@ describe Door do
       proc { @f.open }.must_raise(ArgumentError)
     end
   end
-  
+
   describe "#close" do
     before(:each) do
       @g = Door.new
@@ -94,6 +94,15 @@ describe Door do
     it "should raise an Argument Error if the door was locked" do
       @g.lock
       proc { @g.close }.must_raise(ArgumentError)
+    end
+  end
+
+  describe "#door_status" do
+
+    it "should return information about the current door" do
+      @h = Door.new
+      @h.inscribe("YOLO")
+      @h.door_status.must_equal("Is the door closed? true; Is the door locked? false; What is inscribed? YOLO.")
     end
   end
 
