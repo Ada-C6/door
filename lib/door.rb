@@ -1,7 +1,8 @@
 # I used a whole bunch of TypeErrors here and I'm not convinced that was the correct decision. Oh well, maybe we will learn about exception handling soon!!!!
 
 class Door
-  attr_accessor :inscription, :opened, :locked
+  attr_accessor :inscription
+  attr_reader :opened, :locked
 
   # new doors are by default created with no inscription.
   # they are closed and locked by default, but that can be changed if the creator prefers.

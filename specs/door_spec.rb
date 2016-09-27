@@ -34,6 +34,28 @@ describe 'testing Door object and its attributes' do
   end
 end # end of object & attr testing
 
+# describe 'testing locked? and open? methods' do
+#
+#   let(:closed_locked_door) { Door.new( nil, false, true )}
+#   let(:closed_unlocked_door) { Door.new(nil, false, false )}
+#   let(:unlocked_open_door) {Door.new( nil, true, false )}
+#   let(:locked_open_door) {Door.new( nil, true, true )}
+#
+#   expect(closed_locked_door.locked?).must_equal(true)
+#   expect(closed_locked_door.open?).must_equal(false)
+#
+#   expect(closed_unlocked_door.locked?).must_equal(false)
+#   expect(closed_unlocked_door.open?).must_equal(false)
+#
+#   expect(unlocked_open_door.locked?).must_equal(false)
+#   expect(unlocked_open_door.open?).must_equal(true)
+#
+#   expect(locked_open_door.locked?).must_equal(true)
+#   expect(locked_open_door.open?).must_equal(true)
+#
+#
+# end
+
 describe 'testing Door inscribe method' do
 
   let(:door) { Door.new }
