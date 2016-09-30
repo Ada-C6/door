@@ -29,11 +29,12 @@ class Door
 		@lock_status = false
 	end
 
-	def set_inscription
+	def set_inscription(value)
 		if @inscription == ""
-			@inscription = "MUHAHAHAA"
+			@inscription = value
 		else 
 			raise ArgumentError.new("The door already has an inscription.")
+			# raise ArgumentError("The door already has an inscription.")
 		end
 	end
 
@@ -78,23 +79,27 @@ class Door
 		end		
 	end
 
-	def show
+	def show_open
 		if @open_status == true
-			puts "The door is open."
+			return "The door is open."
 		else
-			puts "The door is closed."
+			return "The door is closed."
 		end
+	end
 
+	def show_lock
 		if @lock_status	== true
-			puts "And it is locked."
+			return "The door is locked."
 		else 
-			puts "And it is unlocked."
+			return "The door is unlocked."
 		end
+	end
 
+	def show_inscription
 		if @inscription == ""
-			puts "The door has no inscription yet."
+			return "The door has no inscription yet."
 		else
-			puts "There is an inscription on the door that says '#{@inscription}.'"
+			return "There is an inscription on the door that says '#{@inscription}.'"
 		end
 	end
 end
